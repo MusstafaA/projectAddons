@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--This is how we modify the default views-->
+        <!--Create tree view-->
+        <record id="view_employee_form_inherit" model="ir.ui.view">
+            <field name="name">employee tree view</field>
+            <field name="model">hr.employee</field>
+            <!--Mapping the XML_ID to the ID
+            It will show the parent with the modifications-->
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                    <!--Using the XPath-->
+                    <xpath expr="//field[@name='job_id']" position="after">
+                        <field name="emp_code"/>
+                    </xpath>
+                    <!--Change the view only make field invisble-->
+                    <xpath expr="//field[@name='mobile_phone']" position="attributes">
+                        <attribute name="invisible">True</attribute>
+                    </xpath>
+            </field>
+        </record>
+        <!--End of tree view-->
+
+        <!--Modify the existing record in action-->
+        <!--first Method-->
+        <!--<record id="hr.open_view_employee_tree" model="ir.actions.act_window">-->
+            <!--<field name="domain">[('parent_id','=',True)]</field>-->
+        <!--</record>-->
+        <!--second Method-->
+        <menuitem id="point_of_sale.menu_point_root" name="ITI POS"/>
+        <!--Modify the existing record in action-->
+
+        <!--<menuitem id="iti_menu" name="ITI"/>-->
+        <!--<menuitem id="iti_data_menu" name="Data" parent="iti_menu"/>-->
+        <!--<menuitem id="iti_student_menu" name="Student" parent="iti_data_menu"-->
+                  <!--action="action_iti_student"/>-->
+        <!--<menuitem id="iti_track_menu" name="Track" parent="iti_data_menu"-->
+                  <!--action="action_iti_track"/>-->
+
+    </data>
+</openerp>
