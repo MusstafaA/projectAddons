@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>	
+		<!-- This record is to add new two fields to the existing view of customer external -->
+		<record model="ir.ui.view" id="res_partner_extended_view">
+            <field name="name">res.partner.extended.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                    <!--Using the XPath-->
+                    <xpath expr="/form//field[@name='phone']" position="replace">
+                        <field name="phone_ids">
+                        	<form>
+                        		<field name="phone_num" widget="phone"/>
+                    		</form>
+                     		<tree editable="top">
+                            	<field name="phone_num" widget="phone"/>
+                     		</tree>
+                        </field>
+                    </xpath>
+
+                     <xpath expr="/form//field[@name='mobile']" position="replace">
+                        <field name="mobile_ids">
+                        	<form>
+                        		<field name="mobile_num" widget="phone"/>
+                    		</form>
+                     		<tree editable="top">
+                            	<field name="mobile_num" widget="phone"/>
+                     		</tree>
+                        </field>
+                    </xpath>
+				
+					<!-- Adding the latest Order -->
+					<!-- <page name="sales_purchases" position="after" -->
+            </field>
+        </record>
+		<!-- Endo of the first record -->
+
+  </data>	
+</openerp>	

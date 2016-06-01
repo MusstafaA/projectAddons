@@ -2,8 +2,27 @@
 
 from openerp import models, fields
 
-class HrEmployeeInherit(models.Model):
-    #to link the model in the other Module Hr
-    _inherit = 'hr.employee'
-    emp_code = fields.Char()
+#add a new relationship to phone numbers and mobile numbers
+class PhoneNumbers(models.Model):
+	_name = 'customer.phonenumbers'
+	phone_num = fields.Integer(size=64, string="Phone Numbers")
+	partner_id = fields.Many2one('res.partner',string='Customer Name')
+
+
+class MobileNumbers(models.Model):
+	_name = 'customer.mobilenumbers'
+	mobile_num = fields.Integer(size=64, string="Mobile Numbers")
+	partner_id = fields.Many2one('res.partner', string='Customer Name')	
+
+
+class ResPartnerInherit(models.Model):
+	_name = 'res.partner'
+	_inherit = 'res.partner'
+	_description = 'Partner'
+	#One2many -> Logical remmber !
+	phone_ids = fields.One2many('customer.phonenumbers', 'partner_id', string='Phone Numbers')
+	mobile_ids = fields.One2many('customer.mobilenumbers', 'partner_id', string='Mobile Numbers')	
+	order_ids = fields.One2many('pos.order', 'partner_id', string='Latest Order', limit=1)
+
+    
 
