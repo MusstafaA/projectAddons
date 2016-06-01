@@ -1,7 +1,14 @@
 #this is the model inhertience
 
-from openerp import models, fields
+from openerp import models, fields, api
 
+#Functions.....................
+@api.multi
+def _average_amount(self):
+	return self.env.user
+
+
+#..........................
 #add a new relationship to phone numbers and mobile numbers
 class PhoneNumbers(models.Model):
 	_name = 'customer.phonenumbers'
@@ -30,9 +37,27 @@ class ResPartnerInherit(models.Model):
 	state_id_2 = fields.Many2one("res.country.state", string='State 2', ondelete='restrict')
 	country_id_2 =  fields.Many2one('res.country', string='Country 2', ondelete='restrict')
 	order_ids = fields.One2many('pos.order', 'partner_id', string='Latest Order', limit=1)
-
-    
+	#total_amount = fields.One2many('pos.order', 'partner_id', string="Total Amount")
+	# order_average = fields.Float(compute=_average_amount)
 
 class CustTags(models.Model):
 	_name= 'cust.tags'
-	name = fields.Char()		
+	name = fields.Char()
+
+
+# class PosOrderInherit(models.Model):
+#  	_name = 'pos.order'
+#  	_inherit = 'pos.order'
+#  	_description = 'Order'
+
+
+# 	@api.multi
+# 	def _average_amount(self):
+# 		for record in self:
+# 			record.order_average = record.order_average + record.amount_total
+# 		return True
+	
+#  	order_average = fields.Float(compute=_average_amount)
+
+
+			
