@@ -29,7 +29,7 @@ class ResPartnerInherit(models.Model):
 	city_2  = fields.Char(string='City 2')
 	state_id_2 = fields.Many2one("res.country.state", string='State 2', ondelete='restrict')
 	country_id_2 =  fields.Many2one('res.country', string='Country 2', ondelete='restrict')
-	#order_ids = fields.One2many('pos.order', 'partner_id', string='Latest Order', limit=1)
+	order_ids = fields.One2many('pos.order', 'partner_id', string='Latest Order', limit=1)
 
     
 

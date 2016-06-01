@@ -44,11 +44,19 @@
                                 <field name="zip_2" placeholder="ZIP" class="o_address_zip"/>
                                 <field name="country_id_2" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
                     </xpath>
-
+                    <!-- Rubbish -->
                      <xpath expr="/form//field[@name='country_id']" position="after">
                                <field name='other_address' readonly="True"/>
                     </xpath>
-            <!-- <page name="sales_purchases" position="after" -->
+
+                    <!-- Order Details -->
+                    <page name="sales_purchases" position="after">
+                        <page name="orders" string="Orders">
+                           <group>
+                            <field name="order_ids"/>
+                           </group> 
+                        </page>  
+                    </page>  
             </field>
         </record>
 		<!-- Endo of the first record -->
