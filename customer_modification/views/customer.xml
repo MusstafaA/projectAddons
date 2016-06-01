@@ -35,6 +35,19 @@
 					          <xpath expr="/form//field[@name='function']" position="after">
                       <field name="tags_ids" widget="many2many_tags" placeholder="e.g. VIP,New...."/>
                     </xpath>
+
+                    <!-- Adding Another Address -->
+                    <xpath expr="/form//field[@name='website']" position="before">
+                                <field name="street_2" placeholder="Street..." class="o_address_street"/>
+                                <field name="city_2" placeholder="City" class="o_address_city"/>
+                                <field name="state_id_2" class="o_address_state" placeholder="State" options='{"no_open": True}' on_change="onchange_state(state_id)"/>
+                                <field name="zip_2" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id_2" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
+                    </xpath>
+
+                     <xpath expr="/form//field[@name='country_id']" position="after">
+                               <field name='other_address' readonly="True"/>
+                    </xpath>
             <!-- <page name="sales_purchases" position="after" -->
             </field>
         </record>

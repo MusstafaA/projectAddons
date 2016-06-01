@@ -23,6 +23,12 @@ class ResPartnerInherit(models.Model):
 	phone_ids = fields.One2many('customer.phonenumbers', 'partner_id', string='Phone Numbers')
 	mobile_ids = fields.One2many('customer.mobilenumbers', 'partner_id', string='Mobile Numbers')	
 	tags_ids = fields.Many2many('cust.tags',string="Tags")
+	other_address = fields.Char(string="Other Address")
+	street_2 = fields.Char(string='Street 2')
+	zip_2 = fields.Char(string='Zip 2', size=24, change_default=True)
+	city_2  = fields.Char(string='City 2')
+	state_id_2 = fields.Many2one("res.country.state", string='State 2', ondelete='restrict')
+	country_id_2 =  fields.Many2one('res.country', string='Country 2', ondelete='restrict')
 	#order_ids = fields.One2many('pos.order', 'partner_id', string='Latest Order', limit=1)
 
     
