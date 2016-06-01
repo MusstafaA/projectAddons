@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <openerp>
+        <data>
+
+            <menuitem id="call_receiver_menu" name="Call Receiver"/>
+            <menuitem id="call_receiver_data_menu" name="Data" parent="call_receiver_menu"/>
+            <menuitem id="call_receiver_test_menu" name="Test" parent="call_receiver_menu" action="point_of_sale.action_pos_session"/>
+
+        </data>
+    </openerp>

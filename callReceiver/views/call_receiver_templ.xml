@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="call_assets" inherit_id="point_of_sale.assets" name="call receiver assets">
+
+            <xpath expr="//script[12]" position="replace">
+                     <script type="text/javascript" src="/callReceiver/static/src/js/widgets.js"></script>
+            </xpath>
+
+        </template>
+    </data>
+</openerp>
