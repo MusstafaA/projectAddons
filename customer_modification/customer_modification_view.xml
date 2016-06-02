@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+    <!--This is how we modify the default views-->
+
+         
+        
+
+
+        <record id="action_customer_modification" model="ir.actions.act_window">
+            <field name="name">Customer Phones</field>
+            <field name="res_model">customer.phonenumbers</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+         <record id="action_customer_mobiles" model="ir.actions.act_window">
+            <field name="name">Customer Mobiles</field>
+            <field name="res_model">customer.mobilenumbers</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+<!-- 
+        <record id="action_customer_tags" model="ir.actions.act_window">
+            <field name="name">Customer Tags</field>
+            <field name="res_model">customer.tags</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record> -->
+
+         
+         <menuitem id="point_of_sale.menu_point_root" name="Point Of Sale Customized"/>
+         <menuitem id="point_of_sale.menu_point_custome" name="Customer Modifications Test" parent="point_of_sale.menu_point_root"/>
+         <menuitem id="point_of_sale.menu_point_phones" name="Phones Test" parent="point_of_sale.menu_point_custome" action="action_customer_modification"/>    
+         <menuitem id="point_of_sale.menu_point_mobiles" name="Mobiles Test" parent="point_of_sale.menu_point_custome" action="action_customer_mobiles"/>
+       <!--   <menuitem id="point_of_sale.menu_point_tags" name="Tags Test" parent="point_of_sale.menu_point_custome" action="action_customer_tags"/> -->
+<!-- 
+
+        <menuitem id="point_of_sale.menu_point_custome" name="Customer_Modifications_Test" parent="point_of_sale.menu_point_root" action="action_customer_modification"/> -->
+
+
+    </data>
+</openerp>

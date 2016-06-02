@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>	
+		<!-- This record is to add new two fields to the existing view of customer external -->
+		<record model="ir.ui.view" id="res_partner_extended_view">
+            <field name="name">res.partner.extended.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                    <!--Using the XPath-->
+                    <xpath expr="/form//field[@name='phone']" position="replace">
+                        <field name="phone_ids">
+                        	<form>
+                        		<field name="phone_num" widget="phone"/>
+                    		</form>
+                     		<tree editable="top">
+                            	<field name="phone_num" widget="phone"/>
+                     		</tree>
+                        </field>
+                    </xpath>
+
+                     <xpath expr="/form//field[@name='mobile']" position="replace">
+                        <field name="mobile_ids">
+                        	<form>
+                        		<field name="mobile_num" widget="phone"/>
+                    		</form>
+                     		<tree editable="top">
+                            	<field name="mobile_num" widget="phone"/>
+                     		</tree>
+                        </field>
+                    </xpath>
+				
+					         <!-- Adding Tags -->
+					          <xpath expr="/form//field[@name='function']" position="after">
+                      <field name="tags_ids" widget="many2many_tags" placeholder="e.g. VIP,New...."/>
+                    </xpath>
+
+                    <!-- Adding Another Address -->
+                    <xpath expr="/form//field[@name='website']" position="before">
+                                <field name="street_2" placeholder="Street..." class="o_address_street"/>
+                                <field name="city_2" placeholder="City" class="o_address_city"/>
+                                <field name="state_id_2" class="o_address_state" placeholder="State" options='{"no_open": True}' on_change="onchange_state(state_id)"/>
+                                <field name="zip_2" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id_2" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
+                    </xpath>
+                    <!-- Rubbish -->
+                     <xpath expr="/form//field[@name='country_id']" position="after">
+                               <field name='other_address' readonly="True"/>
+                    </xpath>
+
+                    <!-- Order Details -->
+                    <page name="sales_purchases" position="after">
+                        <page name="orders" string="Orders">
+                           <group>
+                            <field name="order_ids"/>
+                           </group> 
+                        </page>  
+                    </page>  
+            </field>
+        </record>
+		<!-- Endo of the first record --><!-- 
+    <record model="ir.ui.view" id="pos_partner_extended_view">
+            <field name="name">pos.partner.extended.form</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+              <xpath expr="/form//field[@name='fax']" position="after">
+                <field name="amount_total" sum="Amount total" widget="monetary"/>                               
+              </xpath>
+            </field>
+    </record>          
+ -->
+
+<!-- 
+    <record id="view_pos_form_inherit" model="ir.ui.view">
+            <field name="name">pos tree view</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                    <xpath expr="/form//field[@name='fax']" position="after">
+                               <field name='amount_total'/>
+              </xpath>
+            </field>
+        </record>
+ -->
+  </data>	
+</openerp>	
