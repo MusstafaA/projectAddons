@@ -15,7 +15,11 @@ Testing
 
 
              ],
+    'js': ['static/src/js/widgets.js'],
+    'qweb': [
+                'static/src/xml/pos.xml',
+                'static/src/xml/widgets.xml'
 
-    'qweb': ['static/src/xml/pos.xml'],
+             ],
 
 }

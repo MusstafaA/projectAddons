@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+
+    <!--<t t-name="ActionpadWidget">-->
+        <!--<div class="actionpad">-->
+            <!--<button t-attf-class='button set-customer #{ ( widget.pos.get_client() and widget.pos.get_client().name.length > 10) ? "decentered" : "" }' >-->
+                <!--<i class='fa fa-user' />-->
+                <!--<t t-if="widget.pos.get_client()">-->
+                    <!--<t t-esc="widget.pos.get_client().name" />-->
+                <!--</t>-->
+                <!--<t t-if="!widget.pos.get_client()">-->
+                    <!--Customer-->
+                <!--</t>-->
+            <!--</button>-->
+            <!--<button class='button pay' style="display: none;">-->
+                <!--<div class='pay-circle'>-->
+                    <!--<i class='fa fa-chevron-right' />-->
+                <!--</div>-->
+                <!--Payment-->
+            <!--</button>-->
+
+            <!--<t t-name="KitchenButtonWidget">-->
+                    <!--<button class="button paypad-button">-->
+                        <!--Send To Kitchen-->
+                    <!--</button><br/>-->
+            <!--</t>-->
+
+
+            <t t-name="SubmitOrderKitchenButton">
+                <span class="control-button order-submit">
+                    <i class="fa fa-cutlery"></i>
+                    Send To Kitchen
+                </span>
+            </t>
+
+
+        <!--</div>-->
+    <!--</t>-->
+
+
+
+
+</templates>

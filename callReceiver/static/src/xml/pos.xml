@@ -16,7 +16,7 @@
                     <div class='subwindow collapsed'>
                         <div class='subwindow-container'>
                             <div class='subwindow-container-fix pads'>
-                                <div class="control-buttons oe_hidden" style="display: none;" ></div>
+                                <div class="control-buttons oe_hidden" style="//display: none;"></div>
                                 <div class="placeholder-ActionpadWidget"></div>
                                 <div class="placeholder-NumpadWidget"></div>
                             </div>
@@ -65,16 +65,45 @@
                 Payment
             </button>
 
-            <t t-name="KitchenButtonWidget">
-                    <button class="button paypad-button">
-                        Send To Kitchen
-                    </button><br/>
-            </t>
+
+            <button class='button kitchen' >
+                <div class='pay-circle'>
+                    <i class="fa fa-cutlery"></i>
+                </div>
+                Send To Kitchen
+            </button>
+
+
+
+
+
+            <!--<t t-name="KitchenButtonWidget">-->
+                    <!--<button class="button paypad-button">-->
+                        <!--Send To Kitchen-->
+                    <!--</button><br/>-->
+            <!--</t>-->
+
+
+            <!--<t t-name="SubmitOrderKitchenButton">-->
+                <!--<span class="control-button order-submit">-->
+                    <!--<i class="fa fa-cutlery"></i>-->
+                    <!--Send To Kitchen-->
+                <!--</span>-->
+            <!--</t>-->
+
 
         </div>
     </t>
 
-    
+    <!--<t t-name="KitchenButtonWidget">-->
+        <!--<span class="actionpad">-->
+                    <!--<button class="button paypad-button">-->
+                        <!--Send To Kitchen-->
+                    <!--</button><br/>-->
+        <!--</span>-->
+    <!--</t>-->
+
+
 
 
 </templates>
