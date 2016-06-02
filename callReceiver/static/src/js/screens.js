@@ -399,6 +399,8 @@ var ActionpadWidget = PosBaseWidget.extend({
     renderElement: function() {
         var self = this;
         this._super();
+        //var currentOrder1=this.pos.get_order();//get('selectedOrder');
+
         this.$('.pay').click(function(){
             self.gui.show_screen('payment');
         });
@@ -407,8 +409,21 @@ var ActionpadWidget = PosBaseWidget.extend({
         });
 
         this.$('.kitchen').click(function(){
+
+            var currentOrder1= self.pos.get_order();
+            console.log('Kitchen Order Submitted...');
+            console.log(currentOrder1);
+
+            // if(currentOrder1.hasChangesToPrint()){
+            //     //currentOrder1.printChanges();
+            //     currentOrder1.saveChanges();
+            // }else {
+                self.pos.push_order(currentOrder1);
+            // }
+
+
             //self.gui.show_screen('clientlist');
-            console.log('here');
+
         });
     }
 });

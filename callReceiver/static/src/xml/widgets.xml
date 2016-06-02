@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<templates id="template" xml:space="preserve">
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<templates id="template" xml:space="preserve">-->
 
 
     <!--<t t-name="ActionpadWidget">-->
@@ -27,12 +27,12 @@
             <!--</t>-->
 
 
-            <t t-name="SubmitOrderKitchenButton">
-                <span class="control-button order-submit">
-                    <i class="fa fa-cutlery"></i>
-                    Send To Kitchen
-                </span>
-            </t>
+            <!--<t t-name="SubmitOrderKitchenButton">-->
+                <!--<span class="control-button order-submit">-->
+                    <!--<i class="fa fa-cutlery"></i>-->
+                    <!--Send To Kitchen-->
+                <!--</span>-->
+            <!--</t>-->
 
 
         <!--</div>-->
@@ -41,4 +41,4 @@
 
 
 
-</templates>
+<!--</templates>-->

@@ -18,7 +18,7 @@ Testing
     'js': ['static/src/js/widgets.js'],
     'qweb': [
                 'static/src/xml/pos.xml',
-                'static/src/xml/widgets.xml'
+                # 'static/src/xml/widgets.xml'
 
              ],
 
