@@ -406,6 +406,8 @@ var ActionpadWidget = PosBaseWidget.extend({
         });
         this.$('.set-customer').click(function(){
             self.gui.show_screen('clientlist');
+
+            //$('.set-customer').disabled = true;
         });
 
         this.$('.kitchen').click(function(){
@@ -414,15 +416,20 @@ var ActionpadWidget = PosBaseWidget.extend({
             console.log('Kitchen Order Submitted...');
             console.log(currentOrder1);
 
-            // if(currentOrder1.hasChangesToPrint()){
-            //     //currentOrder1.printChanges();
-            //     currentOrder1.saveChanges();
-            // }else {
-                self.pos.push_order(currentOrder1);
-            // }
+            self.pos.push_order(currentOrder1);
 
 
-            //self.gui.show_screen('clientlist');
+            //// Sending order to ketchin printer /////
+            //var order = self.pos.get_order();
+            if(currentOrder1.hasChangesToPrint()){
+                currentOrder1.printChanges();
+                currentOrder1.saveChanges();
+
+                console.log('kitchen printer request..');
+            }
+
+            //self.$('.kitchen').hide();
+            this.disabled = true;
 
         });
     }

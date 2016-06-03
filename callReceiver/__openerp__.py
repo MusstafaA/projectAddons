@@ -11,7 +11,8 @@ Testing
     """,
     'data': [
                 'receiver_view.xml',
-                'views/call_receiver_templ.xml'
+                'views/call_receiver_templ.xml',
+                'delivery_table_view.xml',
 
 
              ],

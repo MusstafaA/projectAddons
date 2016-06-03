@@ -3,9 +3,12 @@
     <data>
         <template id="call_assets" inherit_id="point_of_sale.assets" name="call receiver assets">
 
-            <xpath expr="//script[12]" position="replace">
+            <!--<xpath expr="//script[12]" position="replace">-->
+            <xpath expr="//script[@src='/point_of_sale/static/src/js/screens.js']"  position="replace">
                      <!--<script type="text/javascript" src="/callReceiver/static/src/js/widgets.js"></script>-->
                      <script type="text/javascript" src="/callReceiver/static/src/js/screens.js"></script>
+
+
             </xpath>
 
         </template>
