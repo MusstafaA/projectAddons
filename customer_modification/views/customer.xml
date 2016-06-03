@@ -54,36 +54,30 @@
                         <page name="orders" string="Orders">
                            <group>
                             <field name="order_ids"/>
+                            <field name="order_average_ids"/>
                            </group> 
                         </page>  
                     </page>  
             </field>
         </record>
-		<!-- Endo of the first record --><!-- 
-    <record model="ir.ui.view" id="pos_partner_extended_view">
+		<!-- Endo of the first record -->
+
+ <!--    <record model="ir.ui.view" id="pos_partner_extended_view">
             <field name="name">pos.partner.extended.form</field>
             <field name="model">pos.order</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="type">form</field>
             <field name="arch" type="xml">
-              <xpath expr="/form//field[@name='fax']" position="after">
-                <field name="amount_total" sum="Amount total" widget="monetary"/>                               
-              </xpath>
-            </field>
-    </record>          
- -->
+              <page name="sales_purchases" position="before">
+                        <page name="Average_Orders" string="Average Orders">
+                           <group>
+                            <field name="order_average"/>
+                           </group> 
+                        </page>  
+                    </page>  
+              
 
-<!-- 
-    <record id="view_pos_form_inherit" model="ir.ui.view">
-            <field name="name">pos tree view</field>
-            <field name="model">pos.order</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="arch" type="xml">
-                    <xpath expr="/form//field[@name='fax']" position="after">
-                               <field name='amount_total'/>
-              </xpath>
             </field>
-        </record>
- -->
+    </record>           -->
+
   </data>	
 </openerp>	

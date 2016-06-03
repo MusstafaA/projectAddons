@@ -37,12 +37,16 @@ class ResPartnerInherit(models.Model):
 	state_id_2 = fields.Many2one("res.country.state", string='State 2', ondelete='restrict')
 	country_id_2 =  fields.Many2one('res.country', string='Country 2', ondelete='restrict')
 	order_ids = fields.One2many('pos.order', 'partner_id', string='Latest Order', limit=1)
-	#total_amount = fields.One2many('pos.order', 'partner_id', string="Total Amount")
-	# order_average = fields.Float(compute=_average_amount)
+	order_average_ids = fields.One2many('pos.order', 'partner_id', string='All Orders')
+
+
 
 class CustTags(models.Model):
 	_name= 'cust.tags'
 	name = fields.Char()
+
+
+
 
 
 # class PosOrderInherit(models.Model):
