@@ -42,7 +42,7 @@
                             </t>
                         </select>
                     </div>
-                    <!-- ******************************************************************************** -->
+                    <!-- *****************************Right Side*************************************************** -->
                     <!-- myModification from here -->
                       <div class='client-detail'>
                         <span class='label'>Street 2</span>
@@ -53,7 +53,7 @@
                         <input class='detail client-address-city'   name='city_2' t-att-value='partner.city' placeholder='City 2...'></input>
                      </div>
                      <div class='client-detail'>
-                        <span class='label'>Postcode 2</span>
+                        <span class='label'>P.code 2</span>
                         <input class='detail client-address-zip'    name='zip_2' t-att-value='partner.zip' placeholder='ZIP 2...'></input>
                     </div>
                     <div class='client-detail'>
@@ -67,18 +67,27 @@
                             </t>
                         </select>
                     </div>
-
+<!-- ***************************************Left Modification****************************************************************** -->
 
 
                 </div>
                 <div class='client-details-right'>
+                	 <div class='client-detail'>
+                        <span class='label'>Tags</span>
+                        <input class='detail'  name='tags_ids'></input>
+                    </div>
                     <div class='client-detail'>
                         <span class='label'>Email</span>
                         <input class='detail client-email'  name='email'    type='email'    t-att-value='partner.email || ""'></input>
                     </div>
+                    <!-- Another Modification here -->
                     <div class='client-detail'>
                         <span class='label'>Phone</span>
-                        <input class='detail client-phone'  name='phone'    type='tel'      t-att-value='partner.phone || ""'></input>
+                        <input class='detail client-phone'  name='phone_ids'    type='tel'      t-att-value='partner.phone || ""'></input>
+                    </div>
+                     <div class='client-detail'>
+                        <span class='label'>Mobile</span>
+                        <input class='detail client-phone'  name='mobile_ids'    type='tel'      t-att-value='partner.phone || ""'></input>
                     </div>
                     <div class='client-detail'>
                         <span class='label'>Barcode</span>
