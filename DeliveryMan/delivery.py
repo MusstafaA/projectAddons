@@ -25,4 +25,4 @@ class delivery(models.Model):
       mobile_ids = fields.One2many('project.mobilenumbers', 'partner_id', string='mobile numbers')
       order_ids =  fields.One2many('pos.order','delivery_man_id',select=True, string='Latest Orders', limit=5)
       status=fields.Selection([('a','Avaliable'),('b','Busy')],readonly=True)
-              
+      notes=fields.Html(string='Notes')        

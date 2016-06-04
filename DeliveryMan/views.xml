@@ -72,6 +72,14 @@
                                 </group>
                                 </group>
                                 
+                                   <notebook>
+                                      <page string="Latest Orders">
+                                          <field name="order_ids" default_order="create_date desc"  widget="many2many" domain="[('state','=','draft')]" />
+
+                                      </page>
+                                      <page string="Notes"> <field name="notes"/></page>
+
+                                  </notebook>
                             </sheet>
                         </form>
                     </field>
