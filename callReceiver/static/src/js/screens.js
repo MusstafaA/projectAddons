@@ -414,6 +414,8 @@ var ActionpadWidget = PosBaseWidget.extend({
 
             var currentOrder1= self.pos.get_order();
             console.log('Kitchen Order Submitted...');
+
+            //currentOrder1['stage']= 'kitchen';
             console.log(currentOrder1);
 
             self.pos.push_order(currentOrder1);
