@@ -24,16 +24,22 @@
 
             <record id="kitchen_orders_form_view" model="ir.ui.view">
                 <field name="name">kitchen orders form view</field>
-                <field name="model">pos.order.line</field>
+                <field name="model">pos.order</field>
                 <field name="arch" type="xml">
                     <form>
                         <sheet>
                             <group>
-                                <field name="product_id" />
-                                <field name="qty" />
-                                <field name="discount" widget="monetary"/>
-                                <field name="price_unit" widget="monetary"/>
-                                <field name="create_date" />
+                                <!--<field name="name"/>-->
+                                <!--<field name="pos_reference"/>-->
+                                <!--<field name="partner_id"/>-->
+                                <!--<field name="date_order"/>-->
+                                <field name="state"/>
+                                <field name="stage"/>
+                                <!--<field name="product_id" />-->
+                                <!--<field name="qty" />-->
+                                <!--<field name="discount" widget="monetary"/>-->
+                                <!--<field name="price_unit" widget="monetary"/>-->
+                                <!--<field name="create_date" />-->
                             </group>
 
 
