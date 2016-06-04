@@ -12,6 +12,18 @@
                 <menuitem id="delivery_menu" name="Delivery"/>
                 <menuitem id="delivery_sub_menu" name="Delivery" parent="delivery_menu"/>
                 <menuitem id="delivery_man" action="list_delivery_man" parent="delivery_sub_menu" name="Delivery Men"/>
+               
+                  <record id="delivery_tree_view" model="ir.ui.view">
+                    <field name="name">project_delivery_tree_view</field>
+                    <field name="model">project.delivery</field>
+                    <field name="arch" type="xml">
+                        <tree>
+                              <field name="name" />
 
+                               <field name="status" />
+
+                        </tree>
+                    </field>
+                </record>
            </data>
         </openerp>
