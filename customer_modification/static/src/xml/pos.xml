@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+	   <t t-name="ClientDetailsEdit">
+        <section class='client-details edit'>
+            <div class='client-picture'>
+                <t t-if='!partner.id'>
+                    <i class='fa fa-camera'></i>
+                </t>
+                <t t-if='partner.id'>
+                    <img t-att-src='widget.partner_icon_url(partner.id)' />
+                </t>
+                <input type='file' class='image-uploader'></input>   
+            </div>
+             <span class='label'>Customer Name</span>
+             <input class='detail client-name' name='name' t-att-value='partner.name' placeholder='Name'></input>
+            <div class='edit-buttons'>
+                <div class='button undo'><i class='fa fa-undo' /></div>
+                <div class='button save'><i class='fa fa-floppy-o' /></div>
+            </div>
+            <div class='client-details-box clearfix'>
+                <div class='client-details-left'>
+                    <div class='client-detail'>
+                        <span class='label'>Street</span>
+                        <input class='detail client-address-street' name='street'       t-att-value='partner.street' placeholder='Street'></input>
+                    </div>
+                    <div class='client-detail'>
+                        <span class='label'>City</span>
+                        <input class='detail client-address-city'   name='city'         t-att-value='partner.city' placeholder='City'></input>
+                    </div>
+                    <div class='client-detail'>
+                        <span class='label'>Postcode</span>
+                        <input class='detail client-address-zip'    name='zip'          t-att-value='partner.zip' placeholder='ZIP'></input>
+                    </div>
+                    <div class='client-detail'>
+                        <span class='label'>Country</span>
+                        <select class='detail client-address-country' name='country_id'>
+                            <option value=''>None</option>
+                            <t t-foreach='widget.pos.countries' t-as='country'>
+                                <option t-att-value='country.id' t-att-selected="partner.country_id ? ((country.id === partner.country_id[0]) ? true : undefined) : undefined"> 
+                                    <t t-esc='country.name'/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <!-- *****************************Right Side*************************************************** -->
+                    <!-- myModification from here -->
+                      <div class='client-detail'>
+                        <span class='label'>Street 2</span>
+                        <input class='detail client-address-street' name='street_2' t-att-value='partner.street' placeholder='Street 2...'></input>
+                      </div>
+                      <div class='client-detail'>
+                        <span class='label'>City 2</span>
+                        <input class='detail client-address-city'   name='city_2' t-att-value='partner.city' placeholder='City 2...'></input>
+                     </div>
+                     <div class='client-detail'>
+                        <span class='label'>P.code 2</span>
+                        <input class='detail client-address-zip'    name='zip_2' t-att-value='partner.zip' placeholder='ZIP 2...'></input>
+                    </div>
+                    <div class='client-detail'>
+                        <span class='label'>Country 2</span>
+                        <select class='detail client-address-country' name='country_id_2'>
+                            <option value=''>None</option>
+                            <t t-foreach='widget.pos.countries' t-as='country'>
+                                <option t-att-value='country.id' t-att-selected="partner.country_id ? ((country.id === partner.country_id[0]) ? true : undefined) : undefined"> 
+                                    <t t-esc='country.name'/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+<!-- ***************************************Left Modification****************************************************************** -->
+
+
+                </div>
+                <div class='client-details-right'>
+                	 <div class='client-detail'>
+                        <span class='label'>Tags</span>
+                        <input class='detail'  name='tags_ids'></input>
+                    </div>
+                    <div class='client-detail'>
+                        <span class='label'>Email</span>
+                        <input class='detail client-email'  name='email'    type='email'    t-att-value='partner.email || ""'></input>
+                    </div>
+                    <!-- Another Modification here -->
+                    <div class='client-detail'>
+                        <span class='label'>Phone</span>
+                        <input class='detail client-phone'  name='phone_ids'    type='tel'      t-att-value='partner.phone || ""'></input>
+                    </div>
+                     <div class='client-detail'>
+                        <span class='label'>Mobile</span>
+                        <input class='detail client-phone'  name='mobile_ids'    type='tel'      t-att-value='partner.phone || ""'></input>
+                    </div>
+                    <div class='client-detail'>
+                        <span class='label'>Barcode</span>
+                        <input class='detail barcode'       name='barcode'    t-att-value='partner.barcode || ""'></input>
+                    </div>
+                    <div class='client-detail'>
+                        <span class='label'>Tax ID</span>
+                        <input class='detail vat'           name='vat'     t-att-value='partner.vat || ""'></input>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </t>
+</templates>

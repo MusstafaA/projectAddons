@@ -11,6 +11,10 @@ POS_Customer_Modifications
     """,# here we are importing all the views that we made before
     'data': [
         'customer_modification_view.xml',
-        'views/customer.xml'
+        'views/customer.xml',
     ],
+
+    'qweb': [
+                'static/src/xml/pos.xml',
+            ],
 }
