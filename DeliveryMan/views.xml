@@ -52,6 +52,8 @@
 
                                 <group>
                                     <field name="date_of_birth" />
+                                     <field name="email" widget="email"/>
+
                                      <field name="phone_ids" >
                                          <form>
                                     <field name="phone_nu" widget="phone"/>
@@ -71,7 +73,7 @@
 
                                 </group>
                                 </group>
-                                
+
                                    <notebook>
                                       <page string="Latest Orders">
                                           <field name="order_ids" default_order="create_date desc"  widget="many2many" domain="[('state','=','draft')]" />
