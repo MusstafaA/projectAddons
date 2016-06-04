@@ -56,3 +56,10 @@ class delivery(models.Model):
                       pass
                   else:
                       raise exceptions.ValidationError("Not valid email");    
+          if 'order_ids' in values.keys():
+              for order in values['order_ids']:
+                  order_record = self.env['pos.order'].search([('id', '=', order[1])])
+                  if order_record['state'] == 'draft':
+                     order_record['state'] =  'done'
+          return super(delivery, self).write(values)
+            
