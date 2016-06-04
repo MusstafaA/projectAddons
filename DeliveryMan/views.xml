@@ -25,5 +25,56 @@
                         </tree>
                     </field>
                 </record>
+                  <record id="delivery_form_view" model="ir.ui.view">
+                    <field name="name">project_delivery_form_view</field>
+                    <field name="model">project.delivery</field>
+                    <field name="arch" type="xml">
+                        <form>
+                            <sheet>
+                                <div style="float:left">
+                                <div style="float:left">
+
+                                <field name="image" widget="image" width="140px" heigth="140px"/>
+
+                                </div>
+                                <div style="float:left;padding:20px">
+                                 <field name="name" width="100px" height="120px" placeholder="Enter Name"/>
+                                </div>
+                                </div>
+                                <group>
+
+
+                                <group>
+
+                                  <field name="status" />
+
+                                </group>
+
+                                <group>
+                                    <field name="date_of_birth" />
+                                     <field name="phone_ids" >
+                                         <form>
+                                    <field name="phone_nu" widget="phone"/>
+                                   </form>
+                                    <tree editable="top">
+                                     <field name="phone_nu" widget="phone"/>
+                                 </tree>
+                                     </field>
+                                    <field name="mobile_ids" >
+                                                         <form>
+                                    <field name="mobile_nu" widget="phone"/>
+                                   </form>
+                                    <tree editable="top">
+                                     <field name="mobile_nu" widget="phone"/>
+                                 </tree>
+                                             </field>
+
+                                </group>
+                                </group>
+                                
+                            </sheet>
+                        </form>
+                    </field>
+                </record>
            </data>
         </openerp>
