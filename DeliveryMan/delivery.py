@@ -16,6 +16,17 @@ class OrderUpdate(models.Model):
         _inherit='pos.order'
         delivery_man_id=fields.Many2one('project.delivery')
 
+        @api.multi
+        def write(self, vals):
+            if 'delivery_man_id' in vals.keys():
+                 dman_record = self.env['project.delivery'].search([('id', '=', vals['delivery_man_id'])])
+                 if  dman_record['status']== 'b':
+                     raise exceptions.ValidationError("Delivery man is busy now")
+                 else:
+                     dman_record['status']='b'
+            return super(OrderUpdate, self).write(vals)
+
+
 class delivery(models.Model):
     _name='project.delivery'
       name = fields.Char(required=True)
@@ -28,7 +39,7 @@ class delivery(models.Model):
       status=fields.Selection([('a','Avaliable'),('b','Busy')],readonly=True)
       notes=fields.Html(string='Notes')   
 
-        @api.multi
+      @api.multi
       def write(self, values):
           values;
           pattern = re.compile("^[0-9]{6,10}$")
