@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+        <openerp>
+            <data>
+
+                <record id="list_delivery_man" model="ir.actions.act_window">
+                    <field name="name">Delivery Men </field>
+                    <field name="res_model">project.delivery</field>
+                    <field name="view-Type">form</field>
+                    <field name="view-mode">form,tree</field>
+                </record>
+
+                <menuitem id="delivery_menu" name="Delivery"/>
+                <menuitem id="delivery_sub_menu" name="Delivery" parent="delivery_menu"/>
+                <menuitem id="delivery_man" action="list_delivery_man" parent="delivery_sub_menu" name="Delivery Men"/>
+
+           </data>
+        </openerp>
