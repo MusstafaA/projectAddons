@@ -12,8 +12,8 @@
                 <menuitem id="delivery_menu" name="Delivery"/>
                 <menuitem id="delivery_sub_menu" name="Delivery" parent="delivery_menu"/>
                 <menuitem id="delivery_man" action="list_delivery_man" parent="delivery_sub_menu" name="Delivery Men"/>
-               
-                  <record id="delivery_tree_view" model="ir.ui.view">
+
+                <record id="delivery_tree_view" model="ir.ui.view">
                     <field name="name">project_delivery_tree_view</field>
                     <field name="model">project.delivery</field>
                     <field name="arch" type="xml">
@@ -25,7 +25,7 @@
                         </tree>
                     </field>
                 </record>
-                  <record id="delivery_form_view" model="ir.ui.view">
+                <record id="delivery_form_view" model="ir.ui.view">
                     <field name="name">project_delivery_form_view</field>
                     <field name="model">project.delivery</field>
                     <field name="arch" type="xml">
@@ -34,11 +34,13 @@
                                 <div style="float:left">
                                 <div style="float:left">
 
-                                <field name="image" widget="image" width="140px" heigth="140px"/>
+                                <field name="image"  class='oe_form_field_image oe_avatar' widget="image" />
 
                                 </div>
                                 <div style="float:left;padding:20px">
-                                 <field name="name" width="100px" height="120px" placeholder="Enter Name"/>
+                                    <h1 style="color:blue;">
+                                 <field name="name"  placeholder="Enter Name"/>
+                                    </h1>
                                 </div>
                                 </div>
                                 <group>
@@ -51,9 +53,8 @@
                                 </group>
 
                                 <group>
-                                    <field name="date_of_birth" />
-                                     <field name="email" widget="email"/>
-
+                                    <field name="date_of_birth" placeholder="Enter Date of Birth" />
+                                    <field name="email" widget="email" placeholder="Enter Email Address"/>
                                      <field name="phone_ids" >
                                          <form>
                                     <field name="phone_nu" widget="phone"/>
@@ -73,8 +74,7 @@
 
                                 </group>
                                 </group>
-
-                                   <notebook>
+                                  <notebook>
                                       <page string="Latest Orders">
                                           <field name="order_ids" default_order="create_date desc"  widget="many2many" domain="[('state','=','draft')]" />
 
@@ -86,5 +86,7 @@
                         </form>
                     </field>
                 </record>
-           </data>
+
+            </data>
         </openerp>
+
