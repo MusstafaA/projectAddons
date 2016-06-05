@@ -28,7 +28,7 @@ class OrderUpdate(models.Model):
 
 
 class delivery(models.Model):
-    _name='project.delivery'
+      _name='project.delivery'
       name = fields.Char(required=True)
       email=fields.Char(required=True)
       image = fields.Binary()

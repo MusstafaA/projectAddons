@@ -6,6 +6,7 @@
             <record id="kitchen_orders_tree_view" model="ir.ui.view">
                 <field name="name">kitchen orders tree view</field>
                 <field name="model">pos.order</field>
+                <field name="sequence" eval="40"/>
                 <field name="arch" type="xml">
                     <tree string="POS Orders" decoration-info="state == 'draft'" decoration-muted="state in ('done','cancel')">
                         <field name="name"/>
