@@ -11,11 +11,17 @@ class MobileNumbers(models.Model):
         _name = 'project.mobilenumbers'
         mobile_nu = fields.Char(string='Mobile numbers')
         partner_id=fields.Many2one('res.partner')
-
+            
 class OrderUpdate(models.Model):
         _inherit='pos.order'
         delivery_man_id=fields.Many2one('project.delivery')
-
+        state= fields.Selection([('draft', 'New'),
+                                  ('out', 'Out for delivery'),
+                                   ('cancel', 'Cancelled'),
+                                   ('paid', 'Paid'),
+                                   ('done', 'Posted'),
+                                   ('invoiced', 'Invoiced')],
+                                  'Status', readonly=True)
         @api.multi
         def write(self, vals):
             if 'delivery_man_id' in vals.keys():
