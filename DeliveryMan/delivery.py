@@ -1,17 +1,19 @@
-from openerp import models ,fields , api , api ,exceptions
 import re
+
+from openerp import models ,fields , api ,exceptions
+
 
 class PhoneNumbers(models.Model):
         _name='project.phonenumbers'
-        phone_nu=fields.Char(string='Phone numbers')
+        phone_nu=fields.Text(string='Phone numbers')
         partner_id = fields.Many2one('res.partner')
 
 
 class MobileNumbers(models.Model):
         _name = 'project.mobilenumbers'
-        mobile_nu = fields.Char(string='Mobile numbers')
+        mobile_nu = fields.Text(string='Mobile numbers')
         partner_id=fields.Many2one('res.partner')
-            
+
 class OrderUpdate(models.Model):
         _inherit='pos.order'
         delivery_man_id=fields.Many2one('project.delivery')
@@ -43,15 +45,14 @@ class delivery(models.Model):
       mobile_ids = fields.One2many('project.mobilenumbers', 'partner_id', string='mobile numbers',required=True)
       order_ids =  fields.One2many('pos.order','delivery_man_id',select=True, string='Latest Orders', limit=5)
       status=fields.Selection([('a','Avaliable'),('b','Busy')],readonly=True)
-      notes=fields.Html(string='Notes')   
+      notes=fields.Html(string='Notes')
 
       @api.multi
       def write(self, values):
-          values;
           pattern = re.compile("^[0-9]{6,10}$")
           pattern1 = re.compile("^[0-9]{11}$")
           pattern2=re.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                +"[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
+		            +"[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
           if 'mobile_ids' in values.keys():
               for mobile in values['mobile_ids']:
                 if   mobile[2] != False:
@@ -69,14 +70,16 @@ class delivery(models.Model):
                          raise exceptions.ValidationError("Phone  numbers can only be integers at least 6 numbers")
 
           if 'email' in values.keys():
-                  if pattern.match(values['email']):
+                  if pattern2.match(values['email']):
                       pass
                   else:
-                      raise exceptions.ValidationError("Not valid email");    
+                      raise exceptions.ValidationError("Not valid email address");
+
+
           if 'order_ids' in values.keys():
               for order in values['order_ids']:
                   order_record = self.env['pos.order'].search([('id', '=', order[1])])
                   if order_record['state'] == 'draft':
-                     order_record['state'] =  'done'
+                     order_record['state'] =  'out'
           return super(delivery, self).write(values)
-            
+
