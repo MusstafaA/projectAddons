@@ -5,7 +5,7 @@
     ,'category':'point of sale',
     'website':'iti.odoo.com',
     'depends': ['point_of_sale'],
-    'data': ['views.xml'],
+    'data': ['views.xml','delivery.xml'],
     'installable':True
 
 }
