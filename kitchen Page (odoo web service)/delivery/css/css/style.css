@@ -1,0 +1,52 @@
+#name.ng-valid {
+         background-color: lightgreen;
+      }
+
+#username.ng-dirty.ng-invalid-required {
+          background-color: red;
+      }
+#name.ng-dirty.ng-invalid-minlength {
+          background-color: yellow;
+      }
+
+#age.ng-valid {
+          background-color: lightgreen;
+      }
+#age.ng-dirty.ng-invalid-required {
+          background-color: red;
+      }
+#age.ng-dirty.ng-invalid-pattern {
+          background-color: yellow;
+      }
+
+ 
+#password.ng-valid {
+          background-color: lightgreen;
+      }
+#password.ng-dirty.ng-invalid-required {
+          background-color: red;
+      }
+#password.ng-dirty.ng-invalid-minlength {
+          background-color: yellow;
+      }
+
+
+
+
+#password_c.ng-valid {
+          background-color: lightgreen;
+      }
+#password_c.ng-dirty.ng-invalid-required {
+          background-color: red;
+      }
+#password_c.ng-dirty.ng-invalid-minlength {
+          background-color: yellow;
+      }
+
+#password_c.ng-dirty.ng-invalid-no-match{
+    background-color: yellow;
+}
+
+#password_c.ng-dirty.ng-valid-no-match{
+    background-color: lightgreen;
+}
