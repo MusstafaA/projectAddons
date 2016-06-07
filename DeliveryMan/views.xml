@@ -99,7 +99,7 @@
                                                     <field name="session_id" />
                                                       <button name="%(action_pos_payment)d" string="Payment" class="oe_highlight" type="action" states="out" context="{'pos_session_id' : session_id}"/>
                                                        <button name="refund" string="Return Products" type="object"
-                                                                   attrs="{'invisible':[('state','=','draft'),('state','=','out')]}"/>
+                                                                   attrs="{'invisible':['|',('state','=','draft'),('state','=','out')]}"/>
                                               </tree>
 
                                           </field>

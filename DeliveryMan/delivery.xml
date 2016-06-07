@@ -17,8 +17,16 @@
               <xpath expr="/tree//field[@name='session_id']" position="after">
                   <button name="%(action_pos_payment)d" string="Payment" class="oe_highlight" type="action" states="draft,out" context="{'pos_session_id' : session_id}"/>
                   <button name="refund" string="Return Products" type="object"
-                            attrs="{'invisible':[('state','=','draft'),('state','=','out')]}"/>
+                            attrs="{'invisible':['|',('state','=','draft'),('state','=','out')]}"/>
               </xpath>
+                <xpath expr="/tree" position="attributes">
+
+                    <attribute name="decoration-warning">state== 'out'</attribute>
+                    <attribute name="decoration-success">state in ('paid','done')</attribute>
+                    <attribute name="decoration-it">state == 'invoiced'</attribute>
+                    <attribute name="decoration-muted">state == 'cancel'</attribute>
+
+                </xpath>
                  </field>
             </record>
 <!--        <record model="ir.ui.view" id="order_extended_view">
