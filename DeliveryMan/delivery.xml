@@ -14,8 +14,10 @@
             <field name="model">pos.order</field>
             <field name="inherit_id" ref="point_of_sale.view_pos_order_tree" />
             <field name="arch" type="xml">
-              <xpath expr="/tree//field[@name='name']" position="after">
+              <xpath expr="/tree//field[@name='session_id']" position="after">
                   <button name="%(action_pos_payment)d" string="Payment" class="oe_highlight" type="action" states="draft,out" context="{'pos_session_id' : session_id}"/>
+                  <button name="refund" string="Return Products" type="object"
+                            attrs="{'invisible':[('state','=','draft'),('state','=','out')]}"/>
               </xpath>
                  </field>
             </record>
