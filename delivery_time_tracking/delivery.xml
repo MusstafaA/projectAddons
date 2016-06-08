@@ -11,6 +11,9 @@
                      <field name="manuf_time" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
                      <field name="delivery_time" attrs="{'invisible': [('state', '!=', 'out')]}"/>
                 </xpath>
+                <xpath expr="/form//field[@name='partner_id']" position="attributes">
+                     <attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+                </xpath>
             </field>
         </record>
 
