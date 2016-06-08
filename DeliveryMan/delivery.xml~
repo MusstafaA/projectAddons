@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-            <record id="action_pos_payment" model="ir.actions.act_window">
+               <record id="action_pos_payment" model="ir.actions.act_window">
             <field name="name">Payment</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">pos.make.payment</field>
@@ -29,19 +29,21 @@
                 </xpath>
                  </field>
             </record>
-        <record model="ir.ui.view" id="order_extended_view">
+<!--        <record model="ir.ui.view" id="order_extended_view">
             <field name="name">pos.order</field>
             <field name="model">pos.order</field>
             <field name="inherit_id" ref="point_of_sale.view_pos_pos_form" />
             <field name="type">form</field>
             <field name="arch" type="xml">
-
-                 <xpath expr="/form//field[@name='partner_id']" position="after">
-                         <field name="delivery_man_id" string="Delivery Man"/>
+                 <xpath expr="/form//field                 [@name='fiscal_position_id']" position="after">
+                 <field name="manuf_time" />
+                 <field name="delivery_time" />
                 </xpath>
 
-            </field>
 
-        </record>
+     
+                       </field>
+
+                      </record>-->
     </data>
 </openerp>

@@ -35,6 +35,7 @@ class OrderUpdate(models.Model):
             return super(OrderUpdate, self).write(vals)
 
 
+
 class delivery(models.Model):
       _name='project.delivery'
       name = fields.Char(required=True)
@@ -46,6 +47,11 @@ class delivery(models.Model):
       order_ids =  fields.One2many('pos.order','delivery_man_id',select=True, string='Latest Orders', limit=5)
       status=fields.Selection([('a','Avaliable'),('b','Busy')],readonly=True)
       notes=fields.Html(string='Notes')
+      address = fields.Char(string="Address")
+      street= fields.Char(string='Street')
+      city= fields.Char(string='City')
+      state_id= fields.Many2one("res.country.state", string='State', ondelete='restrict')
+      country_id= fields.Many2one('res.country', string='Country', ondelete='restrict')
 
       @api.multi
       def write(self, values):
