@@ -13,7 +13,7 @@
                 </xpath>
             </field>
         </record>
-<!--
+
           <record model="ir.ui.view" id="order_tree_inherit">
             <field name="name">Orderstree</field>
             <field name="model">pos.order</field>
@@ -28,6 +28,6 @@
               </xpath>
             </field>
             </record>
--->
+
     </data>
 </openerp>
