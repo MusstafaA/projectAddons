@@ -14,6 +14,6 @@ class PosConfigInherit(models.Model):
 		context['active_id'] = record.current_session_id.id
 		return {
 			'type': 'ir.actions.act_url',
-			'url':   'http://www.google.com',
+			'url':   '/pos/startup',
 			'target': 'self',
 				}
