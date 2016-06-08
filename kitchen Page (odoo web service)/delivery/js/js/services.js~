@@ -1,0 +1,50 @@
+angular.module('MyApp')
+.factory('UserService', ['$http', function($http){
+        return {
+            'list': function(){
+                return $http.get('http://localhost/kitchen.php')
+            },
+            'add': function(user){
+                        //users.push(name);
+                              if(user.language.arabic==true)
+                              {
+                                    user.language='arabic';
+                              }
+                               if(user.language.english==true)
+                              {
+                                    user.language='english';
+                              }
+                               if(user.language.english==true && user.language.arabic==true)
+                              {
+                                    user.language='arabic,english';
+                              }
+
+                     var request=$http({
+                                method: "post",
+                                url:"http://localhost/ang.php",
+                                data:{
+                                        name: user.name,
+                                        gender: user.gender ,
+                                        age: user.age,
+                                        password: user.password,
+                                        language: user.language
+                                    },
+                                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                            });
+
+                    },
+
+            'delete': function(id){
+
+                                var request=$http({
+                                method: "DELETE",
+                                url:"http://localhost/ang.php",
+                                data:{
+                                        user_id: id,
+                                    },
+                                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                            });
+
+            }
+        };
+    }]);
