@@ -25,7 +25,7 @@
                     <field name="name">project_delivery_tree_view</field>
                     <field name="model">project.delivery</field>
                     <field name="arch" type="xml">
-                        <tree>
+                        <tree decoration-danger="status =='b'" decoration-success =" status =='a'">
                               <field name="name" />
 
                                <field name="status" />
@@ -57,10 +57,16 @@
                                 <group>
 
                                   <field name="status" />
+                                    <field name="street" placeholder="Street" class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="state_id" class="o_address_state" placeholder="State" options='{"no_open": True}' on_change="onchange_state(state_id)"/>
+
+                                <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
 
                                 </group>
 
                                 <group>
+
                                     <field name="date_of_birth" placeholder="Enter Date of Birth" />
                                     <field name="email" widget="email" placeholder="Enter Email Address"/>
                                      <field name="phone_ids" >
