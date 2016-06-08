@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <!-- inherit from pos.config -->
         <record id="new_pos_kanban_view" model="ir.ui.view">
             <field name="name">pos.config.kanban.inherit</field>
             <field name="model">pos.config</field>
@@ -15,9 +16,8 @@
                     <xpath expr="//button[@name='open_session_cb']" position="attributes">
                         <attribute name="invisible">True</attribute>
                     </xpath>
-
                     <xpath expr="//div[@class='col-xs-6 o_kanban_primary_left']" position="inside">
-                    <button class="btn btn-success" name="open_session_cb" type="object">Start Session</button>
+                    <button class="btn btn-success" name="open_start_up" type="object">Start Session</button>
                     </xpath>
 
             </field>
