@@ -413,25 +413,49 @@ var ActionpadWidget = PosBaseWidget.extend({
         this.$('.kitchen').click(function(){
 
             var currentOrder1= self.pos.get_order();
-            console.log('Kitchen Order Submitted...');
+            //console.log('Kitchen Order Submitted...');
 
             //currentOrder1['stage']= 'kitchen';
             console.log(currentOrder1);
+            //console.log(currentOrder1.changed.client);
 
-            self.pos.push_order(currentOrder1);
+            if(currentOrder1.changed.client) {
 
+                self.pos.push_order(currentOrder1);
 
-            //// Sending order to ketchin printer /////
-            //var order = self.pos.get_order();
-            if(currentOrder1.hasChangesToPrint()){
+                console.log('Kitchen Order Submitted...');
+
+                if(currentOrder1.hasChangesToPrint()){
                 currentOrder1.printChanges();
                 currentOrder1.saveChanges();
 
                 console.log('kitchen printer request..');
+               }
+
+
+                this.disabled = true;
+
+
+
+
+
+            }
+            else{
+                alert('please add customer !');
             }
 
+
+            //// Sending order to ketchin printer /////
+            //var order = self.pos.get_order();
+            // if(currentOrder1.hasChangesToPrint()){
+            //     currentOrder1.printChanges();
+            //     currentOrder1.saveChanges();
+            //
+            //     console.log('kitchen printer request..');
+            // }
+
             //self.$('.kitchen').hide();
-            this.disabled = true;
+           // this.disabled = true;
 
         });
     }

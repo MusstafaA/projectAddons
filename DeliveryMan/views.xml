@@ -2,6 +2,14 @@
         <openerp>
             <data>
 
+          <record id="action_pos_payment" model="ir.actions.act_window">
+            <field name="name">Payment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pos.make.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+             </record>
                 <record id="list_delivery_man" model="ir.actions.act_window">
                     <field name="name">Delivery Men </field>
                     <field name="res_model">project.delivery</field>
@@ -76,8 +84,25 @@
                                 </group>
                                   <notebook>
                                       <page string="Latest Orders">
-                                          <field name="order_ids" default_order="create_date desc"  widget="many2many" domain="[('state','=','draft')]" />
+                                          <field name="order_ids" default_order="create_date desc"  widget="many2many" domain="[('state','=','draft')]">
+                                                <tree>
+                                                     <field name="name"/>
 
+                                                    <field name="pos_reference"/>
+                                                    <field name="partner_id"/>
+                                                    <field name="date_order"/>
+                                                    <field name="user_id"/>
+                                                    <field name="invoice_id"/>
+                                                    <field name="amount_total" sum="Amount total" widget="monetary"/>
+                                                    <field name="company_id" groups="base.group_multi_company"/>
+                                                    <field name="state"/>
+                                                    <field name="session_id" />
+                                                      <button name="%(action_pos_payment)d" string="Payment" class="oe_highlight" type="action" states="out" context="{'pos_session_id' : session_id}"/>
+                                                       <button name="refund" string="Return Products" type="object"
+                                                                   attrs="{'invisible':['|',('state','=','draft'),('state','=','out')]}"/>
+                                              </tree>
+
+                                          </field>
                                       </page>
                                       <page string="Notes"> <field name="notes"/></page>
 

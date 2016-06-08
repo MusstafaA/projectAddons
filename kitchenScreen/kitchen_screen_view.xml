@@ -6,10 +6,11 @@
             <record id="kitchen_orders_tree_view" model="ir.ui.view">
                 <field name="name">kitchen orders tree view</field>
                 <field name="model">pos.order</field>
+                <field name="sequence" eval="40"/>
                 <field name="arch" type="xml">
                     <tree string="POS Orders" decoration-info="state == 'draft'" decoration-muted="state in ('done','cancel')">
-                        <field name="name"/>
-                        <field name="pos_reference"/>
+                        <!--<field name="name"/>-->
+                        <!--<field name="pos_reference"/>-->
                         <field name="partner_id"/>
                         <field name="date_order"/>
                         <field name="user_id"/>
@@ -17,12 +18,16 @@
                         <field name="amount_total" sum="Amount total" widget="monetary"/>
                         <field name="company_id" groups="base.group_multi_company"/>
                         <field name="state"/>
-                        <field name="session_id" />
+                        <!--<field name="session_id" />-->
+                        <field name="stage"/>
+                        <button type="object" name="change_stage" string="Change Current stage"/>
+
                     </tree>
                 </field>
             </record>
 
             <record id="kitchen_orders_form_view" model="ir.ui.view">
+                <field name="sequence" eval="40"/>
                 <field name="name">kitchen orders form view</field>
                 <field name="model">pos.order</field>
                 <field name="arch" type="xml">
@@ -56,6 +61,7 @@
                 <field name="view_type">form</field>
                 <field name="view_mode">tree,form</field>
                 <field name="view_id" ref="kitchen_orders_tree_view"/>
+                <!--<field name="views"> [(kitchen_orders_tree_view, 'form'),(kitchen_orders_tree_view, 'tree')]</field>-->
                 <field name="domain">[('state', '=', 'draft')]</field>
             </record>
 
