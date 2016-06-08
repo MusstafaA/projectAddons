@@ -26,32 +26,32 @@
                 </field>
             </record>
 
-            <record id="kitchen_orders_form_view" model="ir.ui.view">
-                <field name="sequence" eval="40"/>
-                <field name="name">kitchen orders form view</field>
-                <field name="model">pos.order</field>
-                <field name="arch" type="xml">
-                    <form>
-                        <sheet>
-                            <group>
-                                <!--<field name="name"/>-->
-                                <!--<field name="pos_reference"/>-->
-                                <!--<field name="partner_id"/>-->
-                                <!--<field name="date_order"/>-->
-                                <field name="state"/>
-                                <field name="stage"/>
-                                <!--<field name="product_id" />-->
-                                <!--<field name="qty" />-->
-                                <!--<field name="discount" widget="monetary"/>-->
-                                <!--<field name="price_unit" widget="monetary"/>-->
-                                <!--<field name="create_date" />-->
-                            </group>
+            <!--<record id="kitchen_orders_form_view" model="ir.ui.view">-->
+                <!--<field name="sequence" eval="40"/>-->
+                <!--<field name="name">kitchen orders form view</field>-->
+                <!--<field name="model">pos.order</field>-->
+                <!--<field name="arch" type="xml">-->
+                    <!--<form>-->
+                        <!--<sheet>-->
+                            <!--<group>-->
+                                <!--&lt;!&ndash;<field name="name"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<field name="pos_reference"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<field name="partner_id"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<field name="date_order"/>&ndash;&gt;-->
+                                <!--<field name="state"/>-->
+                                <!--<field name="stage"/>-->
+                                <!--&lt;!&ndash;<field name="product_id" />&ndash;&gt;-->
+                                <!--&lt;!&ndash;<field name="qty" />&ndash;&gt;-->
+                                <!--&lt;!&ndash;<field name="discount" widget="monetary"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<field name="price_unit" widget="monetary"/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<field name="create_date" />&ndash;&gt;-->
+                            <!--</group>-->
 
 
-                        </sheet>
-                    </form>
-                </field>
-            </record>
+                        <!--</sheet>-->
+                    <!--</form>-->
+                <!--</field>-->
+            <!--</record>-->
 
 
 

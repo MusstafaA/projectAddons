@@ -9,8 +9,10 @@ class KitchenOrders(models.Model):
     def change_stage(self):
         x = self.stage
         if x == 'kitchen' :
-            self.stage = 'Delivery'
+            self.stage = 'Ready for delivery'
             return self.stage
+        elif x == 'Ready for delivery':
+            self.stage = 'Delivery'
         elif x == 'Delivery' :
             self.stage = 'Delivered'
         else:
@@ -18,7 +20,7 @@ class KitchenOrders(models.Model):
 
 
 
-    stage = fields.Selection([('kitchen', 'In Kitchen'),('Delivery', 'Out for Delivery'),('Delivered', 'Delivered')],'Current Stage', default= 'kitchen' ,readonly=False, copy=False)
+    stage = fields.Selection([('kitchen', 'In Kitchen'),('Ready for delivery', 'Ready for Delivery'),('Delivery', 'Out for Delivery'),('Delivered', 'Delivered')],'Current Stage', default= 'kitchen' ,readonly=False, copy=False)
 
 
 
