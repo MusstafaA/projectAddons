@@ -17,7 +17,7 @@
                     </xpath>
 
                     <xpath expr="//div[@class='col-xs-6 o_kanban_primary_left']" position="inside">
-                    <button class="btn btn-success" name="open_session_cb" type="object">New Session</button>
+                    <button class="btn btn-success" name="open_session_cb" type="object">Start Session</button>
                     </xpath>
 
             </field>
