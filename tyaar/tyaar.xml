@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<openerp>
+    <data>
+       <record id="view_employee_form_inherit" model="ir.ui.view">
+            <field name="name">Employees Structure</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='work_phone']" position="after">
+                    <!--<field name="emp_code" string="Employee Code"/>-->
+                    <field name="order_id" string="Orders"/>
+
+                </xpath>
+            </field>
+        </record>
+
+        <!--<record model="ir.ui.view" id="view_pos_pos_form_inherit">-->
+            <!--<field name="name">Orders</field>-->
+            <!--<field name="model">pos.order</field>-->
+            <!--<field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//tree/field[@name='session_id']" position="after">-->
+                    <!--<field string="Delivery" name="delivery_id"/>-->
+
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+    </data>
+</openerp>
