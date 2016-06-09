@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="order_extended_view">
+            <field name="name">pos.order</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                 <xpath expr="/form//field[@name='fiscal_position_id']" position="after">
+                     <field name="manuf_time" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                     <field name="delivery_time" attrs="{'invisible': [('state', '!=', 'out')]}"/>
+                </xpath>
+            </field>
+        </record>
+<!--
+          <record model="ir.ui.view" id="order_tree_inherit">
+            <field name="name">Orderstree</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_tree" />
+            <field name="arch" type="xml">
+              <xpath expr="/tree//field[@name='state']" position="after">
+                  <field name="manuf_time" />
+                  <field name="delivery_time" />
+              </xpath>
+              <xpath expr="/tree" position="attributes">
+                    <attribute name="decoration-danger">manuf_time >= '0:25:01'</attribute>
+              </xpath>
+            </field>
+            </record>
+-->
+    </data>
+</openerp>
