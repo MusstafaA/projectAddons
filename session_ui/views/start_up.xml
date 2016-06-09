@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+     <!-- === Services Page === -->
+<template name="Services page" id="website.services" page="True">
+  <t t-call="website.layout">
+   <div id="wrap">
+     <div class="container">
+       <h1>Please Select one POS Method</h1>
+       <ul class="services">
+         <li>Delivery</li>
+         <li>Dinning</li>
+         <record id="view_pos_config_kanban_inherit" model="ir.ui.view">
+        <field name="name">pos.config.kanban.view.inherit</field>
+        <field name="model">pos.config</field>
+        <field name="arch" type="xml">
+          <template>
+         <button class="btn btn-primary" name="open_ui_in" type="object">Resume</button>
+         </template>
+         </field>
+       </record>
+
+         <li>Take A way</li>
+       </ul>
+       <!-- === Snippets' area === -->
+       <div class="oe_structure" />
+     </div>
+   </div>
+  </t>
+</template>
+
+  <record id="services_page_link" model="website.menu">
+  <field name="name">POS Start_Up</field>
+  <field name="url">/pos/startup</field>
+  <field name="parent_id" ref="website.main_menu" />
+  <field name="sequence" type="int">99</field>
+</record>
+
+      </data>
+</openerp>
