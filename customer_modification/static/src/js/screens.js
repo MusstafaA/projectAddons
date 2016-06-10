@@ -1187,7 +1187,12 @@ var ClientListScreenWidget = ScreenWidget.extend({
             this.display_client_details('show',partner);
         }
     },
-
+//*************************************************+++++++++++++++++++++++++++++++++++
+//Author : Mostafa Abd El Fattah >>> Modifications
+    //custome function to add more than one input
+    add_more_phone: function(partner) {
+        alert("this is abutton");
+    },
     // what happens when we save the changes on the client edit form -> we fetch the fields, sanitize them,
     // send them to the backend for update, and call saved_client_details() when the server tells us the
     // save was successfull.
@@ -1244,7 +1249,7 @@ var ClientListScreenWidget = ScreenWidget.extend({
             });
         });
     },
-
+//*************************************************************++++++++++++++++++++++
     // what happens when we've just pushed modifications for a partner of id partner_id
     saved_client_details: function(partner_id){
         var self = this;
@@ -1350,6 +1355,10 @@ var ClientListScreenWidget = ScreenWidget.extend({
         contents.on('click','.button.edit',function(){ self.edit_client_details(partner); });
         contents.on('click','.button.save',function(){ self.save_client_details(partner); });
         contents.on('click','.button.undo',function(){ self.undo_client_details(partner); });
+//**************+++++++++++++++++++++++++++++++++++++++++++++++Mostafa
+        contents.on('click','.button.more',function(){ self.add_more_phone(partner); });
+
+//**************+++++++++++++++++++++++++++++++++++++++++++++++Mostafa 
         this.editing_client = false;
         this.uploaded_picture = null;
 

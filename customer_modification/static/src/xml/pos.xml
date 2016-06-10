@@ -84,6 +84,7 @@
                      <div class='client-detail'>
                         <span class='label'>Phone</span>
                         <input class='detail client-phone'  name='phone_ids' id="phone_c"   type='tel'      t-att-value='partner.phone_ids || ""'></input>
+                        <div align="right" ><a href="#" class='button more'>More Phones...</a></div>
                     </div>
                      <div class='client-detail'>
                         <span class='label'>Mobile</span>
