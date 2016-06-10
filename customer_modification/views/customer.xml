@@ -13,7 +13,7 @@
                         <field name="phone_ids">
                         	<form>
                         		<field name="phone_num" widget="phone"/>
-                    		</form>
+                    		 </form>
                      		<tree editable="top">
                             	<field name="phone_num" widget="phone"/>
                      		</tree>
