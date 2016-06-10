@@ -9,8 +9,12 @@ angular.module('MyApp')
 
                             if(currentStage == 'kitchen')
                                 {
-                                      current_stage = 'Delivery';
+                                      current_stage = 'Ready for delivery';
                                 }
+                            else if(currentStage == 'Ready for delivery')
+                                {
+                                      current_stage = 'Delivery';
+                                }    
                             else if(currentStage == 'Delivery')
                                 {
                                       current_stage = 'Delivered';
