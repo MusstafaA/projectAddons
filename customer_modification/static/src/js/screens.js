@@ -1,7 +1,7 @@
 odoo.define('point_of_sale.screens', function (require) {
 "use strict";
 // This file contains the Screens definitions. Screens are the
-// content of the right pane of the pos, containing the main functionalities. 
+// content of the right pane of the pos, containing the main functionalities.
 //
 // Screens must be defined and named in chrome.js before use.
 //
@@ -17,15 +17,15 @@ odoo.define('point_of_sale.screens', function (require) {
 //  gui.show_saved_screen()
 //
 // All screens inherit from ScreenWidget. The only addition from the base widgets
-// are show() and hide() which shows and hides the screen but are also used to 
+// are show() and hide() which shows and hides the screen but are also used to
 // bind and unbind actions on widgets and devices. The gui guarantees
 // that only one screen is shown at the same time and that show() is called after all
 // hide()s
 //
-// Each Screens must be independant from each other, and should have no 
+// Each Screens must be independant from each other, and should have no
 // persistent state outside the models. Screen state variables are reset at
 // each screen display. A screen can be called with parameters, which are
-// to be used for the duration of the screen only. 
+// to be used for the duration of the screen only.
 
 var PosBaseWidget = require('point_of_sale.BaseWidget');
 var gui = require('point_of_sale.gui');
@@ -55,8 +55,8 @@ var ScreenWidget = PosBaseWidget.extend({
 
     barcode_product_screen:         'products',     //if defined, this screen will be loaded when a product is scanned
 
-    // what happens when a product is scanned : 
-    // it will add the product to the order and go to barcode_product_screen. 
+    // what happens when a product is scanned :
+    // it will add the product to the order and go to barcode_product_screen.
     barcode_product_action: function(code){
         var self = this;
         if (self.pos.scan_product(code)) {
@@ -69,9 +69,9 @@ var ScreenWidget = PosBaseWidget.extend({
     },
 
     // what happens when a cashier id barcode is scanned.
-    // the default behavior is the following : 
+    // the default behavior is the following :
     // - if there's a user with a matching barcode, put it as the active 'cashier', go to cashier mode, and return true
-    // - else : do nothing and return false. You probably want to extend this to show and appropriate error popup... 
+    // - else : do nothing and return false. You probably want to extend this to show and appropriate error popup...
     barcode_cashier_action: function(code){
         var users = this.pos.users;
         for(var i = 0, len = users.length; i < len; i++){
@@ -84,11 +84,11 @@ var ScreenWidget = PosBaseWidget.extend({
         this.barcode_error_action(code);
         return false;
     },
-    
+
     // what happens when a client id barcode is scanned.
-    // the default behavior is the following : 
+    // the default behavior is the following :
     // - if there's a user with a matching barcode, put it as the active 'client' and return true
-    // - else : return false. 
+    // - else : return false.
     barcode_client_action: function(code){
         var partner = this.pos.db.get_partner_by_barcode(code.code);
         if(partner){
@@ -98,7 +98,7 @@ var ScreenWidget = PosBaseWidget.extend({
         this.barcode_error_action(code);
         return false;
     },
-    
+
     // what happens when a discount barcode is scanned : the default behavior
     // is to set the discount on the last order.
     barcode_discount_action: function(code){
@@ -131,8 +131,6 @@ var ScreenWidget = PosBaseWidget.extend({
         this.pos.barcode_reader.set_action_callback({
             'cashier': _.bind(self.barcode_cashier_action, self),
             'product': _.bind(self.barcode_product_action, self),
-            'weight': _.bind(self.barcode_product_action, self),
-            'price': _.bind(self.barcode_product_action, self),
             'client' : _.bind(self.barcode_client_action, self),
             'discount': _.bind(self.barcode_discount_action, self),
             'error'   : _.bind(self.barcode_error_action, self),
@@ -159,7 +157,7 @@ var ScreenWidget = PosBaseWidget.extend({
     // we need this because some screens re-render themselves when they are hidden
     // (due to some events, or magic, or both...)  we must make sure they remain hidden.
     // the good solution would probably be to make them not re-render themselves when they
-    // are hidden. 
+    // are hidden.
     renderElement: function(){
         this._super();
         if(this.hidden){
@@ -175,12 +173,12 @@ var ScreenWidget = PosBaseWidget.extend({
 \*======================================*/
 
 // The Dom Cache is used by various screens to improve
-// their performances when displaying many time the 
+// their performances when displaying many time the
 // same piece of DOM.
 //
 // It is a simple map from string 'keys' to DOM Nodes.
 //
-// The cache empties itself based on usage frequency 
+// The cache empties itself based on usage frequency
 // stats, so you may not always get back what
 // you put in.
 
@@ -385,7 +383,7 @@ var NumpadWidget = PosBaseWidget.extend({
 
 /* ---------- The Action Pad ---------- */
 
-// The action pad contains the payment button and the 
+// The action pad contains the payment button and the
 // customer selection button
 
 var ActionpadWidget = PosBaseWidget.extend({
@@ -401,11 +399,64 @@ var ActionpadWidget = PosBaseWidget.extend({
     renderElement: function() {
         var self = this;
         this._super();
+        //var currentOrder1=this.pos.get_order();//get('selectedOrder');
+
         this.$('.pay').click(function(){
             self.gui.show_screen('payment');
         });
         this.$('.set-customer').click(function(){
             self.gui.show_screen('clientlist');
+
+            //$('.set-customer').disabled = true;
+        });
+
+        this.$('.kitchen').click(function(){
+
+            var currentOrder1= self.pos.get_order();
+            //console.log('Kitchen Order Submitted...');
+
+            //currentOrder1['stage']= 'kitchen';
+            console.log(currentOrder1);
+            //console.log(currentOrder1.changed.client);
+
+            if(currentOrder1.changed.client) {
+
+                self.pos.push_order(currentOrder1);
+
+                console.log('Kitchen Order Submitted...');
+
+                if(currentOrder1.hasChangesToPrint()){
+                currentOrder1.printChanges();
+                currentOrder1.saveChanges();
+
+                console.log('kitchen printer request..');
+               }
+
+
+                this.disabled = true;
+
+
+
+
+
+            }
+            else{
+                alert('please add customer !');
+            }
+
+
+            //// Sending order to ketchin printer /////
+            //var order = self.pos.get_order();
+            // if(currentOrder1.hasChangesToPrint()){
+            //     currentOrder1.printChanges();
+            //     currentOrder1.saveChanges();
+            //
+            //     console.log('kitchen printer request..');
+            // }
+
+            //self.$('.kitchen').hide();
+           // this.disabled = true;
+
         });
     }
 });
@@ -483,13 +534,13 @@ var OrderWidget = PosBaseWidget.extend({
             lines.unbind('add',     this.orderline_add,    this);
             lines.bind('add',       this.orderline_add,    this);
             lines.unbind('remove',  this.orderline_remove, this);
-            lines.bind('remove',    this.orderline_remove, this); 
+            lines.bind('remove',    this.orderline_remove, this);
             lines.unbind('change',  this.orderline_change, this);
             lines.bind('change',    this.orderline_change, this);
 
     },
     render_orderline: function(orderline){
-        var el_str  = QWeb.render('Orderline',{widget:this, line:orderline}); 
+        var el_str  = QWeb.render('Orderline',{widget:this, line:orderline});
         var el_node = document.createElement('div');
             el_node.innerHTML = _.str.trim(el_str);
             el_node = el_node.childNodes[0];
@@ -584,12 +635,12 @@ var ProductCategoriesWidget = PosBaseWidget.extend({
         this.category_cache = new DomCache();
         this.start_categ_id = this.pos.config.iface_start_categ_id ? this.pos.config.iface_start_categ_id[0] : 0;
         this.set_category(this.pos.db.get_category_by_id(this.start_categ_id));
-        
+
         this.switch_category_handler = function(event){
             self.set_category(self.pos.db.get_category_by_id(Number(this.dataset.categoryId)));
             self.renderElement();
         };
-        
+
         this.clear_search_handler = function(event){
             self.clear_search();
         };
@@ -636,9 +687,9 @@ var ProductCategoriesWidget = PosBaseWidget.extend({
         if(!cached){
             if(with_image){
                 var image_url = this.get_image_url(category);
-                var category_html = QWeb.render('CategoryButton',{ 
-                        widget:  this, 
-                        category: category, 
+                var category_html = QWeb.render('CategoryButton',{
+                        widget:  this,
+                        category: category,
                         image_url: this.get_image_url(category),
                     });
                     category_html = _.str.trim(category_html);
@@ -646,9 +697,9 @@ var ProductCategoriesWidget = PosBaseWidget.extend({
                     category_node.innerHTML = category_html;
                     category_node = category_node.childNodes[0];
             }else{
-                var category_html = QWeb.render('CategorySimpleButton',{ 
-                        widget:  this, 
-                        category: category, 
+                var category_html = QWeb.render('CategorySimpleButton',{
+                        widget:  this,
+                        category: category,
                     });
                     category_html = _.str.trim(category_html);
                 var category_node = document.createElement('div');
@@ -658,7 +709,7 @@ var ProductCategoriesWidget = PosBaseWidget.extend({
             this.category_cache.cache_node(category.id,category_node);
             return category_node;
         }
-        return cached; 
+        return cached;
     },
 
     replace: function($target){
@@ -684,7 +735,7 @@ var ProductCategoriesWidget = PosBaseWidget.extend({
         var withpics = this.pos.config.iface_display_categ_images;
 
         var list_container = el_node.querySelector('.category-list');
-        if (list_container) { 
+        if (list_container) {
             if (!withpics) {
                 list_container.classList.add('simple');
             } else {
@@ -700,8 +751,8 @@ var ProductCategoriesWidget = PosBaseWidget.extend({
             buttons[i].addEventListener('click',this.switch_category_handler);
         }
 
-        var products = this.pos.db.get_product_by_category(this.category.id); 
-        this.product_list_widget.set_product_list(products); // FIXME: this should be moved elsewhere ... 
+        var products = this.pos.db.get_product_by_category(this.category.id);
+        this.product_list_widget.set_product_list(products); // FIXME: this should be moved elsewhere ...
 
         this.el.querySelector('.searchbox input').addEventListener('keypress',this.search_handler);
 
@@ -713,7 +764,7 @@ var ProductCategoriesWidget = PosBaseWidget.extend({
             this.chrome.widget.keyboard.connect($(this.el.querySelector('.searchbox input')));
         }
     },
-    
+
     // resets the current category to the root category
     reset_category: function(){
         this.set_category(this.pos.db.get_category_by_id(this.start_categ_id));
@@ -748,10 +799,10 @@ var ProductCategoriesWidget = PosBaseWidget.extend({
 
 /* --------- The Product List --------- */
 
-// Display the list of products. 
+// Display the list of products.
 // - change the list with .set_product_list()
 // - click_product_action(), passed as an option, tells
-//   what to do when a product is clicked. 
+//   what to do when a product is clicked.
 
 var ProductListWidget = PosBaseWidget.extend({
     template:'ProductListWidget',
@@ -789,9 +840,9 @@ var ProductListWidget = PosBaseWidget.extend({
         var cached = this.product_cache.get_node(product.id);
         if(!cached){
             var image_url = this.get_product_image_url(product);
-            var product_html = QWeb.render('Product',{ 
-                    widget:  this, 
-                    product: product, 
+            var product_html = QWeb.render('Product',{
+                    widget:  this,
+                    product: product,
                     image_url: this.get_product_image_url(product),
                 });
             var product_node = document.createElement('div');
@@ -827,7 +878,7 @@ var ProductListWidget = PosBaseWidget.extend({
 
 // Above the numpad and the actionpad, buttons
 // for extra actions and controls by point of
-// sale extensions modules. 
+// sale extensions modules.
 
 var action_button_classes = [];
 var define_action_button = function(classe, options){
@@ -879,7 +930,7 @@ var ActionButtonWidget = PosBaseWidget.extend({
 var ProductScreenWidget = ScreenWidget.extend({
     template:'ProductScreenWidget',
 
-    start: function(){ 
+    start: function(){
 
         var self = this;
 
@@ -973,7 +1024,7 @@ var ClientListScreenWidget = ScreenWidget.extend({
             self.gui.back();
         });
 
-        this.$('.next').click(function(){   
+        this.$('.next').click(function(){
             self.save_changes();
             self.gui.back();    // FIXME HUH ?
         });
@@ -986,7 +1037,7 @@ var ClientListScreenWidget = ScreenWidget.extend({
 
         var partners = this.pos.db.get_partners_sorted(1000);
         this.render_list(partners);
-        
+
         this.reload_partners();
 
         if( this.old_client ){
@@ -1141,12 +1192,12 @@ var ClientListScreenWidget = ScreenWidget.extend({
     // send them to the backend for update, and call saved_client_details() when the server tells us the
     // save was successfull.
     save_client_details: function(partner) {
-    	//My Modification start frm here
-    	console.log("save customer data");
-    	var phone_val = document.getElementById('phone_c').value;
-		// console.log(phone_val);
-		
-    	//end of the modification***********************
+        //My Modification start frm here
+        console.log("save customer data");
+        var phone_val = document.getElementById('phone_c').value;
+        // console.log(phone_val);
+        
+        //end of the modification***********************
         var self = this;
         
         var fields = {};
@@ -1178,12 +1229,12 @@ var ClientListScreenWidget = ScreenWidget.extend({
             console.log(partner_id);
             // And My Modification from here to the other model
             self.$('.client-details-contents .detail').each(function(idx,el){
-            	phones['phone_num'] = parseInt(phone_val);
-            	phones['partner_id'] = partner_id;
+                phones['phone_num'] = parseInt(phone_val);
+                phones['partner_id'] = partner_id;
             });
             console.log(phones);
             new Model('customer.phonenumbers').call('phones_from_ui',[phones]).then(function(partner_id){
-            	console.log("Saved Succssful" + partner_id);	
+                console.log("Saved Succssful" + partner_id);    
             });
         },function(err,event){
             event.preventDefault();
@@ -1193,7 +1244,7 @@ var ClientListScreenWidget = ScreenWidget.extend({
             });
         });
     },
-    
+
     // what happens when we've just pushed modifications for a partner of id partner_id
     saved_client_details: function(partner_id){
         var self = this;
@@ -1205,7 +1256,7 @@ var ClientListScreenWidget = ScreenWidget.extend({
                 self.display_client_details('show',partner);
             } else {
                 // should never happen, because create_from_ui must return the id of the partner it
-                // has created, and reload_partner() must have loaded the newly created partner. 
+                // has created, and reload_partner() must have loaded the newly created partner.
                 self.display_client_details('hide');
             }
         });
@@ -1249,7 +1300,7 @@ var ClientListScreenWidget = ScreenWidget.extend({
             });
             return;
         }
-        
+
         var reader = new FileReader();
         reader.onload = function(event){
             var dataurl = event.target.result;
@@ -1266,13 +1317,13 @@ var ClientListScreenWidget = ScreenWidget.extend({
         reader.readAsDataURL(file);
     },
 
-    // This fetches partner changes on the server, and in case of changes, 
+    // This fetches partner changes on the server, and in case of changes,
     // rerenders the affected views
     reload_partners: function(){
         var self = this;
         return this.pos.load_new_partners().then(function(){
             self.render_list(self.pos.db.get_partners_sorted(1000));
-            
+
             // update the currently assigned client if it has been changed in db.
             var curr_client = self.pos.get_order().get_client();
             if (curr_client) {
@@ -1293,9 +1344,9 @@ var ClientListScreenWidget = ScreenWidget.extend({
         var scroll   = parent.scrollTop();
         var height   = contents.height();
 
-        contents.off('click','.button.edit'); 
-        contents.off('click','.button.save'); 
-        contents.off('click','.button.undo'); 
+        contents.off('click','.button.edit');
+        contents.off('click','.button.save');
+        contents.off('click','.button.undo');
         contents.on('click','.button.edit',function(){ self.edit_client_details(partner); });
         contents.on('click','.button.save',function(){ self.save_client_details(partner); });
         contents.on('click','.button.undo',function(){ self.undo_client_details(partner); });
@@ -1423,19 +1474,19 @@ var ReceiptScreenWidget = ScreenWidget.extend({
 
             // The problem is that in chrome the print() is asynchronous and doesn't
             // execute until all rpc are finished. So it conflicts with the rpc used
-            // to send the orders to the backend, and the user is able to go to the next 
-            // screen before the printing dialog is opened. The problem is that what's 
+            // to send the orders to the backend, and the user is able to go to the next
+            // screen before the printing dialog is opened. The problem is that what's
             // printed is whatever is in the page when the dialog is opened and not when it's called,
-            // and so you end up printing the product list instead of the receipt... 
+            // and so you end up printing the product list instead of the receipt...
             //
             // Fixing this would need a re-architecturing
             // of the code to postpone sending of orders after printing.
             //
             // But since the print dialog also blocks the other asynchronous calls, the
-            // button enabling in the setTimeout() is blocked until the printing dialog is 
+            // button enabling in the setTimeout() is blocked until the printing dialog is
             // closed. But the timeout has to be big enough or else it doesn't work
             // 1 seconds is the same as the default timeout for sending orders and so the dialog
-            // should have appeared before the timeout... so yeah that's not ultra reliable. 
+            // should have appeared before the timeout... so yeah that's not ultra reliable.
 
             this.lock_screen(true);
 
@@ -1514,7 +1565,7 @@ var PaymentScreenWidget = ScreenWidget.extend({
         this.inputbuffer = "";
         this.firstinput  = true;
         this.decimal_point = _t.database.parameters.decimal_point;
-        
+
         // This is a keydown handler that prevents backspace from
         // doing a back navigation. It also makes sure that keys that
         // do not generate a keypress in Chrom{e,ium} (eg. delete,
@@ -1531,7 +1582,7 @@ var PaymentScreenWidget = ScreenWidget.extend({
                 self.keyboard_handler(event);
             }
         };
-        
+
         // This keyboard handler listens for keypress events. It is
         // also called explicitly to handle some keydown events that
         // do not generate keypress events.
@@ -1586,11 +1637,11 @@ var PaymentScreenWidget = ScreenWidget.extend({
 
         this.firstinput = (newbuf.length === 0);
 
-        // popup block inputs to prevent sneak editing. 
+        // popup block inputs to prevent sneak editing.
         if (this.gui.has_popup()) {
             return;
         }
-        
+
         if (newbuf !== this.inputbuffer) {
             this.inputbuffer = newbuf;
             var order = this.pos.get_order();
@@ -1671,8 +1722,8 @@ var PaymentScreenWidget = ScreenWidget.extend({
 
 
         this.$('.paymentlines-container').empty();
-        var lines = $(QWeb.render('PaymentScreen-Paymentlines', { 
-            widget: this, 
+        var lines = $(QWeb.render('PaymentScreen-Paymentlines', {
+            widget: this,
             order: order,
             paymentlines: lines,
             extradue: extradue,
@@ -1685,7 +1736,7 @@ var PaymentScreenWidget = ScreenWidget.extend({
         lines.on('click','.paymentline',function(){
             self.click_paymentline($(this).data('cid'));
         });
-            
+
         lines.appendTo(this.$('.paymentlines-container'));
     },
     click_paymentmethods: function(id) {
@@ -1740,7 +1791,7 @@ var PaymentScreenWidget = ScreenWidget.extend({
     },
     customer_changed: function() {
         var client = this.pos.get_client();
-        this.$('.js_customer_name').text( client ? client.name : _t('Customer') ); 
+        this.$('.js_customer_name').text( client ? client.name : _t('Customer') );
     },
     click_set_customer: function(){
         this.gui.show_screen('clientlist');
@@ -1843,6 +1894,11 @@ var PaymentScreenWidget = ScreenWidget.extend({
             return;
         }
 
+        // get rid of payment lines with an amount of 0, because
+        // since accounting v9 we cannot have bank statement lines
+        // with an amount of 0
+        order.clean_empty_paymentlines();
+
         var plines = order.get_paymentlines();
         for (var i = 0; i < plines.length; i++) {
             if (plines[i].get_type() === 'bank' && plines[i].get_amount() < 0) {
@@ -1877,8 +1933,8 @@ var PaymentScreenWidget = ScreenWidget.extend({
         if (!force_validation && (order.get_total_with_tax() * 1000 < order.get_total_paid())) {
             this.gui.show_popup('confirm',{
                 title: _t('Please Confirm Large Amount'),
-                body:  _t('Are you sure that the customer wants to  pay') + 
-                       ' ' + 
+                body:  _t('Are you sure that the customer wants to  pay') +
+                       ' ' +
                        this.format_currency(order.get_total_paid()) +
                        ' ' +
                        _t('for an order of') +
@@ -1893,12 +1949,10 @@ var PaymentScreenWidget = ScreenWidget.extend({
             return;
         }
 
-        if (order.is_paid_with_cash() && this.pos.config.iface_cashdrawer) { 
+        if (order.is_paid_with_cash() && this.pos.config.iface_cashdrawer) {
 
                 this.pos.proxy.open_cashbox();
         }
-
-        order.initialize_validation_date();
 
         if (order.is_to_invoice()) {
             var invoiced = this.pos.push_and_invoice_order(order);
