@@ -86,12 +86,17 @@ $c_response = $connexion->send($c_msg);
 	      
 	    $result = $response->value();
 	    $ids = $result->scalarval();
+
+
 	   
 	    $id_list = array();
 	    
 	    for($i = 0; $i < count($ids); $i++){
 	        $id_list[]= new xmlrpcval($ids[$i]->me['int'], 'int');
 	    }
+
+
+///////////////// Main Orders list //////////////////////////
 
 	    $field_list = array(
 	    	new xmlrpcval("id", "int"),
@@ -100,6 +105,7 @@ $c_response = $connexion->send($c_msg);
 	        new xmlrpcval("date_order", "string"),
 	        new xmlrpcval("stage", "string"),
 	        new xmlrpcval("state", "string"),
+	        new xmlrpcval("amount_total", "string"),
 	    ); 
 	     
 	    $msg = new xmlrpcmsg('execute');
@@ -117,11 +123,105 @@ $c_response = $connexion->send($c_msg);
 	        echo $resp->faultString();
 	    }
 
-	    $result = $resp->value()->scalarval();    
+	    $result = $resp->value()->scalarval();  
+	    // print_r($result[4]);
+
+////////////////////////////////////////////////////////////////////
+
+//////////////// Order Line Details ////////////////////////////////
+
+
+
+	    $order_id_list = array();     // array of orders ids 
+
+	    for($i = 0; $i < count($result); $i++){
+	        $order_id_list[]= new xmlrpcval($result[$i]->me['struct']['id']->me['int'], 'int');
+	    }
+
+
+
+	    $order_line_domain_filter = array (               // condition to select all order lines ids related to kitchen orders
+        new xmlrpcval(
+            array(new xmlrpcval('order_id' , "string"), 
+                  new xmlrpcval('in',"string"), 
+                  new xmlrpcval($order_id_list,"array")
+                  ),"array"             
+            ),
+        ); 
+    
+	    // $client = new xmlrpc_client($server_url . "/xmlrpc/object");
+	    // $client->setSSLVerifyPeer(0);
+
+	    $order_line_msg = new xmlrpcmsg('execute'); 
+	    $order_line_msg->addParam(new xmlrpcval($dbname, "string")); 
+	    $order_line_msg->addParam(new xmlrpcval($uid, "int")); 
+	    $order_line_msg->addParam(new xmlrpcval($password, "string")); 
+	    $order_line_msg->addParam(new xmlrpcval("pos.order.line", "string")); 
+	    $order_line_msg->addParam(new xmlrpcval("search", "string")); 
+	    $order_line_msg->addParam(new xmlrpcval($order_line_domain_filter, "array")); 
+	    $order_line_response = $client->send($order_line_msg);
+	      
+	    $order_line_result = $order_line_response->value();
+	    $order_line_ids = $order_line_result->scalarval();	   
+
+	    //print_r($order_line_ids);
+
+
+
+ ////////////////////// getting certain fields of order lines /////////////////////////////
+
+	    $order_line_id_list = array();
+	    
+	    for($i = 0; $i < count($order_line_ids); $i++){
+	        $order_line_id_list[]= new xmlrpcval($order_line_ids[$i]->me['int'], 'int');
+	    }
+
+
+
+
+	    $order_line_field_list = array(
+	    	new xmlrpcval("product_id", "string"),
+	    	new xmlrpcval("qty", "string"),
+	    	new xmlrpcval("order_id", "string"),
+	    	//new xmlrpcval("price_subtotal_incl", "string"),
+	    ); 
+	     
+	    $order_line_details_msg = new xmlrpcmsg('execute');
+	    $order_line_details_msg->addParam(new xmlrpcval($dbname, "string"));
+	    $order_line_details_msg->addParam(new xmlrpcval($uid, "int"));
+	    $order_line_details_msg->addParam(new xmlrpcval($password, "string"));
+	    $order_line_details_msg->addParam(new xmlrpcval("pos.order.line", "string"));
+	    $order_line_details_msg->addParam(new xmlrpcval("read", "string")); 
+	    $order_line_details_msg->addParam(new xmlrpcval($order_line_id_list, "array")); 
+	    $order_line_details_msg->addParam(new xmlrpcval($order_line_field_list, "array")); 
+
+	    $order_line_resp = $client->send($order_line_details_msg);
+
+	    if ($order_line_resp->faultCode()){
+	        echo $order_line_resp->faultString();
+	    }
+
+	    $order_line_details_result = $order_line_resp->value()->scalarval();  
+
+	    //print_r($order_line_details_result[10]);
+	    
+	    $full_order_data = array();
+	    $full_order_data['order_line'] = $order_line_details_result;
+	    $full_order_data['order'] = $result;
+
+	    //print_r($full_order_data);
+
+
+
+
+////////////////////////////////////////////////////////////////////////
+
+
+
 	    
 	    header('Content-Type: application/json');
-  		echo json_encode($result);
-
+  		//echo json_encode($result);
+	    echo json_encode($full_order_data);
 
 
 	    //print_r($result);
