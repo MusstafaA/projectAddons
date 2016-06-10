@@ -67,6 +67,19 @@
 
 
 
+            <!--add average to customer view-->
+            <record model="ir.ui.view" id="res_partner_avg_view">
+            <field name="name">res.partner.avg.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="customer_modification.res_partner_extended_view"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                    <xpath expr="//field[@name='order_average_ids']" position="after">
+                        <field name="partner_average_usage" string='Average'/>
+                    </xpath>
+            </field>
+            </record>
+
 
 
 
