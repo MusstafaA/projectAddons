@@ -1191,24 +1191,41 @@ var ClientListScreenWidget = ScreenWidget.extend({
 //Author : Mostafa Abd El Fattah >>> Modifications
     //custome function to add more than one input
     add_more_phone: function(partner) {
-        alert("this is abutton");
+        //alert("this is abutton");
+        var phone_new = document.createElement('input');
+         phone_new.classList.add('detail', 'client-phone', 'phone_c');
+         phone_new.type = 'tel';
+         phone_new.name = 'phone_ids';
+        var position = document.getElementById('phone_type');
+        position.appendChild(phone_new);
     },
     // what happens when we save the changes on the client edit form -> we fetch the fields, sanitize them,
     // send them to the backend for update, and call saved_client_details() when the server tells us the
     // save was successfull.
     save_client_details: function(partner) {
         //My Modification start frm here
-        console.log("save customer data");
-        var phone_val = document.getElementById('phone_c').value;
-        // console.log(phone_val);
-        
-        //end of the modification***********************
         var self = this;
+        console.log("save customer data");
+        var phones_values = []  
+        var phone_val = document.getElementsByClassName('phone_c');
+        console.log(phone_val.length);
+        for (var i = 0; i < phone_val.length; i++) {
+                phones_values.push(phone_val[i].value);
+                //p['phone_num'] = parseInt(phone_val[i].value);
+        }
+          console.log(phones_values);       
+        // this.$('.phone_c').each(function(){
+        //     console.log(phone_val); 
+        // });
+        // console.log(phone_val);
+        //end of the modification***********************
+        
         
         var fields = {};
         var phones = {};
         this.$('.client-details-contents .detail').each(function(idx,el){
             fields[el.name] = el.value;
+            //console.log(el.value);
         });
         // console.log(fields.phone_ids);
         // console.log(fields);
@@ -1234,8 +1251,12 @@ var ClientListScreenWidget = ScreenWidget.extend({
             console.log(partner_id);
             // And My Modification from here to the other model
             self.$('.client-details-contents .detail').each(function(idx,el){
-                phones['phone_num'] = parseInt(phone_val);
-                phones['partner_id'] = partner_id;
+                for (var i = 0; i < phones_values.length; i++) {
+                    phones[i] = {
+                        'phone_num' : parseInt(phones_values[i]),
+                        'partner_id' : partner_id
+                                }   
+                }
             });
             console.log(phones);
             new Model('customer.phonenumbers').call('phones_from_ui',[phones]).then(function(partner_id){
