@@ -10,15 +10,13 @@
        <ul class="services">
          <li>Delivery</li>
          <li>Dinning</li>
-         <record id="view_pos_config_kanban_inherit" model="ir.ui.view">
-        <field name="name">pos.config.kanban.view.inherit</field>
-        <field name="model">pos.config</field>
-        <field name="arch" type="xml">
-          <template>
-         <button class="btn btn-primary" name="open_ui_in" type="object">Resume</button>
-         </template>
+    <record id="view_pos_config_kanban_inherit" model="ir.ui.view">
+          <field name="name">pos.config.kanban.view.inherit</field>
+          <field name="model">pos.config</field>
+          <field name="arch" type="xml">
+            <button class="btn btn-primary" name="open_ui_in" type="object">Resume</button>
          </field>
-       </record>
+    </record>
 
          <li>Take A way</li>
        </ul>

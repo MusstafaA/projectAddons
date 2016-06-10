@@ -81,13 +81,15 @@
                         <input class='detail client-email'  name='email'    type='email'    t-att-value='partner.email || ""'></input>
                     </div>
                     <!-- Another Modification here -->
-                    <div class='client-detail'>
+                     <div class='client-detail'>
                         <span class='label'>Phone</span>
-                        <input class='detail client-phone'  name='phone_ids'    type='tel'      t-att-value='partner.phone || ""'></input>
+                        <input class='detail client-phone phone_c'  name='phone_ids'   type='tel' t-att-value='partner.phone_ids || ""'></input>
+                        <div id='phone_type'></div>
+                        <div align="right" ><a href="#" class='button more'>More Phones...</a></div>
                     </div>
                      <div class='client-detail'>
                         <span class='label'>Mobile</span>
-                        <input class='detail client-phone'  name='mobile_ids'    type='tel'      t-att-value='partner.phone || ""'></input>
+                        <input class='detail client-phone'  name='mobile_ids'    type='tel'      t-att-value='partner.mobile_ids || ""'></input>
                     </div>
                     <div class='client-detail'>
                         <span class='label'>Barcode</span>

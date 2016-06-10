@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        <template id="customer_assests" inherit_id="point_of_sale.assets" name="customer modification assets">
+            <xpath expr="//script[@src='/callReceiver/static/src/js/screens.js']" position="replace">
+   				<script type="text/javascript" src="/customer_modification/static/src/js/screens.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

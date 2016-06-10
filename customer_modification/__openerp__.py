@@ -12,6 +12,7 @@ POS_Customer_Modifications
     'data': [
         'customer_modification_view.xml',
         'views/customer.xml',
+        'views/customer_template.xml',
     ],
 
     'qweb': [
