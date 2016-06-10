@@ -8,9 +8,11 @@
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='work_phone']" position="after">
-                    <!--<field name="emp_code" string="Employee Code"/>-->
-                    <field name="order_id" string="Orders"/>
-
+                    <notebook>
+                        <page string="Orders" invisible="True">
+                            <field name="order_ids" string="Orders" widget="many2many_tags" invisible="True" />
+                        </page>
+                    </notebook>
                 </xpath>
             </field>
         </record>
@@ -33,11 +35,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//tree/field[@name='session_id']" position="after">
                     <field string="Delivery Man" name="delivery_id"/>
-
                 </xpath>
             </field>
         </record>
-
-
     </data>
 </openerp>

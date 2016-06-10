@@ -10,7 +10,8 @@ My Module
     'depends': ['point_of_sale','hr'],
     'data': [
 
-        'tyaar.xml'
+        'tyaar.xml',
+        'wizard/delivery.xml'
 
         ],
 
