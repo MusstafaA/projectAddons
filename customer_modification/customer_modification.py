@@ -18,8 +18,10 @@ class PhoneNumbers(models.Model):
 	def phones_from_ui(self, cr, uid, partner, context=None):
 		""" create or modify a partner from the point of sale ui.
 			partner contains the partner's fields. """
-		print "Object length is ...", len(partner)	
-		self.create(cr, uid, partner, context=None)						
+		print "Object length is ...", len(partner)
+		for index in partner:
+			print partner[index]
+			self.create(cr, uid, partner[index], context=None)						
 
 
 class MobileNumbers(models.Model):
