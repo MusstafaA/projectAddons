@@ -1199,6 +1199,16 @@ var ClientListScreenWidget = ScreenWidget.extend({
         var position = document.getElementById('phone_type');
         position.appendChild(phone_new);
     },
+    //add more than phone
+    add_more_mobile: function(partner) {
+        //alert("this is abutton");
+        var mobile_new = document.createElement('input');
+         mobile_new.classList.add('detail', 'client-phone', 'mobile_c');
+         mobile_new.type = 'tel';
+         mobile_new.name = 'phone_ids';
+        var position = document.getElementById('mobile_type');
+        position.appendChild(mobile_new);
+    },
     // what happens when we save the changes on the client edit form -> we fetch the fields, sanitize them,
     // send them to the backend for update, and call saved_client_details() when the server tells us the
     // save was successfull.
@@ -1206,6 +1216,7 @@ var ClientListScreenWidget = ScreenWidget.extend({
         //My Modification start frm here
         var self = this;
         console.log("save customer data");
+        //Functions for Phone Values
         var phones_values = []  
         var phone_val = document.getElementsByClassName('phone_c');
         console.log(phone_val.length);
@@ -1214,15 +1225,22 @@ var ClientListScreenWidget = ScreenWidget.extend({
                 //p['phone_num'] = parseInt(phone_val[i].value);
         }
           console.log(phones_values);       
-        // this.$('.phone_c').each(function(){
-        //     console.log(phone_val); 
-        // });
-        // console.log(phone_val);
-        //end of the modification***********************
+        
+        //Functions for the mobiles
+        var mobiles_values = []  
+        var mobile_val = document.getElementsByClassName('mobile_c');
+        console.log(mobile_val.length);
+        for (var i = 0; i < mobile_val.length; i++) {
+                mobiles_values.push(mobile_val[i].value);
+                //p['phone_num'] = parseInt(phone_val[i].value);
+        }
+          console.log(mobiles_values);       
+        
         
         
         var fields = {};
         var phones = {};
+        var mobiles = {};
         this.$('.client-details-contents .detail').each(function(idx,el){
             fields[el.name] = el.value;
             //console.log(el.value);
@@ -1257,9 +1275,20 @@ var ClientListScreenWidget = ScreenWidget.extend({
                         'partner_id' : partner_id
                                 }   
                 }
+                for (var j = 0; j < mobiles_values.length; j++) {
+                    mobiles[j] = {
+                        'mobile_num' : parseInt(mobiles_values[j]),
+                        'partner_id' : partner_id
+                                }   
+                }
             });
+            //For mobiles
             console.log(phones);
             new Model('customer.phonenumbers').call('phones_from_ui',[phones]).then(function(partner_id){
+                console.log("Saved Succssful" + partner_id);    
+            });
+            //For mobo
+            new Model('customer.mobilenumbers').call('mobiles_from_ui',[mobiles]).then(function(partner_id){
                 console.log("Saved Succssful" + partner_id);    
             });
         },function(err,event){
@@ -1378,6 +1407,7 @@ var ClientListScreenWidget = ScreenWidget.extend({
         contents.on('click','.button.undo',function(){ self.undo_client_details(partner); });
 //**************+++++++++++++++++++++++++++++++++++++++++++++++Mostafa
         contents.on('click','.button.more',function(){ self.add_more_phone(partner); });
+        contents.on('click','.button.more_mob',function(){ self.add_more_mobile(partner); });
 
 //**************+++++++++++++++++++++++++++++++++++++++++++++++Mostafa 
         this.editing_client = false;

@@ -29,6 +29,13 @@ class MobileNumbers(models.Model):
 	mobile_num = fields.Integer(size=64, string="Mobile Numbers")
 	partner_id = fields.Many2one('res.partner', string='Customer Name')
 
+	def mobiles_from_ui(self, cr, uid, partner, context=None):
+		""" create or modify a partner from the point of sale ui.
+			partner contains the partner's fields. """
+		print "Object length is ...", len(partner)
+		for index in partner:
+			print partner[index]
+			self.create(cr, uid, partner[index], context=None)
 
 class ResPartnerInherit(models.Model):
 	_name = 'res.partner'
