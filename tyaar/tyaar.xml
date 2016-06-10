@@ -26,5 +26,18 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="view_pos_order_tree_inherit">
+            <field name="name">Orders</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='session_id']" position="after">
+                    <field string="Delivery Man" name="delivery_id"/>
+
+                </xpath>
+            </field>
+        </record>
+
+
     </data>
 </openerp>
