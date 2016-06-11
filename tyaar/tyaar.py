@@ -12,6 +12,5 @@ class Delivery(models.Model):
     _inherit="hr.employee"
 
     # order_id = fields.Many2one('pos.order', string="orders")
-    order_ids = fields.One2many("pos.order","delivery_id",string="Orders")
-
+    order_ids = fields.One2many("pos.order","delivery_id",select=True,string="Orders")
 
