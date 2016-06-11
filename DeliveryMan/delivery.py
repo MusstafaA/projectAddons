@@ -5,13 +5,13 @@ from openerp import models ,fields , api ,exceptions
 
 class PhoneNumbers(models.Model):
         _name='project.phonenumbers'
-        phone_nu=fields.Text(string='Phone numbers')
+        phone_nu=fields.Char(string='Phone numbers')
         partner_id = fields.Many2one('res.partner')
 
 
 class MobileNumbers(models.Model):
         _name = 'project.mobilenumbers'
-        mobile_nu = fields.Text(string='Mobile numbers')
+        mobile_nu = fields.Char(string='Mobile numbers')
         partner_id=fields.Many2one('res.partner')
 
 class OrderUpdate(models.Model):
@@ -26,7 +26,12 @@ class OrderUpdate(models.Model):
                                   'Status', readonly=True)
         @api.multi
         def write(self, vals):
+            vals;
+            if 'paid' in vals.keys():
+                for order in self:
+                    raise exceptions.ValidationError(order.delivery_man_id)
             if 'delivery_man_id' in vals.keys():
+
                  dman_record = self.env['project.delivery'].search([('id', '=', vals['delivery_man_id'])])
                  if  dman_record['status']== 'b':
                      raise exceptions.ValidationError("Delivery man is busy now")
@@ -48,10 +53,10 @@ class delivery(models.Model):
       status=fields.Selection([('a','Avaliable'),('b','Busy')],readonly=True)
       notes=fields.Html(string='Notes')
       address = fields.Char(string="Address")
-      street= fields.Char(string='Street')
-      city= fields.Char(string='City')
-      state_id= fields.Many2one("res.country.state", string='State', ondelete='restrict')
-      country_id= fields.Many2one('res.country', string='Country', ondelete='restrict')
+      street= fields.Char(string='Street',required=True)
+      city= fields.Char(string='City',required=True)
+      state_id= fields.Many2one("res.country.state", string='State',required=True, ondelete='restrict')
+      country_id= fields.Many2one('res.country', string='Country', ondelete='restrict',required=True)
 
       @api.multi
       def write(self, values):
@@ -61,18 +66,25 @@ class delivery(models.Model):
 		            +"[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
           if 'mobile_ids' in values.keys():
               for mobile in values['mobile_ids']:
-                if   mobile[2] != False:
-                  if pattern1.match(mobile[2]['mobile_nu']):
-                      pass
-                  else:
+                if   mobile[2] != False :
+                     if  mobile[2]['mobile_nu'] != False:
+                         if pattern1.match(mobile[2]['mobile_nu']):
+                            pass
+                         else:
+                             raise exceptions.ValidationError("mobile numbers can only be integers must be  11 numbers")
+                else:
                       raise exceptions.ValidationError("mobile numbers can only be integers must be  11 numbers")
 
           if 'phone_ids' in values.keys():
               for phone in values['phone_ids']:
                   if phone[2] != False :
-                      if pattern.match(phone[2]['phone_nu']) :
-                         pass
-                      else:
+                     if phone[2]['phone_nu'] != False:
+                        if pattern.match(phone[2]['phone_nu']) :
+                           pass
+
+                        else:
+                           raise exceptions.ValidationError("Phone  numbers can only be integers at least 6 numbers")
+                     else:
                          raise exceptions.ValidationError("Phone  numbers can only be integers at least 6 numbers")
 
           if 'email' in values.keys():
