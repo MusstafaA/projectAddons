@@ -2,6 +2,8 @@
 
 <openerp>
     <data>
+
+       <!--assign Orders to Delivery in Employee View -->
        <record id="view_employee_form_inherit" model="ir.ui.view">
             <field name="name">Employees Structure</field>
             <field name="model">hr.employee</field>
@@ -9,34 +11,103 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='work_phone']" position="after">
                     <notebook>
-                        <page string="Orders" invisible="True">
-                            <field name="order_ids" string="Orders" default_order="create_date desc" widget="many2many_tags" domain="[('state','=','draft')]" invisible="True"/>
+                        <page string="Orders">
+                            <field name="order_ids" string="Orders" default_order="create_date desc" widget="many2many_tags" domain="[('state','=','draft')]"/>
                         </page>
                     </notebook>
+                </xpath>
+                <!--<xpath expr="//field[@name='work_phone']" position="after">-->
+                    <!--<field name="emp_code" string="Employee Code"/>-->
+                <!--</xpath>-->
+                <xpath expr="//field[@name='coach_id']" position="after">
+                    <field name="tyaar_state" string="Status"/>
+                </xpath>
+                <xpath expr="//field[@name='work_phone']" position="after">
+                    <button type="object" name="change_status" string="Change Status" class="oe_highlight"/>
                 </xpath>
             </field>
         </record>
 
+        <!--Kanban Form of Employees-->
+       <record id="hr_kanban_view_employees_inherit" model="ir.ui.view">
+            <field name="name">Employees Structure</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+            <field name="arch" type="xml">
+                     <xpath expr="//field[@name='mobile_phone']" position="after">
+                         <ul>
+                            <li>
+                                <field name="tyaar_state" string="Status"/>
+                            </li>
+                         </ul>
+                </xpath>
+            </field>
+        </record>
+
+        <!--Form View of Order in point of sale -->
         <record model="ir.ui.view" id="view_pos_pos_form_inherit">
             <field name="name">Orders</field>
             <field name="model">pos.order</field>
             <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//group/field[@name='fiscal_position_id']" position="after">
+                    <field name="tyaar_state"/>
+                    <button type="object" name="change_status" string="Change Status" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//group/field[@name='fiscal_position_id']" position="after">
                     <field string="Delivery" name="delivery_id"/>
                 </xpath>
             </field>
         </record>
+        
+        <!--Action Form in menuitem -->
+        <record id="action_iti_student" model="ir.actions.act_window">
+            <field name="name">Delivery</field>
+            <field name="res_model">hr.employee</field>
+            <field name="domain">[('department_id','=',6)]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
 
-        <record model="ir.ui.view" id="view_pos_order_tree_inherit">
-            <field name="name">Orders</field>
-            <field name="model">pos.order</field>
-            <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+        <menuitem parent="point_of_sale.menu_point_root" id="menu_point_ofsale_inherit" action="action_iti_student"/>
+
+        <!--Create Department Delivery-->
+        <record model="hr.department" id="view_department_kanban_form">
+            <field name="name">Delivery</field>
+        </record>
+
+        <!--Form View of Delivery and Assigned Orders -->
+        <record id="Delivery_orders_assign_form" model="ir.ui.view">
+            <field name="name">delivery orders assign</field>
+            <field name="model">hr.employee</field>
             <field name="arch" type="xml">
-                <xpath expr="//tree/field[@name='session_id']" position="after">
-                    <field string="Delivery Man" name="delivery_id"/>
-                </xpath>
+                <form>
+                    <sheet>
+                        <!--<field string="delivery Name" name="delivery_id"/>-->
+                        <field string="Orders" name="order_ids"/>
+                    </sheet>
+                </form>
             </field>
+        </record>
+
+        <!--Button change Status in tree form of delivery in menuitem-->
+        <record id="view_employee_form_inherit" model="ir.ui.view">
+            <field name="name">Employees Structure</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                 <field name="work_phone" position="attributes">
+                     <attribute name="invisible">True</attribute>
+                 </field>
+                <xpath expr="//field[@name='coach_id']" position="after">
+                    <field name="tyaar_state" string="Status"/>
+                </xpath>
+                <xpath expr="//field[@name='work_phone']" position="after">
+                    <button type="object" name="change_status" string="Change Status" class="oe_highlight"/>
+                </xpath>
+
+            </field>
+
         </record>
     </data>
 </openerp>
