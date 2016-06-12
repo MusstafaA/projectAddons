@@ -71,8 +71,76 @@
                       </tr>
                    </tbody>
             </table>
-            <!-- order Details -->    
+            <!-- order Details -->
+            <div class="row">    
             <p class="bg-success">Order Details</p>
+            <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th class="text-right">Quantity</th>
+                            <th class="text-right">Price</th>
+                        </tr>
+                    </thead>
+             <tbody>
+                        <tr t-foreach="order.lines" t-as="line">
+                            <td><span t-field="line.product_id"/></td>
+                            <td class="text-right">
+                                <t>
+                                    <span t-field="line.qty"/>
+                                </t>
+                            </td>
+                            <td class="text-right">
+                                <t>
+                                    <span t-esc="line.price_unit"/>
+                                </t>
+                            </td>
+                        </tr>
+                    </tbody>
+          </table>
+          </div>        
+          <!-- Including the sub order details -->
+        <div class="row">
+                    <div class="col-xs-6 pull-right">
+                        <table class="table table-condensed">
+                            <tr class="border-black">
+                                <td><strong>Taxes</strong></td>
+                                <td class="text-right">
+                                    <strong t-esc="order.amount_tax"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total</strong></td>
+                                <td class="text-right">
+                                    <strong t-esc="order.amount_total"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+         <!--        <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Payment Mode</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="get_journal_amt(order)" t-as="d">
+                            <td>
+                                <span t-esc="d['name']"/>
+                            </td>
+                            <td>
+                                <span t-esc="d['amt']"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+ -->
+
+
 
                     
     </table> 
