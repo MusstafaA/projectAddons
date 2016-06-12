@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<openerp>
+    <data>
+        <report
+            id="order_customer_details"
+            model="pos.order"
+            string="Order Details"
+            report_type="qweb-pdf"
+            name="pos_reports.order_report"
+            file="pos_reports.order_report"
+        />
+    </data>
+</openerp>

@@ -11,6 +11,8 @@ All Point of sale reports which you can print
     """,# here we are importing all the views that we made before
     'data': [
         'pos_reports_view.xml',
-     ],
+        'views/order_customer_details.xml',
+        'pos_reports_template.xml',
+         ],
 
 }
