@@ -11,12 +11,12 @@ class KitchenOrders(models.Model):
         if x == 'kitchen' :
             self.stage = 'Ready for delivery'
             return self.stage
-        elif x == 'Ready for delivery':
-            self.stage = 'Delivery'
-        elif x == 'Delivery' :
-            self.stage = 'Delivered'
-        else:
-            self.stage = 'kitchen'
+        # elif x == 'Ready for delivery':
+        #     self.stage = 'Delivery'
+        # elif x == 'Delivery' :
+        #     self.stage = 'Delivered'
+        # else:
+        #     self.stage = 'kitchen'
 
 
 
