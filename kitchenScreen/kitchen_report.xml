@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <openerp>
+        <data>
+            <!-- QWeb Reports -->
+            <report
+                id="kitchen_orders"
+                model="kitchenScreen.KitchenOrders"
+                string="Kitchen Orders"
+                report_type="qweb-pdf"
+                name="kitchenScreen.report_kitchen"
+                file="kitchenScreen.report_kitchen" />
+                <!--attachment_use="True"-->
+                <!--attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"-->
+
+
+        </data>
+    </openerp>
+
+
