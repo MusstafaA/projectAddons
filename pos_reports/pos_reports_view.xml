@@ -7,7 +7,7 @@
 	
       <record id="action_emp" model="ir.actions.act_window">
             <field name="name">Students Registeration</field>
-            <field name="res_model">hr.employee</field>
+            <field name="res_model">pos.order</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>

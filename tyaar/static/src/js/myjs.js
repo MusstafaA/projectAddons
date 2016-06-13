@@ -1,6 +1,6 @@
 // // alert("Hi Iam Here");
 // alert("hi iam in employees");
-//      var time = new Date().getTime();
+    //      var time = new Date().getTime();
 //      $(document.body).bind("mousemove keypress", function(e) {
 //          time = new Date().getTime();
 //      });
@@ -14,10 +14,12 @@
 //
 //      setTimeout(refresh, 10000);
 
-	alert("hiiiiiii");
-	setTimeout(function(){
-   		window.location.reload(1);
-	}, 10000);
+
+    //--------------------------------------------------------
+	// alert("hiiiiiii");
+	// setTimeout(function(){
+   	// 	window.location.reload(1);
+	// }, 10000);
 
 
 
