@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
         <openerp>
             <data>
-
           <record id="action_pos_payment" model="ir.actions.act_window">
             <field name="name">Payment</field>
             <field name="type">ir.actions.act_window</field>
@@ -24,6 +23,7 @@
                 <record id="delivery_tree_view" model="ir.ui.view">
                     <field name="name">project_delivery_tree_view</field>
                     <field name="model">project.delivery</field>
+                    <field name="auto_refresh" eval="10"/>
                     <field name="arch" type="xml">
                         <tree decoration-danger="status =='b'" decoration-success =" status =='a'">
                               <field name="name" />
@@ -36,6 +36,7 @@
                 <record id="delivery_form_view" model="ir.ui.view">
                     <field name="name">project_delivery_form_view</field>
                     <field name="model">project.delivery</field>
+                    <field name="auto_refresh">3</field>
                     <field name="arch" type="xml">
                         <form>
                             <sheet>
@@ -59,9 +60,11 @@
                                   <field name="status" />
                                     <field name="street" placeholder="Street" class="o_address_street"/>
                                 <field name="city" placeholder="City" class="o_address_city"/>
-                                <field name="state_id" class="o_address_state" placeholder="State" options='{"no_open": True}' on_change="onchange_state(state_id)"/>
-
                                 <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
+                                <field name="state_id" class="o_address_state" placeholder="State" options='{"no_open": True}'  domain="[('country_id', '=', country_id)]"/>
+
+
+
 
                                 </group>
 
@@ -105,7 +108,7 @@
                                                     <field name="session_id" />
                                                       <button name="%(action_pos_payment)d" string="Payment" class="oe_highlight" type="action" states="out" context="{'pos_session_id' : session_id}"/>
                                                        <button name="refund" string="Return Products" type="object"
-                                                                   attrs="{'invisible':['|',('state','=','draft'),('state','=','out')]}"/>
+                                                               attrs="{'invisible':['|',('state','=','draft'),('state','=','out')]}"/>
                                               </tree>
 
                                           </field>
