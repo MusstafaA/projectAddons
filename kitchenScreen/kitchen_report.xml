@@ -4,7 +4,7 @@
             <!-- QWeb Reports -->
             <report
                 id="kitchen_orders"
-                model="kitchenScreen.KitchenOrders"
+                model="pos.order"
                 string="Kitchen Orders"
                 report_type="qweb-pdf"
                 name="kitchenScreen.report_kitchen"
