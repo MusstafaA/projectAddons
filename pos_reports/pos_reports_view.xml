@@ -12,10 +12,6 @@
             <field name="view_mode">tree,form</field>
         </record>
         <menuitem id="pos_reports_first" name="Report_1" parent="reports_data_menu"
-        		  action="action_emp"/>
-
-
-      <!-- Inherit view and add print button -->
-
+        		  action="action_emp"/>    
   </data>
  </openerp>  		

@@ -2,12 +2,159 @@
 <openerp>
     <data>
         <template id="order_report">
-            <t t-call="report.html_container">
-                <t t-foreach="docs" t-as="o">
-                    <t t-call="report.external_layout">
-                        <div class="page">
-                          <h2>Report title Mostafazzzzz</h2>
-                            <p>This object's name is <span t-field="o.name"/></p>
+        <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+        <t t-call="report.internal_layout">
+          <div class="page">
+           <div align="center"><h2>Customer Consolidated Orders</h2></div>
+           <!-- Header -->
+           <div class="row" align="center">
+                <div class="col-xs-4">
+                 <strong>Company</strong>:
+                 <br/>
+                 <span t-field="o.user_id.company_id.name"/>
+                </div>
+                <div class="col-xs-4">
+                 <strong>Print date</strong>:
+                 <br/>
+                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                </div>
+                <div class="col-xs-4">
+                 <strong>Cashier Name</strong>:
+                 <br/>
+                 <span t-field="o.user_id"/>
+                </div>
+           </div>
+        <div align="center"><h2><code>Customer Information</code></h2></div>
+            <div class="col-xs-3" style="color:blue">
+                 <strong>Customer Name  :    </strong>
+                 <span t-field="o.partner_id.name"/>
+                 <br/>
+                 <strong>Customer Phone  :    </strong>
+                 <span t-field="o.partner_id.phone"/>
+                 <br/>
+                 <strong>Customer address :    </strong>
+                 <span t-field="o.partner_id"
+                       t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'/>
+                 <br/>
+                 <strong>Customer Fax :    </strong>
+                 <span t-field="o.partner_id.fax"/>   
+            </div>
+            
+            <br/><br/><br/><br/><br/><br/>
+<div>____________________________________________________________________________</div>               
+    <div align="center"><h2><code>Orders Details</code></h2></div>
+     <div t-foreach="o.partner_id" t-as="customer">
+        <table class="table table-condensed" t-foreach="customer.all_orders" t-as="order">
+                    <h4>
+                    <strong><code>Order Source : </code></strong>
+                    <code><span t-field="order.name"/></code>
+                    </h4>
+                    <!-- Invoice Details -->
+                    <p class="bg-info">Invoice Details</p>
+
+            <table class="table table-hover">
+                     <thead>
+                      <tr>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Source</th>
+                        <th>Reference</th>
+                      </tr>
+                     </thead>
+                     <tbody>
+                      <tr>
+                       <td><span t-field="order.name"/></td>
+                       <td><span t-field="order.date_order"/></td>
+                       <td><span t-field="order.name"/></td>
+                       <td><span t-field="order.name"/></td>
+                      </tr>
+                   </tbody>
+            </table>
+            <!-- order Details -->
+            <div class="row">    
+            <p class="bg-success">Order Details</p>
+            <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th class="text-right">Quantity</th>
+                            <th class="text-right">Price</th>
+                        </tr>
+                    </thead>
+             <tbody>
+                        <tr t-foreach="order.lines" t-as="line">
+                            <td><span t-field="line.product_id"/></td>
+                            <td class="text-right">
+                                <t>
+                                    <span t-field="line.qty"/>
+                                </t>
+                            </td>
+                            <td class="text-right">
+                                <t>
+                                    <span t-esc="line.price_unit"/>
+                                </t>
+                            </td>
+                        </tr>
+                    </tbody>
+          </table>
+          </div>        
+          <!-- Including the sub order details -->
+        <div class="row">
+                    <div class="col-xs-6 pull-right">
+                        <table class="table table-condensed">
+                            <tr class="border-black">
+                                <td><strong>Taxes</strong></td>
+                                <td class="text-right">
+                                    <strong t-esc="order.amount_tax"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total</strong></td>
+                                <td class="text-right">
+                                    <strong t-esc="order.amount_total"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+         <!--        <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Payment Mode</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="get_journal_amt(order)" t-as="d">
+                            <td>
+                                <span t-esc="d['name']"/>
+                            </td>
+                            <td>
+                                <span t-esc="d['amt']"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+ -->
+
+
+
+                    
+    </table> 
+
+    </div>
+
+
+
+
+
+
+
+
+
                         </div>
                     </t>
                 </t>
