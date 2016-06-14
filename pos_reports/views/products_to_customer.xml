@@ -6,7 +6,6 @@
         <t t-foreach="docs" t-as="o">
         <t t-call="report.internal_layout">
           <div class="page">
-          <span t-esc="get_products('o.name')"/>
 
           	<h1>Products Counter</h1>
           </div>
@@ -23,6 +22,8 @@
               <tr t-foreach="order.lines" t-as="line">
                             
                             <td><span t-field="line.product_id"/></td>
+                            <!-- <t t-set="product" t-value="line.product_id"/> -->
+                        <span t-esc="line.get_products(line.product_id.name_template)"/> 
                             <td class="text-right">
                                 <t>
                                     <span t-field="line.qty"/>

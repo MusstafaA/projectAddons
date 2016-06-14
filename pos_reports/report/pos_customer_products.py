@@ -22,7 +22,7 @@ class pos_customer_products(report_sxw.rml_parse):
         return "hello world!"
 
 class report_pos_customer_products(osv.AbstractModel):
-    _name = 'report.pos_reports.products_to_customer'
+    _name = 'report.pos_reports.report_products_to_customer'
     _inherit = 'report.abstract_report'
-    _template = 'pos_reports.products_to_customer'
+    _template = 'pos_reports.report_products_to_customer'
     _wrapped_report_class = pos_customer_products        
