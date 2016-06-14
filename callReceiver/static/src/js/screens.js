@@ -425,12 +425,12 @@ var ActionpadWidget = PosBaseWidget.extend({
 
                 console.log('Kitchen Order Submitted...');
 
-                if(currentOrder1.hasChangesToPrint()){
-                currentOrder1.printChanges();
-                currentOrder1.saveChanges();
-
-                console.log('kitchen printer request..');
-               }
+               //  if(currentOrder1.hasChangesToPrint()){
+               //  currentOrder1.printChanges();
+               //  currentOrder1.saveChanges();
+               //
+               //  console.log('kitchen printer request..');
+               // }
 
 
                 this.disabled = true;

@@ -13,6 +13,7 @@ All Point of sale reports which you can print
         'data/report_paperformat.xml',
         'pos_reports_view.xml',
         'views/order_customer_details.xml',
+        'views/products_to_customer.xml',
         'pos_reports_template.xml',
          ],
 

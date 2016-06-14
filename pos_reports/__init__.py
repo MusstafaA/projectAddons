@@ -1,2 +1,2 @@
 import pos_reports
-import report
+import pos_customer_products

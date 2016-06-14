@@ -12,6 +12,15 @@
             <field name="view_mode">tree,form</field>
         </record>
         <menuitem id="pos_reports_first" name="Report_1" parent="reports_data_menu"
-        		  action="action_emp"/>    
+        		  action="action_emp"/> 
+
+       <record id="action_customer_details" model="ir.actions.act_window">
+            <field name="name">Customer Information</field>
+            <field name="res_model">pos.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="pos_reports_second" name="Report_2" parent="reports_data_menu"
+              action="action_customer_details"/>            
   </data>
  </openerp>  		
