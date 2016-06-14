@@ -19,12 +19,12 @@
                 <!--<xpath expr="//field[@name='work_phone']" position="after">-->
                     <!--<field name="emp_code" string="Employee Code"/>-->
                 <!--</xpath>-->
-                <!--<xpath expr="//field[@name='coach_id']" position="after">-->
-                    <!--<field name="tyaar_state" string="Status"/>-->
-                <!--</xpath>-->
-                <!--<xpath expr="//field[@name='work_phone']" position="after">-->
-                    <!--<button type="object" name="change_status" string="Change Status" class="oe_highlight"/>-->
-                <!--</xpath>-->
+                <xpath expr="//field[@name='coach_id']" position="after">
+                    <field name="tyaar_state" string="Status"/>
+                </xpath>
+                <xpath expr="//field[@name='work_phone']" position="after">
+                    <button type="object" name="change_status" string="Change Status" class="oe_highlight"/>
+                </xpath>
             </field>
         </record>
 
