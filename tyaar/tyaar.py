@@ -15,21 +15,20 @@ class Order(models.Model):
     #         self.tyaar_state = 'a'
 
 
-    @api.multi
-    def write(self, values):
-        # if 'delivery_id' in values.keys():
-
-            delivery_data = self.env['hr.employee'].search([('id', '=', 23)])
-            for x in delivery_data:
-                if x['tyaar_state'] == 'a':
-                    raise exceptions.ValidationError("Delivery Man is Busy")
-                else:
-                    delivery_data['tyaar_state'] = 'b'
-            return super(Order, self).write(values)
-
-
     delivery_id=fields.Many2one("hr.employee",string="Delivery")
     tyaar_state = fields.Selection([('a','Available'),('b','Busy')],'Delivery Status')
+
+
+    @api.multi
+    def write(self, vals):
+        vals;
+        if 'delivery_id' in vals.keys():
+            dman_record = self.env['pos.order'].search([('id', '=', vals['delivery_id'])])
+            if dman_record['status'] == 'b':
+                raise exceptions.ValidationError("Delivery man is busy now")
+            else:
+                dman_record['status'] = 'b'
+        return super(Order, self).write(vals)
 
 
 class Delivery(models.Model):
@@ -48,6 +47,5 @@ class Delivery(models.Model):
     order_ids = fields.One2many("pos.order","delivery_id",select=True,string="Orders")
     # emp_code = fields.Char()
     tyaar_state = fields.Selection([('a', 'Available'), ('b', 'Busy')], 'Delivery Status')
-
 
 
