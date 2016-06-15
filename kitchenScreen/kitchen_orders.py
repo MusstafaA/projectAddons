@@ -1,4 +1,6 @@
+from functools import partial
 from openerp import models, fields,api
+
 
 
 class KitchenOrders(models.Model):
@@ -43,18 +45,20 @@ class KitchenOrders(models.Model):
             # })
         return result
 
-# class ParticularReport(models.AbstractModel):
-#     _name = 'report.module.report_name'
-#     @api.multi
-#     def render_html(self, data=None):
-#         report_obj = self.env['report']
-#         report = report_obj._get_report_from_name('module.report_name')
-#         docargs = {
-#             'doc_ids': self._ids,
-#             'doc_model': report.model,
-#             'docs': self,
-#         }
-#         return report_obj.render('module.report_name', docargs)
+    def _order_fields(self, cr, uid, ui_order, context=None):
+        process_line = partial(self.pool['pos.order.line']._order_line_fields, cr, uid, context=context)
+        return {
+            'name':         ui_order['name'],
+            'user_id':      ui_order['user_id'] or False,
+            'session_id':   ui_order['pos_session_id'],
+            'lines':        [process_line(l) for l in ui_order['lines']] if ui_order['lines'] else False,
+            'pos_reference':ui_order['name'],
+            'partner_id':   ui_order['partner_id'] or False,
+            'date_order':   ui_order['creation_date'],
+            'fiscal_position_id': ui_order['fiscal_position_id'],
+            'zone' : ui_order['zone'],
+        }
+
 
 
 

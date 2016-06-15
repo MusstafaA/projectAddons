@@ -16,7 +16,7 @@
                     <div class='subwindow collapsed'>
                         <div class='subwindow-container'>
                             <div class='subwindow-container-fix pads'>
-                                <div class="control-buttons oe_hidden" style="display: none;"></div>
+                                <div class="control-buttons oe_hidden" style="//display: none;"></div>
                                 <div class="placeholder-ActionpadWidget"></div>
                                 <div class="placeholder-NumpadWidget"></div>
                             </div>
