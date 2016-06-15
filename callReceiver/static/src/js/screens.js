@@ -412,25 +412,29 @@ var ActionpadWidget = PosBaseWidget.extend({
 
         this.$('.kitchen').click(function(){
 
-            var currentOrder1= self.pos.get_order();
-            //console.log('Kitchen Order Submitted...');
 
-            //currentOrder1['stage']= 'kitchen';
-            console.log(currentOrder1);
-            //console.log(currentOrder1.changed.client);
+
+
+            var currentOrder1= self.pos.get_order();
+              currentOrder1.zone = $('#sel1').val();
+
+              console.log(currentOrder1);
+
+
 
             if(currentOrder1.changed.client) {
 
-                self.pos.push_order(currentOrder1);
+
+               self.pos.push_order(currentOrder1);
 
                 console.log('Kitchen Order Submitted...');
 
-               //  if(currentOrder1.hasChangesToPrint()){
-               //  currentOrder1.printChanges();
-               //  currentOrder1.saveChanges();
-               //
-               //  console.log('kitchen printer request..');
-               // }
+                if(currentOrder1.hasChangesToPrint()){
+                currentOrder1.printChanges();
+                currentOrder1.saveChanges();
+
+                console.log('kitchen printer request..');
+               }
 
 
                 this.disabled = true;
@@ -445,17 +449,11 @@ var ActionpadWidget = PosBaseWidget.extend({
             }
 
 
-            //// Sending order to ketchin printer /////
-            //var order = self.pos.get_order();
-            // if(currentOrder1.hasChangesToPrint()){
-            //     currentOrder1.printChanges();
-            //     currentOrder1.saveChanges();
-            //
-            //     console.log('kitchen printer request..');
-            // }
+        });
 
-            //self.$('.kitchen').hide();
-           // this.disabled = true;
+
+        this.$('.zone').click(function(){
+             // alert($('#sel1').val());
 
         });
     }
@@ -1187,17 +1185,67 @@ var ClientListScreenWidget = ScreenWidget.extend({
             this.display_client_details('show',partner);
         }
     },
-
+//*************************************************
+//Author : Mostafa Abd El Fattah >>> Modifications
+    //custome function to add more than one input
+    add_more_phone: function(partner) {
+        //alert("this is abutton");
+        var phone_new = document.createElement('input');
+         phone_new.classList.add('detail', 'client-phone', 'phone_c');
+         phone_new.type = 'tel';
+         phone_new.name = 'phone_ids';
+        var position = document.getElementById('phone_type');
+        position.appendChild(phone_new);
+    },
+    //add more than phone
+    add_more_mobile: function(partner) {
+        //alert("this is abutton");
+        var mobile_new = document.createElement('input');
+         mobile_new.classList.add('detail', 'client-phone', 'mobile_c');
+         mobile_new.type = 'tel';
+         mobile_new.name = 'phone_ids';
+        var position = document.getElementById('mobile_type');
+        position.appendChild(mobile_new);
+    },
     // what happens when we save the changes on the client edit form -> we fetch the fields, sanitize them,
     // send them to the backend for update, and call saved_client_details() when the server tells us the
     // save was successfull.
     save_client_details: function(partner) {
+        //My Modification start frm here
         var self = this;
+        console.log("save customer data");
+        //Functions for Phone Values
+        var phones_values = []
+        var phone_val = document.getElementsByClassName('phone_c');
+        console.log(phone_val.length);
+        for (var i = 0; i < phone_val.length; i++) {
+                phones_values.push(phone_val[i].value);
+                //p['phone_num'] = parseInt(phone_val[i].value);
+        }
+          console.log(phones_values);
+
+        //Functions for the mobiles
+        var mobiles_values = []
+        var mobile_val = document.getElementsByClassName('mobile_c');
+        console.log(mobile_val.length);
+        for (var i = 0; i < mobile_val.length; i++) {
+                mobiles_values.push(mobile_val[i].value);
+                //p['phone_num'] = parseInt(phone_val[i].value);
+        }
+          console.log(mobiles_values);
+
+
 
         var fields = {};
+        var phones = {};
+        var mobiles = {};
         this.$('.client-details-contents .detail').each(function(idx,el){
             fields[el.name] = el.value;
+            //console.log(el.value);
         });
+        // console.log(fields.phone_ids);
+        // console.log(fields);
+
 
         if (!fields.name) {
             this.gui.show_popup('error',_t('A Customer Name Is Required'));
@@ -1212,8 +1260,35 @@ var ClientListScreenWidget = ScreenWidget.extend({
         fields.country_id   = fields.country_id || false;
         fields.barcode      = fields.barcode || '';
 
+
+
         new Model('res.partner').call('create_from_ui',[fields]).then(function(partner_id){
             self.saved_client_details(partner_id);
+            console.log(partner_id);
+            // And My Modification from here to the other model
+            self.$('.client-details-contents .detail').each(function(idx,el){
+                for (var i = 0; i < phones_values.length; i++) {
+                    phones[i] = {
+                        'phone_num' : parseInt(phones_values[i]),
+                        'partner_id' : partner_id
+                                }
+                }
+                for (var j = 0; j < mobiles_values.length; j++) {
+                    mobiles[j] = {
+                        'mobile_num' : parseInt(mobiles_values[j]),
+                        'partner_id' : partner_id
+                                }
+                }
+            });
+            //For mobiles
+            console.log(phones);
+            new Model('customer.phonenumbers').call('phones_from_ui',[phones]).then(function(partner_id){
+                console.log("Saved Succssful" + partner_id);
+            });
+            //For mobo
+            new Model('customer.mobilenumbers').call('mobiles_from_ui',[mobiles]).then(function(partner_id){
+                console.log("Saved Succssful" + partner_id);
+            });
         },function(err,event){
             event.preventDefault();
             self.gui.show_popup('error',{
@@ -1222,7 +1297,7 @@ var ClientListScreenWidget = ScreenWidget.extend({
             });
         });
     },
-
+//*************************************************************++++++++++++++++++++++
     // what happens when we've just pushed modifications for a partner of id partner_id
     saved_client_details: function(partner_id){
         var self = this;
@@ -1328,6 +1403,11 @@ var ClientListScreenWidget = ScreenWidget.extend({
         contents.on('click','.button.edit',function(){ self.edit_client_details(partner); });
         contents.on('click','.button.save',function(){ self.save_client_details(partner); });
         contents.on('click','.button.undo',function(){ self.undo_client_details(partner); });
+//**************+++++++++++++++++++++++++++++++++++++++++++++++Mostafa
+        contents.on('click','.button.more',function(){ self.add_more_phone(partner); });
+        contents.on('click','.button.more_mob',function(){ self.add_more_mobile(partner); });
+
+//**************+++++++++++++++++++++++++++++++++++++++++++++++Mostafa
         this.editing_client = false;
         this.uploaded_picture = null;
 
