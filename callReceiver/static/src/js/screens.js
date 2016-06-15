@@ -412,12 +412,23 @@ var ActionpadWidget = PosBaseWidget.extend({
 
         this.$('.kitchen').click(function(){
 
-            var currentOrder1= self.pos.get_order();
-            //console.log('Kitchen Order Submitted...');
+            var line = self.pos.get_order().get_selected_orderline();
+            if (line) {
 
-            //currentOrder1['stage']= 'kitchen';
+                 line.set_note($('#sel1').val());
+
+            }
+
+
+
+
+            var currentOrder1= self.pos.get_order();
+
+              currentOrder1.note = $('#sel1').val();
+             // currentOrder1.selected_orderline.order.node.note = $('#sel1').val();
             console.log(currentOrder1);
-            //console.log(currentOrder1.changed.client);
+
+
 
             if(currentOrder1.changed.client) {
 
@@ -445,17 +456,11 @@ var ActionpadWidget = PosBaseWidget.extend({
             }
 
 
-            //// Sending order to ketchin printer /////
-            //var order = self.pos.get_order();
-            // if(currentOrder1.hasChangesToPrint()){
-            //     currentOrder1.printChanges();
-            //     currentOrder1.saveChanges();
-            //
-            //     console.log('kitchen printer request..');
-            // }
+        });
 
-            //self.$('.kitchen').hide();
-           // this.disabled = true;
+
+        this.$('.zone').click(function(){
+             // alert($('#sel1').val());
 
         });
     }
