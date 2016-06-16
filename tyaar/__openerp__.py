@@ -11,15 +11,12 @@ My Module
     'data': [
 
         'tyaar_view.xml',
-<<<<<<< HEAD
         # 'wizard/delivery_view.xml',
         'views/webclient.xml',
         # 'report/tyaar_report.xml',
         # 'views/report_tyaar.xml'
-=======
-        'report/tyaar_report.xml',
-        'views/report_tyaar.xml'
->>>>>>> efa39da44ebe4da5e4243a9e3c23d97a54c72d1f
+        'security/tyaar_security.xml',
+        'security/ir.model.access.csv'
 
         ],
 
