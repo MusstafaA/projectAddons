@@ -11,6 +11,11 @@
           </div>
           <!-- Test Area -->
           <div t-foreach="o.partner_id" t-as="customer">
+             <div t-foreach="customer.all_orders" t-as="order_test">
+               <div t-foreach="order_test.lines" t-as="line_test">
+                      <t t-esc="line_test.get_length(int(line_test.qty))"/>      
+                </div>
+             </div> 
             <table class="table table-condensed" t-foreach="customer.all_orders" t-as="order">
               <h4>
                     <strong><code>Order Source : </code></strong>
@@ -18,12 +23,13 @@
               </h4>
               bom<span t-field="order.lines"/>
               <!-- <t t-set="products" t-value="get_products(order.lines)"/> -->
-
+             
               <tr t-foreach="order.lines" t-as="line">
-                            
+                            <!-- Zeka<tr t-esc="line_size" /> -->
                             <td><span t-field="line.product_id"/></td>
                             <!-- <t t-set="product" t-value="line.product_id"/> -->
-                        <span t-esc="line.get_products(line.product_id.name_template)"/> 
+                        <t t-att-val="line.get_products(line.product_id.name_template, int(line.qty))"/>
+                        <!-- <span t-esc="line.get_products(line.product_id.name_template)"/>  -->
                             <td class="text-right">
                                 <t>
                                     <span t-field="line.qty"/>
@@ -35,7 +41,12 @@
                                 </t>
                             </td>
                         </tr>
+                  
              </table>
+              <!-- Total: <t t-esc="sum(l.lines for l in customer.all_orders)"/> -->
+             
+                  # Linkers: <t t-esc="len(customer.all_orders)"/>
+          
            </div>   
         </t>
         </t>
