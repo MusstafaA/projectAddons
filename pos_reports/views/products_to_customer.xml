@@ -5,49 +5,105 @@
         <t t-call="report.html_container">
         <t t-foreach="docs" t-as="o">
         <t t-call="report.internal_layout">
+             <t t-set="i" t-value="[]"/>
+             <t t-set="qty" t-value="[]"/>
           <div class="page">
-
-          	<h1>Products Counter</h1>
+            <div align="center"><h2 class="bg-info">Customer's Most Required Products</h2></div>
+           <!-- Header -->
+           <div class="row" align="center">
+                <div class="col-xs-4">
+                 <strong>Company</strong>:
+                 <br/>
+                 <span t-field="o.user_id.company_id.name"/>
+                </div>
+                <div class="col-xs-4">
+                 <strong>Print date</strong>:
+                 <br/>
+                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                </div>
+                <div class="col-xs-4">
+                 <strong>Cashier Name</strong>:
+                 <br/>
+                 <span t-field="o.user_id"/>
+                </div>
+           </div>
+       <div align="center"><h2><code>Customer Information</code></h2></div>
+            <div class="col-xs-3" style="color:blue">
+                 <strong>Customer Name  :    </strong>
+                 <span t-field="o.partner_id.name"/>
+                 <br/>
+                 <strong>Customer Phone  :    </strong>
+                 <span t-field="o.partner_id.phone"/>
+                 <br/>
+                 <strong>Customer address :    </strong>
+                 <span t-field="o.partner_id"
+                       t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'/>
+                 <br/>
+                 <strong>Customer Fax :    </strong>
+                 <span t-field="o.partner_id.fax"/>   
+            </div>
+            
+            <br/><br/><br/><br/><br/><br/>
+<div>____________________________________________________________________________</div>                          
           </div>
           <!-- Test Area -->
           <div t-foreach="o.partner_id" t-as="customer">
              <div t-foreach="customer.all_orders" t-as="order_test">
                <div t-foreach="order_test.lines" t-as="line_test">
-                      <t t-esc="line_test.get_length(int(line_test.qty))"/>      
+                      <t t-att-val="line_test.get_length(int(line_test.qty))"/>      
                 </div>
              </div> 
-            <table class="table table-condensed" t-foreach="customer.all_orders" t-as="order">
-              <h4>
-                    <strong><code>Order Source : </code></strong>
-                    <code><span t-field="order.name"/></code>
-              </h4>
-              bom<span t-field="order.lines"/>
-              <!-- <t t-set="products" t-value="get_products(order.lines)"/> -->
-             
-              <tr t-foreach="order.lines" t-as="line">
-                            <!-- Zeka<tr t-esc="line_size" /> -->
-                            <td><span t-field="line.product_id"/></td>
-                            <!-- <t t-set="product" t-value="line.product_id"/> -->
-                        <t t-att-val="line.get_products(line.product_id.name_template, int(line.qty))"/>
-                        <!-- <span t-esc="line.get_products(line.product_id.name_template)"/>  -->
-                            <td class="text-right">
-                                <t>
-                                    <span t-field="line.qty"/>
-                                </t>
-                            </td>
-                            <td class="text-right">
-                                <t>
-                                    <span t-esc="line.price_unit"/>
-                                </t>
-                            </td>
-                        </tr>
-                  
-             </table>
+            <div t-foreach="customer.all_orders" t-as="order">
+              <div t-foreach="order.lines" t-as="line">
+                        <div t-foreach="line.get_products(line.product_id.name_template, int(line.qty))" t-as="result">  
+                         <!-- 1 <t t-esc="result_all"/>
+                         2 <t t-esc="result_value"/>
+                         3 <t t-esc="result_index"/>
+                             4 <t t-esc="result_size"/>
+                         5 <t t-esc="result_first"/>
+                         6 <t t-esc="result_even"/> -->
+                           <!-- <t t-esc="result[0]['count']"/>   -->
+                          <t t-set="i" t-value="i+[line.product_id.name_template]"/>
+                          <t t-set="qty" t-value="qty+[int(line.qty)]"/>
+                        </div>
+                  </div>
+             </div>
               <!-- Total: <t t-esc="sum(l.lines for l in customer.all_orders)"/> -->
              
-                  # Linkers: <t t-esc="len(customer.all_orders)"/>
-          
-           </div>   
+                  <!-- # Linkers: <t t-esc="len(customer.all_orders)"/> -->
+           </div>
+           <!-- <t t-esc="i"/>
+           <t t-esc="qty"/> -->
+                <!-- <t t-esc="o.get_sorted_products(i,qty)"/> -->
+  <!-- End of Test area start our work from here ....................               -->
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th class="text-right" >Required Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+      <t t-foreach="o.get_sorted_products(i,qty)" t-as="products">
+            <tr t-foreach="products" t-as="pro">
+              <td><span t-esc="pro['name']"/></td>      
+              <td class="text-right">
+                <t>
+                   <span t-esc="pro['count']"/>
+                </t>
+              </td>
+            </tr>
+      </t>      
+          </tbody>
+  </table>          
+
+
+              <!--       <div t-foreach="o.get_sorted_products(i,qty)" t-as="products">
+                         <div t-foreach="products" t-as="pro">
+                            <t t-esc="pro['name']"/>                        
+                         </div>     
+                    </div>  
+ -->
         </t>
         </t>
         </t>
