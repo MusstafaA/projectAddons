@@ -11,6 +11,19 @@
 
             </xpath>
 
+            <xpath expr="//script[@src='/point_of_sale/static/src/js/models.js']"  position="replace">
+                     <!--<script type="text/javascript" src="/callReceiver/static/src/js/widgets.js"></script>-->
+                     <script type="text/javascript" src="/callReceiver/static/src/js/models.js"></script>
+
+            </xpath>
+
+
+            <!--<xpath expr="//script[@src='/customer_modification/static/src/js/screens.js']"  position="replace">-->
+                     <!--&lt;!&ndash;<script type="text/javascript" src="/callReceiver/static/src/js/widgets.js"></script>&ndash;&gt;-->
+                     <!--<script type="text/javascript" src="/callReceiver/static/src/js/screens.js"></script>-->
+
+            <!--</xpath>-->
+
         </template>
     </data>
 </openerp>

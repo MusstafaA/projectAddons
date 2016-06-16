@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<openerp>
+    <data>
+
+        <report
+    id="tyaar_report_id"
+    model="pos.order"
+    string="Orders Per Delivery"
+    report_type="qweb-pdf"
+    name="tyaar.report_tyaar"
+    file="tyaar.report_tyaar"
+    />
+    </data>
+</openerp>

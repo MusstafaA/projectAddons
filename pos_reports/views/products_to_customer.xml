@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        <template id="customers_products_report">
+        <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+        <t t-call="report.internal_layout">
+          <div class="page">
+
+          	<h1>Products Counter</h1>
+          </div>
+          <!-- Test Area -->
+          <div t-foreach="o.partner_id" t-as="customer">
+             <div t-foreach="customer.all_orders" t-as="order_test">
+               <div t-foreach="order_test.lines" t-as="line_test">
+                      <t t-esc="line_test.get_length(int(line_test.qty))"/>      
+                </div>
+             </div> 
+            <table class="table table-condensed" t-foreach="customer.all_orders" t-as="order">
+              <h4>
+                    <strong><code>Order Source : </code></strong>
+                    <code><span t-field="order.name"/></code>
+              </h4>
+              bom<span t-field="order.lines"/>
+              <!-- <t t-set="products" t-value="get_products(order.lines)"/> -->
+             
+              <tr t-foreach="order.lines" t-as="line">
+                            <!-- Zeka<tr t-esc="line_size" /> -->
+                            <td><span t-field="line.product_id"/></td>
+                            <!-- <t t-set="product" t-value="line.product_id"/> -->
+                        <t t-att-val="line.get_products(line.product_id.name_template, int(line.qty))"/>
+                        <!-- <span t-esc="line.get_products(line.product_id.name_template)"/>  -->
+                            <td class="text-right">
+                                <t>
+                                    <span t-field="line.qty"/>
+                                </t>
+                            </td>
+                            <td class="text-right">
+                                <t>
+                                    <span t-esc="line.price_unit"/>
+                                </t>
+                            </td>
+                        </tr>
+                  
+             </table>
+              <!-- Total: <t t-esc="sum(l.lines for l in customer.all_orders)"/> -->
+             
+                  # Linkers: <t t-esc="len(customer.all_orders)"/>
+          
+           </div>   
+        </t>
+        </t>
+        </t>
+        </template>
+     </data>
+  </openerp>        	

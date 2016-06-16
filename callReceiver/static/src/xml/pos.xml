@@ -16,7 +16,7 @@
                     <div class='subwindow collapsed'>
                         <div class='subwindow-container'>
                             <div class='subwindow-container-fix pads'>
-                                <div class="control-buttons oe_hidden" style="display: none;"></div>
+                                <div class="control-buttons oe_hidden" style="//display: none;"></div>
                                 <div class="placeholder-ActionpadWidget"></div>
                                 <div class="placeholder-NumpadWidget"></div>
                             </div>
@@ -66,12 +66,27 @@
             </button>
 
 
+            <div class="form-group button ">
+                  <label for="sel1">Select Zone:</label>
+                  <select class="form-control zone" id="sel1">
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                    <option>D</option>
+                  </select>
+            </div>
+
+
             <button class='button kitchen' >
                 <div class='pay-circle'>
                     <i class="fa fa-cutlery"></i>
                 </div>
                 Send To Kitchen
             </button>
+
+
+
+
 
 
 

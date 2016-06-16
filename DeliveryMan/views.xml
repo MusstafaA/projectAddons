@@ -23,20 +23,18 @@
                 <record id="delivery_tree_view" model="ir.ui.view">
                     <field name="name">project_delivery_tree_view</field>
                     <field name="model">project.delivery</field>
-                    <field name="auto_refresh" eval="10"/>
+
                     <field name="arch" type="xml">
                         <tree decoration-danger="status =='b'" decoration-success =" status =='a'">
-                              <field name="name" />
-
+                               <field name="name" />
                                <field name="status" />
-
                         </tree>
                     </field>
                 </record>
                 <record id="delivery_form_view" model="ir.ui.view">
                     <field name="name">project_delivery_form_view</field>
                     <field name="model">project.delivery</field>
-                    <field name="auto_refresh">3</field>
+
                     <field name="arch" type="xml">
                         <form>
                             <sheet>
@@ -93,7 +91,7 @@
                                 </group>
                                   <notebook>
                                       <page string="Latest Orders">
-                                          <field name="order_ids" default_order="create_date desc"  widget="many2many" domain="[('state','=','draft')]">
+                                          <field name="order_ids" default_order="create_date desc"  widget="many2many" domain="[('state','=','draft'),('stage','=','ready for delivery')]">
                                                 <tree>
                                                      <field name="name"/>
 

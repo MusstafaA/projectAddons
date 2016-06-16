@@ -1,4 +1,6 @@
+from functools import partial
 from openerp import models, fields,api
+
 
 
 class KitchenOrders(models.Model):
@@ -21,7 +23,41 @@ class KitchenOrders(models.Model):
 
 
     stage = fields.Selection([('kitchen', 'In Kitchen'),('Ready for delivery', 'Ready for Delivery'),('Delivery', 'Out for Delivery'),('Delivered', 'Delivered')],'Current Stage', default= 'kitchen' ,readonly=False, copy=False)
+    zone = fields.Selection([('A', 'Area A'), ('B', 'Area B'), ('C', 'Area C'),('D', 'Area D')], 'Zone')
 
+    @api.one
+    def order_line_get(self):
+        # result = self
+        result = []
+        self._cr.execute('SELECT * FROM pos_order_line WHERE order_id=%s', (self.id,))
+
+        # result = cr.dictfetchall()
+        for t in self._cr.dictfetchall():
+            result.append(t)
+            # result.append({
+                # 'name': t['name'],
+                # 'lines': t['lines'],
+                # 'price': t['amount'] or 0.0,
+                # 'account_id': t['account_id'],
+                # 'tax_code_id': t['tax_code_id'],
+                # 'tax_amount': t['tax_amount'],
+                # 'account_analytic_id': t['account_analytic_id'],
+            # })
+        return result
+
+    def _order_fields(self, cr, uid, ui_order, context=None):
+        process_line = partial(self.pool['pos.order.line']._order_line_fields, cr, uid, context=context)
+        return {
+            'name':         ui_order['name'],
+            'user_id':      ui_order['user_id'] or False,
+            'session_id':   ui_order['pos_session_id'],
+            'lines':        [process_line(l) for l in ui_order['lines']] if ui_order['lines'] else False,
+            'pos_reference':ui_order['name'],
+            'partner_id':   ui_order['partner_id'] or False,
+            'date_order':   ui_order['creation_date'],
+            'fiscal_position_id': ui_order['fiscal_position_id'],
+            'zone' : ui_order['zone'],
+        }
 
 
 
@@ -60,3 +96,6 @@ class PartnerInherit(models.Model):
 
 
     partner_average_usage = fields.Float(compute=_cal_average_usage)
+
+
+

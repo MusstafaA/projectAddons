@@ -24,14 +24,12 @@ class OrderUpdate(models.Model):
                                    ('done', 'Posted'),
                                    ('invoiced', 'Invoiced')],
                                   'Status', readonly=True)
+
+        #amount_total=fields.Double(_amount_all, string='Total', digits=0, multi='all',store=True)
+
         @api.multi
         def write(self, vals):
-            vals;
-            if 'paid' in vals.keys():
-                for order in self:
-                    raise exceptions.ValidationError(order.delivery_man_id)
             if 'delivery_man_id' in vals.keys():
-
                  dman_record = self.env['project.delivery'].search([('id', '=', vals['delivery_man_id'])])
                  if  dman_record['status']== 'b':
                      raise exceptions.ValidationError("Delivery man is busy now")
@@ -60,6 +58,7 @@ class delivery(models.Model):
 
       @api.multi
       def write(self, values):
+          values;
           pattern = re.compile("^[0-9]{6,10}$")
           pattern1 = re.compile("^[0-9]{11}$")
           pattern2=re.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -93,11 +92,12 @@ class delivery(models.Model):
                   else:
                       raise exceptions.ValidationError("Not valid email address");
 
-
           if 'order_ids' in values.keys():
               for order in values['order_ids']:
                   order_record = self.env['pos.order'].search([('id', '=', order[1])])
-                  if order_record['state'] == 'draft':
+                  if order_record['state'] == 'draft' and order_record['stage']=='ready for delivery':
                      order_record['state'] =  'out'
+                  else:
+                     raise exceptions.ValidationError("Can not assign delivery man for theses orders");
           return super(delivery, self).write(values)
 

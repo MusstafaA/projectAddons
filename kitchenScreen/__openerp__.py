@@ -11,6 +11,8 @@ Testing
     """,
     'data': [
                 'kitchen_screen_view.xml',
+                'views/report_kitchen.xml',
+                'kitchen_report.xml'
 
              ]
 
