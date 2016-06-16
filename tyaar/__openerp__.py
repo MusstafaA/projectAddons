@@ -11,10 +11,10 @@ My Module
     'data': [
 
         'tyaar_view.xml',
-        'wizard/delivery_view.xml',
+        # 'wizard/delivery_view.xml',
         'views/webclient.xml',
-        'report/tyaar_report.xml',
-        'views/report_tyaar.xml'
+        # 'report/tyaar_report.xml',
+        # 'views/report_tyaar.xml'
 
         ],
 
