@@ -21,39 +21,25 @@
                         <field name="zone"/>
                         <!--<field name="session_id" />-->
                         <field name="stage"/>
+                        <field name="zone"/>
                         <button type="object" name="change_stage" string="Change Current stage"/>
 
                     </tree>
                 </field>
             </record>
 
-            <!--<record id="kitchen_orders_form_view" model="ir.ui.view">-->
-                <!--<field name="sequence" eval="40"/>-->
-                <!--<field name="name">kitchen orders form view</field>-->
-                <!--<field name="model">pos.order</field>-->
-                <!--<field name="arch" type="xml">-->
-                    <!--<form>-->
-                        <!--<sheet>-->
-                            <!--<group>-->
-                                <!--&lt;!&ndash;<field name="name"/>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<field name="pos_reference"/>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<field name="partner_id"/>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<field name="date_order"/>&ndash;&gt;-->
-                                <!--<field name="state"/>-->
-                                <!--<field name="stage"/>-->
-                                <!--&lt;!&ndash;<field name="product_id" />&ndash;&gt;-->
-                                <!--&lt;!&ndash;<field name="qty" />&ndash;&gt;-->
-                                <!--&lt;!&ndash;<field name="discount" widget="monetary"/>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<field name="price_unit" widget="monetary"/>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<field name="create_date" />&ndash;&gt;-->
-                            <!--</group>-->
 
+            <record model="ir.ui.view" id="order_extended_tree">
+                <field name="name">Orderstree</field>
+                <field name="model">pos.order</field>
+                <field name="inherit_id" ref="point_of_sale.view_pos_order_tree" />
+                <field name="arch" type="xml">
+                    <xpath  expr="/tree//field[@name='session_id']" position="before">
+                     <field name="stage"/>
+                    </xpath>
 
-                        <!--</sheet>-->
-                    <!--</form>-->
-                <!--</field>-->
-            <!--</record>-->
-
+                </field>
+            </record>
 
 
             <record id="kitchen_order_action_id" model="ir.actions.act_window">

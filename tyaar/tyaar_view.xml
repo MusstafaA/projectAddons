@@ -11,20 +11,23 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='work_phone']" position="after">
                     <notebook>
-                        <page string="Orders">
-                            <field name="order_ids" string="Orders" default_order="create_date desc" widget="many2many_tags" domain="[('state','=','draft')]"/>
+                        <page string="Orders" invisible="True">
+                            <field name="order_ids" string="Orders" widget="many2many_tags" invisible="True"/>
+                             <!--<field name="order_ids" default_order="create_date desc"  widget="many2many" domain="[('state','=','draft'),('stage','=','Ready for delivery')]"/>-->
+
+
                         </page>
                     </notebook>
                 </xpath>
                 <!--<xpath expr="//field[@name='work_phone']" position="after">-->
                     <!--<field name="emp_code" string="Employee Code"/>-->
                 <!--</xpath>-->
-                <xpath expr="//field[@name='coach_id']" position="after">
-                    <field name="tyaar_state" string="Status"/>
-                </xpath>
-                <xpath expr="//field[@name='work_phone']" position="after">
-                    <button type="object" name="change_status" string="Change Status" class="oe_highlight"/>
-                </xpath>
+                <!--<xpath expr="//field[@name='coach_id']" position="after">-->
+                    <!--<field name="tyaar_state" string="Status"/>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='work_phone']" position="after">-->
+                    <!--<button type="object" name="change_status" string="Change Status" class="oe_highlight"/>-->
+                <!--</xpath>-->
             </field>
         </record>
 
@@ -45,45 +48,45 @@
         </record>
 
         <!--Form View of Order in point of sale -->
-        <record model="ir.ui.view" id="view_pos_pos_form_inherit">
-            <field name="name">Orders</field>
-            <field name="model">pos.order</field>
-            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//group/field[@name='fiscal_position_id']" position="after">
-                    <field name="tyaar_state"/>
-                    <button type="object" name="change_status" string="Change Status" class="oe_highlight"/>
-                </xpath>
-                <xpath expr="//group/field[@name='fiscal_position_id']" position="after">
-                    <field string="Delivery" name="delivery_id"/>
-                </xpath>
-            </field>
-        </record>
+        <!--<record model="ir.ui.view" id="view_pos_pos_form_inherit">-->
+            <!--<field name="name">Orders</field>-->
+            <!--<field name="model">pos.order</field>-->
+            <!--<field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--&lt;!&ndash;<xpath expr="//group/field[@name='fiscal_position_id']" position="after">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<field name="tyaar_state"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button type="object" name="change_status" string="Change Status" class="oe_highlight"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;</xpath>&ndash;&gt;-->
+                <!--&lt;!&ndash;<xpath expr="//group/field[@name='fiscal_position_id']" position="after">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<field string="Delivery" name="delivery_id"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;</xpath>&ndash;&gt;-->
+            <!--</field>-->
+        <!--</record>-->
 
         <!--Action Form in menuitem -->
         <record id="action_iti_student" model="ir.actions.act_window">
             <field name="name">Delivery</field>
             <field name="res_model">hr.employee</field>
-            <field name="domain">[('department_id','=',6)]</field>
+            <field name="domain">[('department_id','=',"Delivery")]</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
 
         <!--form view of orders assigned to delivery -->
-        <record model="ir.ui.view" id="view_pos_pos_form_inherit">
-            <field name="name">Orders</field>
-            <field name="model">pos.order</field>
-            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//group/field[@name='fiscal_position_id']" position="after">
-                    <field name="tyaar_state"/>
-                    <button type="object" name="change_status" string="Change Status" class="oe_highlight"/>
-                </xpath>
-                <xpath expr="//group/field[@name='fiscal_position_id']" position="after">
-                    <field string="Delivery" name="delivery_id"/>
-                </xpath>
-            </field>
-        </record>
+        <!--<record model="ir.ui.view" id="view_pos_pos_form_inherit">-->
+            <!--<field name="name">Orders</field>-->
+            <!--<field name="model">pos.order</field>-->
+            <!--<field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//group/field[@name='fiscal_position_id']" position="after">-->
+                    <!--<field name="tyaar_state"/>-->
+                    <!--<button type="object" name="change_status" string="Change Status" class="oe_highlight"/>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//group/field[@name='fiscal_position_id']" position="after">-->
+                    <!--<field string="Delivery" name="delivery_id"/>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
 
 
         <menuitem parent="point_of_sale.menu_point_root" id="menu_point_ofsale_inherit" action="action_iti_student"/>
@@ -94,53 +97,51 @@
         </record>
 
         <!--Form View of Delivery and Assigned Orders -->
-        <record id="Delivery_orders_assign_form" model="ir.ui.view">
-            <field name="name">delivery orders assign</field>
-            <field name="model">hr.employee</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
-                        <field string="Orders" name="order_ids"/>
-                    </sheet>
-                </form>
-                <!--<tree>-->
-                 <!--&lt;!&ndash;<field string="delivery Name" name="delivery_id"/>&ndash;&gt;-->
-                <!--</tree>-->
-            </field>
-        </record>
+        <!--<record id="Delivery_orders_assign_form" model="ir.ui.view">-->
+            <!--<field name="name">delivery orders assign</field>-->
+            <!--<field name="model">hr.employee</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form>-->
+                    <!--<sheet>-->
+                        <!--<field name="order_ids" string="Orders" default_order="create_date desc" widget="many2many" domain="[('state','=','draft'),('stage','=','Ready for delivery')]"/>-->
 
-        <!--Button change Status in tree form of delivery in menuitem-->
-        <record id="view_employee_form_inherit" model="ir.ui.view">
-            <field name="name">Employees Structure</field>
-            <field name="model">hr.employee</field>
-            <field name="inherit_id" ref="hr.view_employee_tree"/>
-            <field name="arch" type="xml">
-                 <field name="work_email" position="attributes">
-                     <attribute name="invisible">True</attribute>
-                 </field>
-                <field name="company_id" position="attributes">
-                     <attribute name="invisible">True</attribute>
-                 </field>
-                <field name="department_id" position="attributes">
-                     <attribute name="invisible">True</attribute>
-                 </field>
-                <field name="job_id" position="attributes">
-                     <attribute name="invisible">True</attribute>
-                 </field>
-                <field name="parent_id" position="attributes">
-                     <attribute name="invisible">True</attribute>
-                 </field>
-                <field name="coach_id" position="attributes">
-                     <attribute name="invisible">True</attribute>
-                 </field>
-                <xpath expr="//field[@name='coach_id']" position="after">
-                    <field name="tyaar_state" string="Status"/>
-                </xpath>
-                <xpath expr="//field[@name='work_phone']" position="after">
-                    <button type="object" name="change_status" string="Change Status" class="oe_highlight"/>
-                </xpath>
-            </field>
-        </record>
+                    <!--</sheet>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash;Button change Status in tree form of delivery in menuitem&ndash;&gt;-->
+        <!--<record id="view_employee_form_inherit" model="ir.ui.view">-->
+            <!--<field name="name">Employees Structure</field>-->
+            <!--<field name="model">hr.employee</field>-->
+            <!--<field name="inherit_id" ref="hr.view_employee_tree"/>-->
+            <!--<field name="arch" type="xml">-->
+                 <!--<field name="work_email" position="attributes">-->
+                     <!--<attribute name="invisible">True</attribute>-->
+                 <!--</field>-->
+                <!--<field name="company_id" position="attributes">-->
+                     <!--<attribute name="invisible">True</attribute>-->
+                 <!--</field>-->
+                <!--<field name="department_id" position="attributes">-->
+                     <!--<attribute name="invisible">True</attribute>-->
+                 <!--</field>-->
+                <!--<field name="job_id" position="attributes">-->
+                     <!--<attribute name="invisible">True</attribute>-->
+                 <!--</field>-->
+                <!--<field name="parent_id" position="attributes">-->
+                     <!--<attribute name="invisible">True</attribute>-->
+                 <!--</field>-->
+                <!--<field name="coach_id" position="attributes">-->
+                     <!--<attribute name="invisible">True</attribute>-->
+                 <!--</field>-->
+                <!--<xpath expr="//field[@name='coach_id']" position="after">-->
+                    <!--<field name="tyaar_state" string="Status"/>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='work_phone']" position="after">-->
+                    <!--<button type="object" name="change_status" string="Change Status" class="oe_highlight"/>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
 
     </data>
 </openerp>

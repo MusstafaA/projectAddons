@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-            <record id="action_pos_payment" model="ir.actions.act_window">
+        <record id="action_pos_payment" model="ir.actions.act_window">
             <field name="name">Payment</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">pos.make.payment</field>
@@ -9,7 +9,9 @@
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
-            <record model="ir.ui.view" id="order_extended_tree">
+
+
+        <record model="ir.ui.view" id="order_extended_tree">
             <field name="name">Orderstree</field>
             <field name="model">pos.order</field>
             <field name="inherit_id" ref="point_of_sale.view_pos_order_tree" />
