@@ -11,6 +11,7 @@ My Module
     'data': [
 
         'tyaar_view.xml',
+        'views/webclient.xml',
         'report/tyaar_report.xml',
         'views/report_tyaar.xml'
 

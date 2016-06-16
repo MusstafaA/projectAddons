@@ -21,6 +21,7 @@
                         <field name="zone"/>
                         <!--<field name="session_id" />-->
                         <field name="stage"/>
+                        <field name="zone"/>
                         <button type="object" name="change_stage" string="Change Current stage"/>
 
                     </tree>
@@ -33,10 +34,9 @@
                 <field name="model">pos.order</field>
                 <field name="inherit_id" ref="point_of_sale.view_pos_order_tree" />
                 <field name="arch" type="xml">
-
-                <xpath  expr="/tree//field[@name='session_id']" position="before">
-                 <field name="stage"/>
-                </xpath>
+                    <xpath  expr="/tree//field[@name='session_id']" position="before">
+                     <field name="stage"/>
+                    </xpath>
 
                 </field>
             </record>
