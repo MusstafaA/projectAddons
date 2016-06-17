@@ -15,9 +15,9 @@
                      <attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
                 </xpath>
 
-                <xpath expr="//field[@name='amount_total']" position="after">
-                     <field name="shipping_cost"/>
-                     <field name="total_amount"/>
+                <xpath expr="//field[@name='amount_tax']" position="after">
+                    <field name="amount_before_shipping"/>
+                    <field name="shipping_cost"/>
                 </xpath>
 
             </field>

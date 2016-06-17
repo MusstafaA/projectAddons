@@ -3,7 +3,6 @@ import re
 from openerp import models, fields, api, exceptions
 from datetime import datetime
 
-from openerp.osv import osv
 
 
 class OrderUpdate(models.Model):
@@ -19,7 +18,9 @@ class OrderUpdate(models.Model):
     delivery_time = fields.Char(compute='compute_delivery_time', string="Delivery")
     out_for_delivery_at = fields.Datetime()
     shipping_cost = fields.Float(compute='compute_shipping_cost', string='Shipping Cost')
-    total_amount =fields.Float(compute='compute_total')
+    amount_before_shipping =fields.Float(compute='compute_total', string= 'Before Shipping')
+    amount_total = fields.Float(compute='compute_total', string='Total', digits=0,  multi='all')
+    zone =fields.Char()
 
 
     @api.multi
@@ -72,8 +73,8 @@ class OrderUpdate(models.Model):
     def compute_total(self):
         for record in self:
             a = self.env['pos.order'].browse([record.id])._amount_all(self._cr, self._uid)
-            record.total_amount = a[record.id]['amount_total'] + record.shipping_cost
-            #record.amount_total = a[record.id]['amount_total'] + 42
+            record.amount_before_shipping = a[record.id]['amount_total']
+            record.amount_total = a[record.id]['amount_total'] + record.shipping_cost
 
             # @api.multi
             # def compute_manuf(self):
@@ -88,7 +89,7 @@ class OrderUpdate(models.Model):
 
 
 class delivery(models.Model):
-    _inherit = 'hr.employee'
+    _inherit = 'project.delivery'
 
     @api.multi
     def write(self, values):
