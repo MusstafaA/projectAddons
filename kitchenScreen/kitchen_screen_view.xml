@@ -6,7 +6,8 @@
             <record id="kitchen_orders_tree_view" model="ir.ui.view">
                 <field name="name">kitchen orders tree view</field>
                 <field name="model">pos.order</field>
-                <field name="sequence" eval="40"/>
+                <!--<field name="sequence" eval="40"/>-->
+                <field name="priority">40</field>
                 <field name="arch" type="xml">
                     <tree string="POS Orders" decoration-info="state == 'draft'" decoration-muted="state in ('done','cancel')">
                         <!--<field name="name"/>-->
@@ -49,7 +50,7 @@
                 <field name="view_mode">tree,form</field>
                 <field name="view_id" ref="kitchen_orders_tree_view"/>
                 <!--<field name="views"> [(kitchen_orders_tree_view, 'form'),(kitchen_orders_tree_view, 'tree')]</field>-->
-                <field name="domain">[('state', '=', 'draft')]</field>
+                <field name="domain">[('state', '=', 'draft'),('stage','=','kitchen')]</field>
             </record>
 
 
