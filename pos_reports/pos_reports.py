@@ -8,11 +8,28 @@ class HrsEmployeeInherit(models.Model):
     #to link the model in the other Module Hr
 	_inherit = 'pos.order'
 	
-	# @api.one
-	# def get_length(self, length):
-	# 	global all_length
-	# 	all_length += length
-	# 	print all_length			
+	@api.one
+	def get_sorted_products(self, products, quantity):
+		# First gather all products in one list
+		full_products = []
+		for word,qtys in zip(products,quantity):
+			for _ in range(qtys):
+				full_products.append(word)
+		# print full_products			
+		# now gather repeated words	
+		word_counts = collections.Counter(full_products)
+		counter = 0
+		product = {}
+		for word, count in sorted(word_counts.items()):
+			product[counter] = {
+						'name':word,
+						'count':count
+    							}
+			counter = counter + 1
+		values = product.values()
+		newlist = sorted(values, key=lambda k: k['count'], reverse=True)
+		#this will return a sorted list of dictionary
+		return newlist
 
 class OrderLineInherit(models.Model):
     #to link the model in the other Module Hr
@@ -24,30 +41,32 @@ class OrderLineInherit(models.Model):
 	def get_products(self, products, length):
 		for x in xrange(0,length):
 			OrderLineInherit.all_products.append(products)
-		if len(OrderLineInherit.all_products) == OrderLineInherit.all_length:
+		# if len(OrderLineInherit.all_products) == OrderLineInherit.all_length:
 			# print OrderLineInherit.all_products
 			
-			word_counts = collections.Counter(OrderLineInherit.all_products)
-			counter = 0
-			product = {}
-			for word, count in sorted(word_counts.items()):
-				product[counter] = {
-							'name':word,
-							'count':count
-	    							}
-				counter = counter + 1
-			values = product.values()
-			newlist = sorted(values, key=lambda k: k['count'], reverse=True)
-			#this will return a sorted list of dictionary
-			# print products
-			OrderLineInherit.all_products = []
-			OrderLineInherit.all_length = 0
-			return newlist	
+		word_counts = collections.Counter(OrderLineInherit.all_products)
+		counter = 0
+		product = {}
+		for word, count in sorted(word_counts.items()):
+			product[counter] = {
+						'name':word,
+						'count':count
+    							}
+			counter = counter + 1
+		values = product.values()
+		newlist = sorted(values, key=lambda k: k['count'], reverse=True)
+		#this will return a sorted list of dictionary
+		# print products
+		OrderLineInherit.all_products = []
+		OrderLineInherit.all_length = 0
+		return newlist
+		# return "oh yeah"		
 
 	@api.one
 	def get_length(self, length):
 		OrderLineInherit.all_length += length
-		# print OrderLineInherit.all_length	
+		# print OrderLineInherit.all_length
+			
 
 # It is just a temporary test to add something
 class ResPartnerInherit(models.Model):

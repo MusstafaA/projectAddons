@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+        <openerp>
+            <data noupdate="1">
+                <record id="tyaar_security_category" model="ir.module.category">
+                    <field name="name">Delivery</field>
+                </record>
+
+                <record id="tyaar_callcenter_group" model="res.groups">
+                    <field name="name">Call Center</field>
+                    <field name="category_id" ref="tyaar_security_category"/>
+                    <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+                    <field name="comment">This Group For Call Center</field>
+                </record>
+
+                <record id="tyaar_ordertaker_group" model="res.groups">
+                    <field name="name">Order Taker</field>
+                    <field name="category_id" ref="tyaar_security_category"/>
+                    <field name="implied_ids" eval="[(4, ref('tyaar_callcenter_group'))]"/>
+                    <field name="comment">This Group For Order Taker</field>
+                </record>
+
+            </data>
+        </openerp>
+

@@ -20,6 +20,7 @@ class OrderUpdate(models.Model):
     out_for_delivery_at = fields.Datetime()
     shipping_cost = fields.Float(compute='compute_shipping_cost', string='Shipping Cost')
     total_amount =fields.Float(compute='compute_total')
+    zone =fields.Char()
 
 
     @api.multi
@@ -88,7 +89,7 @@ class OrderUpdate(models.Model):
 
 
 class delivery(models.Model):
-    _inherit = 'hr.employee'
+    _inherit = 'project.delivery'
 
     @api.multi
     def write(self, values):

@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+            <record model="ir.ui.view" id="order_extended_view_graph_customers">
+            <field name="name">pos.order.graph</field>
+            <field name="model">pos.order</field>
+             <field name="view_type">form</field>
+            <field name="arch" type="xml">
+                <graph string="Customers' Orders Analysis">
+                   <field name="partner_id" group="True"/>
+
+                </graph>
+            </field>
+            </record>
+
+
+
         <record id="order_extended_view_graph_products" model="ir.ui.view">
             <field name="name">report.pos.order.graph</field>
             <field name="model">report.pos.order</field>
@@ -14,6 +28,13 @@
             </field>
         </record>
 
+        <record id="action_for_customer_graph" model="ir.actions.act_window">
+            <field name="name">Orders_partner_analysis</field>
+            <field name="res_model">pos.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="order_extended_view_graph_customers"/>
+        </record>
 
         <record id="action_for_product_graph" model="ir.actions.act_window">
             <field name="name">Orders_proucts_analysis</field>
@@ -23,11 +44,18 @@
             <field name="view_id" ref="order_extended_view_graph_products"/>
         </record>
 
-   
+        <record id="action_for_salesperson_graph" model="ir.actions.act_window">
+            <field name="name">Orders_salesperson_analysis</field>
+            <field name="res_model">pos.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="order_extended_view_graph_salesperson"/>
+        </record>
 
         <menuitem id="pos_orders_analysis"            name="Orders Analysis"     parent="point_of_sale.menu_point_root" />
+        <menuitem id="pos_orders_customers_analysis"  name="Customers" parent="pos_orders_analysis" action="action_for_customer_graph"/>
         <menuitem id="pos_orders_products_analysis"   name="Products"   parent="pos_orders_analysis" action="action_for_product_graph"/>
-
+         <menuitem id="pos_orders_salesperson_analysis"   name="Salesperson"   parent="pos_orders_analysis" action="action_for_salesperson_graph"/>
 
              <record id="view_report_pos_order_search" model="ir.ui.view">
             <field name="name">report.pos.order.search</field>
