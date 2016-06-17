@@ -34,14 +34,17 @@ class Order(models.Model):
 class Delivery(models.Model):
     _inherit="hr.employee"
 
-    @api.one
-    def change_status(self):
-        x = self.tyaar_state
-        if x == 'a':
-            self.tyaar_state = 'b'
-            return self.tyaar_state
-        elif x == 'b':
-            self.tyaar_state = 'a'
+
+    #==========================for test and will be restore======================
+    # @api.one
+    # def change_status(self):
+    #     x = self.tyaar_state
+    #     if x == 'a':
+    #         self.tyaar_state = 'b'
+    #         return self.tyaar_state
+    #     elif x == 'b':
+    #         self.tyaar_state = 'a'
+    # ============================================================================
 
     # order_id = fields.Many2one('pos.order', string="orders")
     order_ids = fields.One2many("pos.order","delivery_id",select=True,string="Orders")

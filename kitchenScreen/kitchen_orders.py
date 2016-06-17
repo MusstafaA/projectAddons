@@ -26,6 +26,17 @@ class KitchenOrders(models.Model):
     zone = fields.Selection([('A', 'Area A'), ('B', 'Area B'), ('C', 'Area C'),('D', 'Area D')], 'Zone')
 
     @api.one
+    def get_amount(self):
+
+        return self.amount_total
+
+    @api.one
+    def get_tax(self):
+
+        return self.amount_tax
+
+
+    @api.one
     def order_line_get(self):
         # result = self
         result = []
@@ -44,6 +55,23 @@ class KitchenOrders(models.Model):
                 # 'account_analytic_id': t['account_analytic_id'],
             # })
         return result
+
+    @api.one
+    def get_product(self , pro_id):
+        # result = self
+        # result = []
+        self._cr.execute('SELECT * FROM product_product WHERE id=%s', (pro_id,))
+
+        # result = cr.dictfetchall()
+        for t in self._cr.dictfetchall():
+            x = t
+            result = t['name_template']
+            result = str(result)
+
+        return result
+
+
+
 
     def _order_fields(self, cr, uid, ui_order, context=None):
         process_line = partial(self.pool['pos.order.line']._order_line_fields, cr, uid, context=context)

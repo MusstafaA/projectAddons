@@ -19,12 +19,13 @@
 
 
             <t t-call="report.html_container">
+                <div align="center">
+                    <h2>Kitchen Open Orders</h2>
+                </div>
                 <t t-foreach="docs" t-as="o">
                     <t t-call="report.internal_layout">
                         <div class="page">
-                            <div align="center">
-                                <h2>Kitchen Open Orders</h2>
-                            </div>
+
                             <!-- Header -->
                             <div class="row" align="center">
                                 <div class="col-xs-4">
@@ -93,15 +94,16 @@
                                         <table class="table table-condensed">
                                             <thead>
                                                 <tr>
-                                                    <th>Description</th>
+                                                    <th>Products</th>
                                                     <th class="text-right">Quantity</th>
                                                     <th class="text-right">Price</th>
+                                                    <th class="text-right">Stage</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr t-foreach="order" t-as="line">
                                                     <td>
-                                                        <span t-esc="line['product_id']"/>
+                                                        <span t-esc="o.get_product(line['product_id'])"/>
                                                     </td>
                                                     <td class="text-right">
                                                         <t>
@@ -111,6 +113,12 @@
                                                     <td class="text-right">
                                                         <t>
                                                             <span t-esc="line['price_unit']"/>
+                                                        </t>
+                                                    </td>
+
+                                                      <td class="text-right">
+                                                        <t>
+                                                            <span t-esc="o['stage']"/>
                                                         </t>
                                                     </td>
                                                 </tr>
@@ -126,7 +134,7 @@
                                                         <strong>Taxes</strong>
                                                     </td>
                                                     <td class="text-right">
-                                                        <!--<strong t-esc="orderLine['amount_tax']"/>-->
+                                                        <strong t-esc="o.get_tax()"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -134,7 +142,7 @@
                                                         <strong>Total</strong>
                                                     </td>
                                                     <td class="text-right">
-                                                        <!--<strong t-esc="orderLine['amount_total']"/>-->
+                                                        <strong t-esc="o.get_amount()"/>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -144,6 +152,18 @@
                                 </table>
 
                             </div>
+
+
+
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div align="center">____________________________________________________________________________</div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
 
 
                         </div>
