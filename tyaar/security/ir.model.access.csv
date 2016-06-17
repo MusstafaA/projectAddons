@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tyaar_callcenter_order,call center,model_pos_order,tyaar_callcenter_group,1,1,1,1
+access_tyaar_ordertaker_order,order taker,model_pos_order,tyaar_ordertaker_group,1,,,
+access_tyaar_callcenter_employee,call center employee,model_hr_employee,tyaar_callcenter_group,,,,
+access_tyaar_ordertaker_employee,order taker employee,model_hr_employee,tyaar_ordertaker_group,1,1,,

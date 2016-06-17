@@ -1,14 +1,11 @@
 {
-    'name':'Tyaar',
+    'name':'Delivery_man',
     'version':'1.1',
-    'author':'ITI'
+    'author':'omnia sameh'
     ,'category':'point of sale',
     'website':'iti.odoo.com',
     'depends': ['point_of_sale'],
-    'data': [],
-    'installable':True
+    'data': ['hrupdate.xml','delivery.xml'],
 
 }
-
-
 

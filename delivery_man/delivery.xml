@@ -14,16 +14,12 @@
             <field name="model">pos.order</field>
             <field name="inherit_id" ref="point_of_sale.view_pos_order_tree" />
             <field name="arch" type="xml">
-
                <xpath  expr="/tree//field[@name='session_id']" position="after">
                   <button name="%(action_pos_payment)d" string="Payment" class="oe_highlight" type="action" states="draft,out" context="{'pos_session_id' : session_id}"/>
                   <button name="refund" string="Return Products" type="object"
                             attrs="{'invisible':['|',('state','=','draft'),('state','=','out')]}"/>
               </xpath>
 
-                <!--<xpath  expr="/tree//field[@name='state']" position="after">
-                               <field name="stage"/>
-              </xpath>-->
 
 
                 <xpath expr="/tree" position="attributes">
@@ -35,27 +31,24 @@
                 </xpath>
                  </field>
             </record>
-
         <record model="ir.ui.view" id="order_extended_view">
-
             <field name="name">pos.order</field>
             <field name="model">pos.order</field>
             <field name="inherit_id" ref="point_of_sale.view_pos_pos_form" />
             <field name="type">form</field>
             <field name="arch" type="xml">
 
-
-                 <xpath expr="/form//field[@name='partner_id']" position="after">
-                         <field name="delivery_man_id" string="Delivery Man"/>
+                <xpath expr="/form//field[@name='partner_id']" position="attributes">
+                         <attribute name="required">True</attribute>
+                </xpath>
+                 <xpath expr="/form//field[@name='lines']" position="attributes">
+                         <attribute name="required">True</attribute>
                 </xpath>
 
                 <xpath expr="/form/header/button[@name='refund']" position="replace">
-<!--update return for out for delivery state-->
                      <button name="refund" string="Return Products" type="object"
                             attrs="{'invisible':['|',('state','=','draft'),('state','=','out')]}"/>
-
                 </xpath>
-
 
                  <xpath expr="/form/header/button[@class='oe_highlight']" position="replace">
                          <button name="%(action_pos_payment)d" string="Payment" class="oe_highlight" type="action" states="draft,out" context="{'pos_session_id' : session_id}"/>
@@ -64,5 +57,8 @@
             </field>
 
         </record>
+
+
+
     </data>
 </openerp>

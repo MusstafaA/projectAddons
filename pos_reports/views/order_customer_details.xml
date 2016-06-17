@@ -6,7 +6,7 @@
         <t t-foreach="docs" t-as="o">
         <t t-call="report.internal_layout">
           <div class="page">
-           <div align="center"><h2>Customer Consolidated Orders</h2></div>
+           <div align="center"><h2 class="bg-info">Customer Consolidated Orders</h2></div>
            <!-- Header -->
            <div class="row" align="center">
                 <div class="col-xs-4">
@@ -72,7 +72,7 @@
                    </tbody>
             </table>
             <!-- order Details -->
-            <div class="row">    
+             
             <p class="bg-success">Order Details</p>
             <table class="table table-condensed">
                     <thead>
@@ -98,7 +98,7 @@
                         </tr>
                     </tbody>
           </table>
-          </div>        
+                  
           <!-- Including the sub order details -->
         <div class="row">
                     <div class="col-xs-6 pull-right">
