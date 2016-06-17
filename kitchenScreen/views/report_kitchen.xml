@@ -95,6 +95,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Products</th>
+                                                    <th class="text-right">Date</th>
                                                     <th class="text-right">Quantity</th>
                                                     <th class="text-right">Price</th>
                                                     <th class="text-right">Stage</th>
@@ -105,6 +106,13 @@
                                                     <td>
                                                         <span t-esc="o.get_product(line['product_id'])"/>
                                                     </td>
+
+                                                    <td class="text-right">
+                                                        <t>
+                                                            <span t-esc="line['write_date']"/>
+                                                        </t>
+                                                    </td>
+
                                                     <td class="text-right">
                                                         <t>
                                                             <span t-esc="line['qty']"/>

@@ -3,16 +3,17 @@
 <openerp>
     <data>
 
-          <record model="hr.department" id="delivery_dep">
+         <!--Create Department Delivery-->
+         <record model="hr.department" id="view_department_kanban_form">
             <field name="name">Delivery</field>
-         </record>
+         </record>-->
 
-      <record id="job_delivery_man" model="hr.job">
-          <field name="name">Delivery Man</field>
-          <field name="department_id" ref="delivery_dep"/>
-          <field name="description">Delivery Man is resposiable for delivering orders to customer and supporting restaurant's delivery process</field>
-          <field name="requirements">Bachelor degree</field>
-      </record>
+         <record id="job_delivery_man" model="hr.job">
+            <field name="name">Delivery Man</field>
+            <field name="department_id" ref="view_department_kanban_form"/>
+            <field name="description">Delivery Man is resposiable for delivering orders to customer and supporting restaurant's delivery process</field>
+            <field name="requirements">Bachelor degree</field>
+         </record>
 
          <record model="ir.ui.view" id="hr_extended_view_1">
             <field name="name">hr.employee.emp</field>
@@ -23,10 +24,10 @@
                 <xpath expr="/form//field[@name='name']" position="after">
                          <field name="status"/>
                 </xpath>
-        </field>
-        </record>
+         </field>
+         </record>
 
-        <record model="ir.ui.view" id="delivery_order_assign">
+         <record model="ir.ui.view" id="delivery_order_assign">
             <field name="name">hr.employee.employee</field>
             <field name="model">hr.employee</field>
             <field name="priority">60</field>
@@ -44,13 +45,13 @@
 
             <field name="view-Type">form</field>
             <field name="arch" type="xml">
-             <form>
-                 <field name="order_ids" default_order="create_date desc"  widget="many2many" domain="[('state','=','draft')]"/>
-             </form>
+                <form>
+                     <field name="order_ids" default_order="create_date desc"  widget="many2many" domain="[('state','=','draft'),,('stage','=','Ready for delivery')]"/>
+                </form>
             </field>
+         </record>
 
-        </record>
-         <record id="action_for_order_delivery" model="ir.actions.act_window">
+        <record id="action_for_order_delivery" model="ir.actions.act_window">
              <field name="name">Orders_delivery</field>
              <field name="res_model">hr.employee</field>
              <field name="domain">[('department_id','=','Delivery')]</field>
