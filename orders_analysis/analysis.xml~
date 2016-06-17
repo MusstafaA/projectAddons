@@ -13,18 +13,6 @@
             </field>
             </record>
 
-           <record model="ir.ui.view" id="order_extended_view_graph_salesperson">
-            <field name="name">pos.order.salesperson.graph</field>
-            <field name="model">pos.order</field>
-             <field name="view_type">form</field>
-            <field name="arch" type="xml">
-                <graph string="Salesperson Orders Analysis">
-                   <field name="user_id" group="True"/>
-
-                </graph>
-            </field>
-            </record>
-
 
 
         <record id="order_extended_view_graph_products" model="ir.ui.view">
