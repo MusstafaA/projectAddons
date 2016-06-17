@@ -4,7 +4,6 @@
     'author':'ITI'
     ,'category':'point of sale',
     'website':'iti.odoo.com',
-    'depends': ['DeliveryMan'],
     'data': ['delivery.xml'],
     'installable':True
 

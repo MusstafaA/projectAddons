@@ -62,7 +62,7 @@ class OrderUpdate(models.Model):
 
 
 class delivery(models.Model):
-    _inherit = 'project.delivery'
+    _inherit = 'hr.employee'
 
     @api.multi
     def write(self, values):
