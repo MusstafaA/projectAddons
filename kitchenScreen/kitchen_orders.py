@@ -23,7 +23,7 @@ class KitchenOrders(models.Model):
 
 
     stage = fields.Selection([('kitchen', 'In Kitchen'),('Ready for delivery', 'Ready for Delivery'),('Delivery', 'Out for Delivery'),('Delivered', 'Delivered')],'Current Stage', default= 'kitchen' ,readonly=False, copy=False)
-    zone = fields.Selection([('A', 'Area A'), ('B', 'Area B'), ('C', 'Area C'),('D', 'Area D')], 'Zone')
+    zone = fields.Selection([('A', 'Area A'), ('B', 'Area B'), ('C', 'Area C'),('D', 'Area D'),('Other', 'Other')], 'Zone')
 
     @api.one
     def get_amount(self):
@@ -38,31 +38,18 @@ class KitchenOrders(models.Model):
 
     @api.one
     def order_line_get(self):
-        # result = self
         result = []
         self._cr.execute('SELECT * FROM pos_order_line WHERE order_id=%s', (self.id,))
 
-        # result = cr.dictfetchall()
         for t in self._cr.dictfetchall():
             result.append(t)
-            # result.append({
-                # 'name': t['name'],
-                # 'lines': t['lines'],
-                # 'price': t['amount'] or 0.0,
-                # 'account_id': t['account_id'],
-                # 'tax_code_id': t['tax_code_id'],
-                # 'tax_amount': t['tax_amount'],
-                # 'account_analytic_id': t['account_analytic_id'],
-            # })
+
         return result
 
     @api.one
     def get_product(self , pro_id):
-        # result = self
-        # result = []
-        self._cr.execute('SELECT * FROM product_product WHERE id=%s', (pro_id,))
 
-        # result = cr.dictfetchall()
+        self._cr.execute('SELECT * FROM product_product WHERE id=%s', (pro_id,))
         for t in self._cr.dictfetchall():
             x = t
             result = t['name_template']
