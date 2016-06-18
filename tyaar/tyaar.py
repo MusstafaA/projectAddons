@@ -4,7 +4,7 @@ from openerp import exceptions
 
 class Order(models.Model):
     _inherit="pos.order"
-    delivery_man_id=fields.Many2one("hr.employee",string="Delivery Man")
+    delivery_id=fields.Many2one("hr.employee",string="Delivery Man")
 
 class Delivery(models.Model):
     _inherit="hr.employee"
@@ -19,7 +19,6 @@ class Delivery(models.Model):
     #     elif x == 'b':
     #         self.tyaar_state = 'a'
     # ============================================================================
-    order_ids = fields.One2many("pos.order","delivery_man_id",select=True,string="Orders")
-    #tyaar_state = fields.Selection([('a', 'Available'), ('b', 'Busy')], 'Delivery Status')
-    status = fields.Selection([('a', 'Avaliable'), ('b', 'Busy')], readonly=True ,default='a')
+    order_id = fields.One2many("pos.order","delivery_id",select=True,string="Orders")
+    tyaar_state = fields.Selection([('a', 'Available'), ('b', 'Busy')], 'Delivery Status')
 

@@ -2,78 +2,9 @@
 
 <openerp>
     <data>
-
-         <!--Create Department Delivery-->
-         <record model="hr.department" id="view_department_kanban_form">
+          <record model="hr.department" id="delivery_dep">
             <field name="name">Delivery</field>
-         </record>-->
-
-         <record id="job_delivery_man" model="hr.job">
-            <field name="name">Delivery Man</field>
-            <field name="department_id" ref="view_department_kanban_form"/>
-            <field name="description">Delivery Man is resposiable for delivering orders to customer and supporting restaurant's delivery process</field>
-            <field name="requirements">Bachelor degree</field>
          </record>
-
-         <record model="ir.ui.view" id="hr_extended_view_1">
-            <field name="name">hr.employee.emp</field>
-            <field name="model">hr.employee</field>
-            <field name="inherit_id" ref="hr.view_employee_form" />
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <xpath expr="/form//field[@name='name']" position="after">
-                         <field name="status"/>
-                </xpath>
-         </field>
-         </record>
-
-         <record model="ir.ui.view" id="delivery_order_assign">
-            <field name="name">hr.employee.employee</field>
-            <field name="model">hr.employee</field>
-            <field name="priority">60</field>
-            <field name="arch" type="xml">
-             <tree decoration-danger="status =='b'" decoration-success =" status =='a'">
-                 <field name="name"/>
-                 <field name="status"/>
-             </tree>
-            </field>
-            </record>
-             <record  model="ir.ui.view" id="delivery_order_assign_form">
-            <field name="name">hr.employee.emp</field>
-            <field name="model">hr.employee</field>
-                 <field name="priority">60</field>
-
-            <field name="view-Type">form</field>
-            <field name="arch" type="xml">
-                <form>
-                     <field name="order_ids" default_order="create_date desc"  widget="many2many" domain="[('state','=','draft'),,('stage','=','Ready for delivery')]"/>
-                </form>
-            </field>
-         </record>
-
-        <record id="action_for_order_delivery" model="ir.actions.act_window">
-             <field name="name">Orders_delivery</field>
-             <field name="res_model">hr.employee</field>
-             <field name="domain">[('department_id','=','Delivery')]</field>
-             <field name="view-mode">tree,form</field>
-        </record>
-        <record model="ir.actions.act_window.view" id="act_hr_employee_tree_view">
-            <field eval="1" name="sequence"/>
-            <field name="view_mode">tree</field>
-            <field name="view_id" ref="delivery_order_assign"/>
-            <field name="act_window_id" ref="action_for_order_delivery"/>
-        </record>
-
-        <record model="ir.actions.act_window.view" id="act_hr_employee_form_view">
-            <field eval="2" name="sequence"/>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="delivery_order_assign_form"/>
-            <field name="act_window_id" ref="action_for_order_delivery"/>
-        </record>
-        <menuitem id="pos_orders_delivery" name="Orders Delivery"   parent="point_of_sale.menu_point_root" />
-        <menuitem id="pos_orders_dman"  name="Delivery Man" parent="pos_orders_delivery" action="action_for_order_delivery"/>
-
-
 
        <!--assign Orders to Delivery in Employee View -->
      <!--  <record id="view_employee_form_inherit" model="ir.ui.view">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-            <record id="action_pos_payment" model="ir.actions.act_window">
+        <record id="action_pos_payment" model="ir.actions.act_window">
             <field name="name">Payment</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">pos.make.payment</field>
@@ -14,14 +14,16 @@
             <field name="model">pos.order</field>
             <field name="inherit_id" ref="point_of_sale.view_pos_order_tree" />
             <field name="arch" type="xml">
+
                <xpath  expr="/tree//field[@name='session_id']" position="after">
                   <button name="%(action_pos_payment)d" string="Payment" class="oe_highlight" type="action" states="draft,out" context="{'pos_session_id' : session_id}"/>
                   <button name="refund" string="Return Products" type="object"
                             attrs="{'invisible':['|',('state','=','draft'),('state','=','out')]}"/>
               </xpath>
 
-
-
+                 <xpath  expr="/tree//field[@name='user_id']" position="after">
+                      <field name="delivery_man_id"/>
+                </xpath>
                 <xpath expr="/tree" position="attributes">
 
                     <attribute name="decoration-warning">state== 'out'</attribute>
@@ -57,7 +59,6 @@
             </field>
 
         </record>
-
 
 
     </data>
