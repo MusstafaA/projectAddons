@@ -106,17 +106,7 @@
             <field name="context">{'group_by_no_leaf':1,'group_by':[]}</field>
         </record>
 
-<!--
-        <menuitem id="pos_orders_analysis" name="Orders_Analysis" />
 
-        <menuitem id="pos_orders_products_analysis" name="Products" parent="pos_orders_analysis"/>
-
-        <menuitem id="pos_orders_products_analysis" name="Products " parent="pos_orders_analysis"/>
-
-        <menuitem id="pos_orders_customers_analysis" name="Customers " parent="pos_orders_analysis"/>
-
-        <menuitem id="pos_orders_salesperson_analysis" name="Salesperson " parent="pos_orders_analysis"/>
-     -->
         </data>
 
     </openerp>

@@ -5,7 +5,8 @@
     ,'category':'point of sale',
     'website':'iti.odoo.com',
     'depends': ['point_of_sale'],
-    'data': ['hrupdate.xml','delivery.xml'],
+    'data': ['hrupdate.xml','delivery.xml','analysis.xml'],
+
 
 }
 
