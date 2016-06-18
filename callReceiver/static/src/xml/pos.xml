@@ -69,10 +69,11 @@
             <div class="form-group button ">
                   <label for="sel1">Select Zone:</label>
                   <select class="form-control zone" id="sel1">
-                    <option>A</option>
-                    <option>B</option>
-                    <option>C</option>
-                    <option>D</option>
+                        <option>A</option>
+                        <option>B</option>
+                        <option>C</option>
+                        <option>D</option>
+                        <option>Other</option>
                   </select>
             </div>
 
@@ -85,25 +86,18 @@
             </button>
 
 
-
-
-
-
-
-
-
             <!--<t t-name="KitchenButtonWidget">-->
-                    <!--<button class="button paypad-button">-->
-                        <!--Send To Kitchen-->
-                    <!--</button><br/>-->
+            <!--<button class="button paypad-button">-->
+            <!--Send To Kitchen-->
+            <!--</button><br/>-->
             <!--</t>-->
 
 
             <!--<t t-name="SubmitOrderKitchenButton">-->
-                <!--<span class="control-button order-submit">-->
-                    <!--<i class="fa fa-cutlery"></i>-->
-                    <!--Send To Kitchen-->
-                <!--</span>-->
+            <!--<span class="control-button order-submit">-->
+            <!--<i class="fa fa-cutlery"></i>-->
+            <!--Send To Kitchen-->
+            <!--</span>-->
             <!--</t>-->
 
 
@@ -111,11 +105,11 @@
     </t>
 
     <!--<t t-name="KitchenButtonWidget">-->
-        <!--<span class="actionpad">-->
-                    <!--<button class="button paypad-button">-->
-                        <!--Send To Kitchen-->
-                    <!--</button><br/>-->
-        <!--</span>-->
+    <!--<span class="actionpad">-->
+    <!--<button class="button paypad-button">-->
+    <!--Send To Kitchen-->
+    <!--</button><br/>-->
+    <!--</span>-->
     <!--</t>-->
 
 

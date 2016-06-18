@@ -7,13 +7,19 @@
             <field name="inherit_id" ref="point_of_sale.view_pos_pos_form" />
             <field name="type">form</field>
             <field name="arch" type="xml">
-                 <xpath expr="/form//field[@name='fiscal_position_id']" position="after">
+                <xpath expr="/form//field[@name='fiscal_position_id']" position="after">
                      <field name="manuf_time" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
                      <field name="delivery_time" attrs="{'invisible': [('state', '!=', 'out')]}"/>
                 </xpath>
                 <xpath expr="/form//field[@name='partner_id']" position="attributes">
                      <attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
                 </xpath>
+
+                <xpath expr="//field[@name='amount_tax']" position="after">
+                    <field name="amount_before_shipping"/>
+                    <field name="shipping_cost"/>
+                </xpath>
+
             </field>
         </record>
 
