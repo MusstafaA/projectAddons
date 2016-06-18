@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 from openerp import models ,fields , api ,exceptions
 
@@ -17,6 +18,7 @@ class MobileNumbers(models.Model):
 class OrderUpdate(models.Model):
     _inherit = 'pos.order'
     # delivery_man_id=fields.Many2one('project.delivery')
+    delivery_man_id = fields.Many2one("hr.employee", string="Delivery Man")
     state = fields.Selection([('draft', 'New'),
                               ('out', 'Out for delivery'),
                               ('cancel', 'Cancelled'),
@@ -27,18 +29,23 @@ class OrderUpdate(models.Model):
 
     @api.multi
     def write(self, vals):
-        vals;
         if 'state' in vals.keys() and 'paid' in vals.values():
+           if self[0].delivery_man_id :
             delivery_man_orders = self.env['pos.order'].search([('delivery_man_id', '=', self[0].delivery_man_id.id)])
             dman_record = self.env['hr.employee'].search([('id', '=', self[0].delivery_man_id.id)])
             dman_record['status'] = 'a'
             for order in delivery_man_orders:
-                if order['state'] == 'out':
-                   dman_record['status'] = 'b'
+                if order['id'] == self[0].id :
+                   pass
+                else:
+                    if order['state'] == 'out':
+                       dman_record['status'] = 'b'
         return super(OrderUpdate, self).write(vals)
 
 class HrUpdate(models.Model):
     _inherit = "hr.employee"
+    order_ids = fields.One2many("pos.order", "delivery_man_id", select=True, string="Orders")
+    status = fields.Selection([('a', 'Avaliable'), ('b', 'Busy')], readonly=True, default='a')
     phone_ids = fields.One2many('delivery.phonenumbers', 'emp_id', string='phone numbers')
     mobile_ids = fields.One2many('delivery.mobilenumbers', 'emp_id', string='mobile numbers', required=True)
     address = fields.Char(string="Address")
@@ -46,6 +53,7 @@ class HrUpdate(models.Model):
     city = fields.Char(string='City', required=True)
     state_id = fields.Many2one("res.country.state", string='State', required=True, ondelete='restrict')
     country_id = fields.Many2one('res.country', string='Country', ondelete='restrict', required=True)
+    job_name = fields.Char(related='job_id.name',store=True)
 
     @api.model
     def create(self, values):
@@ -91,7 +99,7 @@ class HrUpdate(models.Model):
         pattern1 = re.compile("^[0-9]{11}$")
         pattern2 = re.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                               + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
-        pattern3 = re.compile("^[0-9]{10}$")
+        pattern3 = re.compile("^[0-9]{14}$")
         if  'work_phone' in values.keys():
             if pattern.match(values['work_phone']):
                pass
@@ -145,11 +153,13 @@ class HrUpdate(models.Model):
                 raise exceptions.ValidationError("Not valid email address")
 
         if 'order_ids' in values.keys():
+
             delivery_man_orders = self.env['pos.order'].search([('delivery_man_id', '=', self[0].id)])
             dman_record = self.env['hr.employee'].search([('id', '=', self[0].id)])
             for order in delivery_man_orders:
                 if order['state'] == 'out':
                     raise exceptions.ValidationError("Delivery Man is busy now")
+
             for order in values['order_ids']:
                 order_record = self.env['pos.order'].search([('id', '=', order[1])])
                 if order_record['state'] == 'draft':

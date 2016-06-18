@@ -4,7 +4,7 @@
         <report
             id="order_customer_details"
             model="pos.order"
-            string="Customer Orders"
+            string="Customers' all Orders"
             report_type="qweb-pdf"
             name="pos_reports.order_report"
             file="pos_reports.order_report"
@@ -12,7 +12,7 @@
          <report
             id="products_to_customer"
             model="pos.order"
-            string="Customers Products Counter"
+            string="Customers' Most Required Product"
             report_type="qweb-pdf"
             name="pos_reports.customers_products_report"
             file="pos_reports.customers_products_report"
